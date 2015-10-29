@@ -1,0 +1,9 @@
+Options -MultiViews
+
+RewriteRule api/ api.php [QSA,L]
+
+RewriteEngine On
+RewriteCond %{REQUEST_FILENAME} !-f
+# prevents infinite loop when trying to fetch a view that doesn't exist
+RewriteCond %{REQUEST_URI} !views/.+
+RewriteRule ^ index.html [QSA,L]

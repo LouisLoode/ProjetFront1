@@ -1,0 +1,1 @@
+Utiliser composer pour installer silex (/vendor au même niveau que /public_html)
