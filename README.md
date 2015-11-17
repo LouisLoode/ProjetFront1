@@ -30,14 +30,9 @@ Pour les scripts JS
 gulp scripts
 ```
 
-Pour les dépendances front
+Pour les dépendances front 
 ```
-gulp bower
-```
-
-Pour les dépendances front
-```
-gulp bower
+gulp usemin
 ```
 
 
@@ -60,3 +55,9 @@ Ajouter du css dans l'appli
 
 Mettre du code dans ce fichier:
 src/styles/main.scss
+
+
+
+Roadmap
+=====================
+https://trello.com/b/eZr1etd6/front-end

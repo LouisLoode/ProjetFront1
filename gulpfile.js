@@ -13,12 +13,6 @@ var gulp = require('gulp'),
     usemin = require('gulp-usemin'), // à améliorer
     del = require('del');
 
-// On charge les dépendances
-gulp.task('bower', function() {
-  return bower()
-    .pipe(gulp.dest('dist/vendors/'))
-});
-
 // On charge les styles
 gulp.task('css', function() {
   return sass('src/styles/main.scss', { style: 'expanded' })
@@ -42,7 +36,6 @@ gulp.task('js', function() {
     .pipe(gulp.dest('dist/js'))
     .pipe(notify({ message: 'Scripts task complete' }));
 });
-
 
 // On charge les images
 gulp.task('images', function() {
