@@ -10,7 +10,6 @@ var gulp = require('gulp'),
     notify = require('gulp-notify'),
     livereload = require('gulp-livereload'),
     bower = require('gulp-bower'),
-    extender = require('gulp-html-extend'), // à voir
     usemin = require('gulp-usemin'), // à améliorer
     del = require('del');
 
@@ -20,16 +19,8 @@ gulp.task('bower', function() {
     .pipe(gulp.dest('dist/vendors/'))
 });
 
-// On étend et on génére le html
-gulp.task('extend', function () {
-    gulp.src('src/**/*.html')
-        .pipe(extender({annotations:true,verbose:false})) // default options 
-        .pipe(gulp.dest('dist'))
-        .pipe(notify({ message: 'HTML task complete' }));
-});
-
 // On charge les styles
-gulp.task('styles', function() {
+gulp.task('css', function() {
   return sass('src/styles/main.scss', { style: 'expanded' })
     .pipe(autoprefixer('last 2 version'))
     .pipe(gulp.dest('dist/styles'))
@@ -40,7 +31,7 @@ gulp.task('styles', function() {
 });
 
 // On charge les pages js
-gulp.task('scripts', function() {
+gulp.task('js', function() {
   return gulp.src('src/js/**/*.js')
     //.pipe(jshint('.jshintrc'))
     //.pipe(jshint.reporter('default'))
@@ -79,20 +70,22 @@ gulp.task('clean', function() {
 gulp.task('watch', function() {
 
   // Watch .scss files
-  gulp.watch('src/styles/**/*.scss', ['styles']);
+  gulp.watch('src/styles/**/*.scss', ['css']);
 
   // Watch .js files
-  gulp.watch('src/js/**/*.js', ['scripts']);
+  gulp.watch('src/js/**/*.js', ['js']);
 
   // Watch image files
   gulp.watch('src/img/**/*', ['images']);
     
-  // Watch the html files
-  //gulp.watch('src/{,partial/}/*.html', ['extend']);
-  gulp.watch('src/*.html', ['extend', 'usemin']);
+
 
   // Changement dans les dépendances ?
   gulp.watch('bower_components/*', ['bower']);
+    
+  // Watch the html files
+  //gulp.watch('src/{,partial/}/*.html', ['extend']);
+  gulp.watch('src/*.html', ['usemin']);
   
     
   // Create LiveReload server
@@ -105,5 +98,5 @@ gulp.task('watch', function() {
 
 
 gulp.task('default', ['clean'], function() {
-    gulp.start('bower', 'extend', 'styles', 'scripts', 'images');
+    gulp.start('bower', 'css', 'js', 'images', 'usemin');
 });
