@@ -46,7 +46,7 @@ gulp.task('images', function() {
 });
 
 gulp.task('usemin', function() {
-  return gulp.src('src/*.html')
+  return gulp.src(['src/*.html', 'src/*.php'])
     .pipe(usemin({
       js: [ uglify ]
     }))
@@ -71,14 +71,10 @@ gulp.task('watch', function() {
   // Watch image files
   gulp.watch('src/img/**/*', ['images']);
     
-
-
-  // Changement dans les dépendances ?
-  gulp.watch('bower_components/*', ['bower']);
-    
   // Watch the html files
   //gulp.watch('src/{,partial/}/*.html', ['extend']);
   gulp.watch('src/*.html', ['usemin']);
+  gulp.watch('src/*.php', ['usemin']);
   
     
   // Create LiveReload server
@@ -91,5 +87,5 @@ gulp.task('watch', function() {
 
 
 gulp.task('default', ['clean'], function() {
-    gulp.start('bower', 'css', 'js', 'images', 'usemin');
+    gulp.start('css', 'js', 'images', 'usemin');
 });

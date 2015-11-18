@@ -27,7 +27,7 @@ gulp css
 
 Pour les scripts JS
 ```
-gulp scripts
+gulp js
 ```
 
 Pour les dépendances front 
