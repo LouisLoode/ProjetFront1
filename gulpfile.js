@@ -1,5 +1,5 @@
 var gulp = require('gulp'),
-    sass = require('gulp-ruby-sass'),
+    sass = require('gulp-sass'),
     autoprefixer = require('gulp-autoprefixer'),
     minifycss = require('gulp-minify-css'),
     jshint = require('gulp-jshint'),
@@ -11,11 +11,13 @@ var gulp = require('gulp'),
     livereload = require('gulp-livereload'),
     bower = require('gulp-bower'),
     usemin = require('gulp-usemin'), // à améliorer
-    del = require('del');
+    del = require('del'),
+	promise = require('es6-promise');
 
 // On charge les styles
 gulp.task('css', function() {
-  return sass('src/styles/main.scss', { style: 'expanded' })
+  return gulp.src('src/styles/**/*.scss')
+  	.pipe(sass())
     .pipe(autoprefixer('last 2 version'))
     .pipe(gulp.dest('dist/styles'))
     .pipe(rename({suffix: '.min'}))
@@ -45,14 +47,14 @@ gulp.task('images', function() {
     .pipe(notify({ message: 'Images task complete' }));
 });
 
-gulp.task('usemin', function() {
+/*gulp.task('usemin', function() {
   return gulp.src(['src/*.html', 'src/*.php'])
     .pipe(usemin({
       js: [ uglify ]
     }))
     .pipe(gulp.dest('dist/'))
     .pipe(notify({ message: 'usemin task complete' }));
-});
+});*/
 
 // On supprime la distrib qu'on a créé
 gulp.task('clean', function() {
@@ -87,5 +89,5 @@ gulp.task('watch', function() {
 
 
 gulp.task('default', ['clean'], function() {
-    gulp.start('css', 'js', 'images', 'usemin');
+    gulp.start('css', 'js', 'images');
 });
