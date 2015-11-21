@@ -1,5 +1,6 @@
 "use strict"
 
+/*
 function App(){
 
 	this.window = $(window);
@@ -35,7 +36,7 @@ App.prototype.init = function() {
 
 };
 
-// Load datas
+// Load datas 
 App.prototype.loadDatas = function() {
 	
 	// Save context
@@ -139,3 +140,94 @@ Object.size = function(obj) {
     }
     return size;
 };
+
+
+
+
+
+*/
+
+
+
+
+
+/*
+var App = function(){
+
+	this.init();
+
+};
+
+
+App.prototype.init = function() {
+	
+};
+
+$(document).ready(function(){
+
+	app = new App();
+
+});*/
+
+
+
+
+function bindGlobalEvents()
+{
+	$('.sign-in').submit(function(){
+		
+		 $.ajax({
+            type: "POST",
+            url: $(this).attr("action"),
+            data: $(this).serialize(),//only input
+            success: function(response){
+                console.info(response);
+            },
+			error: function(error) {
+				console.error(error);	
+			}
+        });
+		
+		return false;
+	});
+	
+	$('.sign-out').click(function(){
+		$.ajax({
+					type: "POST",
+					url: '/api/v1/sign_out',
+					success: function () {
+						$('body').removeClass('signed-in');
+					}
+			});
+		return false;
+	});
+}
+
+
+var username, mail, user_id;
+
+$.ajax({
+	type: "GET",
+	url: '/api/v1/signed_in',
+	success: function(data) {
+		if (data.signed_in)
+		{
+			user_id = data.user_id;
+			username = data.username;
+			mail = data.mail;
+			
+			var topbar = new Vue({
+				el: '.top-bar',
+				data: { username: username } 
+			});
+			
+			console.log('ok');
+			
+			$('body').addClass('signed-in');
+		}
+	}
+});
+
+bindGlobalEvents();
+
+

@@ -6,11 +6,12 @@ var gulp = require('gulp'),
     uglify = require('gulp-uglify'),
     imagemin = require('gulp-imagemin'),
     rename = require('gulp-rename'),
+    plumber = require('gulp-plumber'),
     concat = require('gulp-concat'),
     notify = require('gulp-notify'),
     livereload = require('gulp-livereload'),
     bower = require('gulp-bower'),
-    usemin = require('gulp-usemin'), // à améliorer
+    // usemin = require('gulp-usemin'), // à améliorer
     del = require('del'),
 	promise = require('es6-promise');
 
@@ -28,9 +29,10 @@ gulp.task('css', function() {
 
 // On charge les pages js
 gulp.task('js', function() {
-  return gulp.src('src/js/**/*.js')
+  return gulp.src(['src/js/**/*.js'])
     //.pipe(jshint('.jshintrc'))
     //.pipe(jshint.reporter('default'))
+    .pipe(plumber())
     .pipe(concat('main.js'))
     .pipe(gulp.dest('dist/js'))
     .pipe(rename({suffix: '.min'}))
@@ -75,8 +77,8 @@ gulp.task('watch', function() {
     
   // Watch the html files
   //gulp.watch('src/{,partial/}/*.html', ['extend']);
-  gulp.watch('src/*.html', ['usemin']);
-  gulp.watch('src/*.php', ['usemin']);
+  // gulp.watch('src/*.html', ['usemin']);
+  // gulp.watch('src/*.php', ['usemin']);
   
     
   // Create LiveReload server

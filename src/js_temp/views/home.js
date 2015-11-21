@@ -30,7 +30,7 @@ Home.prototype.animateOut = function() {
 	
 	View.prototype.animateOut.call(this);
 
-	var self = this;
+	var self = this; 
 
 	this.domElem.fadeOut(function(){
 		self.onAnimateOut();

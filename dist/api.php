@@ -128,8 +128,19 @@ $app->delete('api/v1/items/{item_id}/star', function ($item_id) use ($app) { // 
 	return new Response('Star deleted.',200);
 });
 
+$app->get('api/v1/signed_in', function () use ($app) { // @todo NODB ? 
+	
+	if (isset($_SESSION['username']))
+		return $app->json(array('signed_in' => true,
+						'user_id' => $_SESSION['user_id'],
+						'username' => $_SESSION['username'],
+						'mail' => $_SESSION['mail']));
+	else
+		return $app->json(array('signed_in' => false));
+});
+
 $app->post('api/v1/sign_in', function (Request $request) use ($app) { // @todo NODB ? 
-	$q = $app['db']->prepare('SELECT id, username FROM users WHERE (username = :username OR mail = :mail) AND password = :password');
+	$q = $app['db']->prepare('SELECT id, username, mail FROM users WHERE (username = :username OR mail = :mail) AND password = :password');
 	$q->execute(array(
 		':username' => $request->get('login'),
 		':mail' => $request->get('login'),
@@ -141,11 +152,19 @@ $app->post('api/v1/sign_in', function (Request $request) use ($app) { // @todo N
 	if ($f === false)
 		return new Response('Wrong login or password.',401);
 
-	$_SESSION['username'] = $f['username'];
 	$_SESSION['user_id'] = $f['id'];
+	$_SESSION['username'] = $f['username'];
+	$_SESSION['mail'] = $f['mail'];
 		
 	return new Response('Signed in.',200);
 	
+});
+
+
+$app->post('api/v1/sign_out', function (Request $request) use ($app) { // @todo NODB ?
+	session_destroy();
+	session_unset();
+	return new Response('Signed out.',200);
 });
 
 $app->post('api/v1/sign_up', function (Request $request) use ($app) { // @todo NODB ?
@@ -173,8 +192,9 @@ $app->post('api/v1/sign_up', function (Request $request) use ($app) { // @todo N
 		':password' => md5(SALT . $request->get('password'))
 	));
 	
-	$_SESSION['username'] = $request->get('username');
 	$_SESSION['user_id'] = $app['db']->lastInsertId();
+	$_SESSION['username'] = $request->get('username');
+	$_SESSION['mail'] = $request->get('mail');
 		
 	return new Response('Signed up and signed in.',200);
 	
