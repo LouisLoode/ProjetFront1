@@ -265,7 +265,7 @@ function bindExploreWordsEvents()
 	$(document).on('mousemove', function(e) {
 		var window_width = $(window).width();
 
-		var middle_zone_width = 250;
+		var middle_zone_width = 100;
 		var minimal_difference = 100;
 
 		if (e.pageX > window_width/2)
@@ -273,23 +273,24 @@ function bindExploreWordsEvents()
 			if (e.pageX < window_width/2 + middle_zone_width)
 				var difference = minimal_difference;
 			else
-				var difference = e.pageX - (window_width/2 + middle_zone_width) + minimal_difference;
+				var difference = e.pageX - (window_width/2 + middle_zone_width);
 		}
 		else
 		{
 			if (e.pageX > window_width/2 - middle_zone_width)
 				var difference = minimal_difference;
 			else
-				var difference = e.pageX - (window_width/2 - middle_zone_width) + minimal_difference;
+				var difference = e.pageX - (window_width/2 - middle_zone_width);
 		}
-		
 
 		explore_speed = -difference*0.2;
 	});
 	
-	$(document).on('click','.word', function() {
-		hideWords();
-		TweenMax.to($(this), 1, {transform: 'scale(3)', ease: Power1.easeOut})
+	$(document).on('click','.word', function(e) {
+		$('body').removeClass('displaying-explore-words');
+		unbindExploreWordsEvents();
+		exploreItems($.trim($(e.target).text()));
+		return false;
 	});
 }
 
@@ -306,7 +307,6 @@ function onAnimationFrame() {
 	
 	if($('.explore-words .translatable').get(0)._gsTransform !== undefined && ($('.explore-words .translatable').get(0)._gsTransform.x+explore_speed >= 0 || $('.explore-words .translatable').get(0)._gsTransform.x+explore_speed <= -$('.explore-words .translatable').width() + $(window).width()))
 	{
-		console.log('blocked');
 		return;
 	}
 	TweenMax.to($('.explore-words .translatable'), 1, {x: '+='+explore_speed, ease: Power1.easeOut})
@@ -316,6 +316,29 @@ function onAnimationFrame() {
 	onAnimationFrame();
 	window.requestAnimationFrame(raf);
 })();
+
+// -- EXPLORE ITEMS -- //
+
+var Vue_ExploreItems = new Vue({
+	el: '.explore-items',
+	data: {items: {}}
+});
+
+function exploreItems(word)
+{
+	$.ajax({
+		type: "GET",
+		url: '/api/v1/words/'+ encodeURIComponent(word) +'/items',
+		success: function(data) {
+			var items = data.items;
+
+
+
+			Vue_ExploreItems.items = items;
+			$('body').addClass('displaying-explore-items');
+		}
+	});
+}
 
 // -- PROCEDURAL APP LAUNCH -- //
 
@@ -338,7 +361,7 @@ $.ajax({
 		});
 
 		Vue_ExploreWords.words = words_and_positions;
-
+		$('body').addClass('displaying-explore-words');
 	}
 });
 

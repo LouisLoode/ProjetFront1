@@ -74,6 +74,8 @@ $app->get('api/v1/words/{word}/items', function ($word) use ($app) { // @todo NO
 	{
 		foreach ($items as $item)
 		{
+			$item['id'] = $item['item_id'];
+			unset($item['item_id']);
 			$flattened_items[] = array_merge($item,array('type' => $type));
 		}
 	}

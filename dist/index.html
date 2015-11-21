@@ -49,7 +49,7 @@
 
 </head>
 
-<body>
+<body class="displaying-explore-words">
 	
 	<section class="top-bar">
 	
@@ -72,13 +72,11 @@
 	
 	</section>
 
-	<header>
-	Words
-	</header>
-
-	<main class="explore-words">
+	<section class="explore-words">
+	
+		<h1>Hello World !</h1> <!-- header -->
+		
 		<div class="translatable" v-bind:style="{width: words[words.length-1].position.left+100 + 'px'}">
-			<h1>Hello World !</h1>
 			<ul class="words">
 				<li class="word" v-for="word in words" v-bind:style="{left: word.position.left + 'px', top: word.position.top + 'px', fontSize: (12 + word.count * 4) + 'px'}">
 					{{ word.word }}
@@ -86,7 +84,34 @@
 				</li>
 			</ul>
 		</div>
-	</main>
+	</section>
+	
+	<section class="explore-items">
+		<ul class="items">
+				<li class="item" v-for="item in items">
+					<div v-if="item.type == 'painting'">
+						PAINTING: {{ item.name }} by {{ item.author }}
+						<img v-bind:src="'http://swarm.ovh/orane/upload/' + item.id + '.' + item.extension">
+					</div>
+					
+					<div v-if="item.type == 'photograph'">
+						PHOTOGRAPH: {{ item.name }} by {{ item.author }}
+						<img v-bind:src="'http://swarm.ovh/orane/upload/' + item.id + '.' + item.extension">
+					</div>
+					
+					<div v-if="item.type == 'quote'">
+						Citation: {{ item.quote }} by {{ item.author }}
+					</div>
+
+			
+					<div v-if="item.type == 'poem'">
+						Poème: {{item.name}} - {{ item.poem }} by {{ item.author }}
+					</div>
+					
+				</li>
+		</ul>
+		
+	</section>
 
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/1.18.0/TweenMax.min.js"></script>
 	<script src="js/main.js"></script>

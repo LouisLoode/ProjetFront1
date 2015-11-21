@@ -25,6 +25,8 @@ body {
 	&.signed-in .sign-up { display: none; }
 	&.signed-in .user-greeting { display: block; }
 	
+	.explore-words { display: none; }
+	&.displaying-explore-words .explore-words { display: block; }
 	
 	.explore-words {
 		position: fixed;
@@ -33,6 +35,8 @@ body {
 		right: 0;
 		bottom: 0;
 		overflow: hidden;
+		
+		h1 { position: fixed; top: 50px; left: 50px; }
 		
 		.translatable { // todo width ?
 			position: absolute;
@@ -53,9 +57,11 @@ body {
 					}
 				}
 		}
-	
 		
 	}
+	
+	.explore-items { display: none; }
+	&.displaying-explore-items .explore-items { display: block; }
 	
 }
 
