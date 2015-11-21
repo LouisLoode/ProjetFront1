@@ -4,7 +4,7 @@
 <head>
 	<meta charset="UTF-8" />
 
-	<title>Starter H3</title>
+	<title>Words</title>
 
 	<!-- SEO meta -->
 	<meta name="robots" content="index, follow" />
@@ -49,9 +49,9 @@
 
 </head>
 
-<body class="displaying-explore-words">
+<body>
 	
-	<section class="top-bar">
+	<aside class="top-bar">
 	
 		<form method="POST" action="/api/v1/sign_in" class="sign-in">
 			<input type="text" placeholder="Pseudo ou mail" name="login">
@@ -67,10 +67,10 @@
 		</form>
 		
 		<div class="user-greeting">
-			Bienvenue, {{ username }}. <a href="#" class="sign-out">Se déconnecter</a>
+			Bienvenue, <a href="#" class="me">{{ username }}</a>. <a href="#" class="sign-out">Se déconnecter</a>
 		</div>
 	
-	</section>
+	</aside>
 
 	<section class="explore-words">
 	
@@ -90,6 +90,35 @@
 		<ul class="items">
 				<li class="item" v-for="item in items">
 					<div v-if="item.type == 'painting'">
+						PAINTING: {{ item.name }} by {{ item.author }} <a data-id="{{item.id}}" href="#" class="star">Ajouter à mes favoris</a>
+						<img v-bind:src="'http://swarm.ovh/orane/upload/' + item.id + '.' + item.extension">
+					</div>
+					
+					<div v-if="item.type == 'photograph'">
+						PHOTOGRAPH: {{ item.name }} by {{ item.author }} <a data-id="{{item.id}}" href="#" class="star">Ajouter à mes favoris</a>
+						<img v-bind:src="'http://swarm.ovh/orane/upload/' + item.id + '.' + item.extension">
+					</div>
+					
+					<div v-if="item.type == 'quote'">
+						Citation: {{ item.quote | nl2br }} by {{ item.author }} <a data-id="{{item.id}}" href="#" class="star">Ajouter à mes favoris</a>
+					</div>
+
+			
+					<div v-if="item.type == 'poem'">
+						Poème: {{item.name}} - {{ item.poem | nl2br }} by {{ item.author }} <a data-id="{{item.id}}" href="#" class="star">Ajouter à mes favoris</a>
+					</div>
+					
+				</li>
+		</ul>
+		
+	</section>
+	
+	<section class="profile">
+		<h1>Profil de {{username}}</h1>
+	
+		<ul class="items">
+				<li class="item" v-for="item in items">
+					<div v-if="item.type == 'painting'">
 						PAINTING: {{ item.name }} by {{ item.author }}
 						<img v-bind:src="'http://swarm.ovh/orane/upload/' + item.id + '.' + item.extension">
 					</div>
@@ -100,17 +129,16 @@
 					</div>
 					
 					<div v-if="item.type == 'quote'">
-						Citation: {{ item.quote }} by {{ item.author }}
+						Citation: {{ item.quote | nl2br }} by {{ item.author }}
 					</div>
 
 			
 					<div v-if="item.type == 'poem'">
-						Poème: {{item.name}} - {{ item.poem }} by {{ item.author }}
+						Poème: {{item.name}} - {{ item.poem | nl2br }} by {{ item.author }}
 					</div>
 					
 				</li>
-		</ul>
-		
+		</ul>	
 	</section>
 
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/1.18.0/TweenMax.min.js"></script>

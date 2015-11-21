@@ -169,6 +169,7 @@ $(document).ready(function(){
 
 });*/
 
+// -- CONFIG, MISC -- //
 
 
 // -- GLOBAL -- //
@@ -180,6 +181,12 @@ var Vue_TopBar = new Vue({
 
 function bindGlobalEvents()
 {
+	$('.user-greeting .me').click(function() {
+		$('section').removeClass('active');
+		profile(user_id);
+		return false;
+	});
+	
 	$('.sign-in').submit(function(){
 		
 		 $.ajax({
@@ -187,8 +194,7 @@ function bindGlobalEvents()
             url: $(this).attr("action"),
             data: $(this).serialize(),
             success: function(response) {
-				Vue_TopBar.username = response.username;
-                $('body').addClass('signed-in');
+				getAndRefreshAuthenticationInfo();
             },
 			error: function(error) {
 				console.error(error);	
@@ -206,8 +212,7 @@ function bindGlobalEvents()
             url: $(this).attr("action"),
             data: $(this).serialize(),
             success: function(response){
-				Vue_TopBar.username = $(that).find('[name=username]').val();
-                $('body').addClass('signed-in');
+				getAndRefreshAuthenticationInfo();
             },
 			error: function(error) {
 				console.error(error);	
@@ -232,24 +237,26 @@ function bindGlobalEvents()
 bindGlobalEvents();
 
 var username, mail, user_id;
+function getAndRefreshAuthenticationInfo() {
+	$.ajax({
+		type: "GET",
+		url: '/api/v1/signed_in',
+		success: function(data) {
+			if (data.signed_in)
+			{
+				user_id = parseInt(data.user_id);
+				username = data.username;
+				mail = data.mail;
 
-$.ajax({
-	type: "GET",
-	url: '/api/v1/signed_in',
-	success: function(data) {
-		if (data.signed_in)
-		{
-			user_id = data.user_id;
-			username = data.username;
-			mail = data.mail;
-			
-			Vue_TopBar.username = username;
-			
-			
-			$('body').addClass('signed-in');
+				Vue_TopBar.username = username;
+
+
+				$('body').addClass('signed-in');
+			}
 		}
-	}
-});
+	});
+}
+getAndRefreshAuthenticationInfo();
 
 // -- EXPLORE WORDS -- //
 
@@ -287,7 +294,7 @@ function bindExploreWordsEvents()
 	});
 	
 	$(document).on('click','.word', function(e) {
-		$('body').removeClass('displaying-explore-words');
+		$('section').removeClass('active');
 		unbindExploreWordsEvents();
 		exploreItems($.trim($(e.target).text()));
 		return false;
@@ -335,7 +342,28 @@ function exploreItems(word)
 
 
 			Vue_ExploreItems.items = items;
-			$('body').addClass('displaying-explore-items');
+			$('.explore-items').addClass('active');
+		}
+	});
+}
+
+// -- PROFILE -- //
+
+var Vue_Profile = new Vue({
+	el: '.profile',
+	data: {username: '', items: {}}
+});
+
+function profile(user_id)
+{
+	$.ajax({
+		type: "GET",
+		url: '/api/v1/user/' + user_id +'/stars',
+		success: function(data) {
+			var items = data.items;
+			Vue_Profile.username = username;
+			Vue_Profile.items = items;
+			$('.profile').addClass('active');
 		}
 	});
 }
@@ -361,7 +389,7 @@ $.ajax({
 		});
 
 		Vue_ExploreWords.words = words_and_positions;
-		$('body').addClass('displaying-explore-words');
+		$('.explore-words').addClass('active');
 	}
 });
 

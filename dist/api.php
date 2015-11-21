@@ -31,24 +31,8 @@ $app->register(new \Silex\Provider\PDOServiceProvider, array(
 $app['db']->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_WARNING);
 $app['db']->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_ASSOC);
 
-$app->get('api/v1/words', function () use ($app) { // @todo NODB ? 
-	$q = $app['db']->query('SELECT COUNT(item_id) count, word FROM item_words GROUP BY word HAVING count > 3 ORDER BY rand()');
-	$results = $q->fetchAll();
-	return $app->json(array('words' => $results));
-});
-
-$app->get('api/v1/words/{word}/items', function ($word) use ($app) { // @todo NODB ? 
-	$q = $app['db']->prepare('
-		SELECT items.type, items.id
-		FROM items
-		INNER JOIN item_words
-		ON items.id = item_words.item_id
-		WHERE item_words.word = :word');
-	$q->execute(array(':word' => $word));
-	
-	$grouped_items = $q->fetchAll(PDO::FETCH_GROUP); // quote => ... ; painting => ...
-	
-	
+function get_infos_and_flatten($grouped_items) {
+	global $app;
 	$grouped_detailed_items = array();
 	foreach ($grouped_items as $type => $items)
 	{
@@ -79,6 +63,54 @@ $app->get('api/v1/words/{word}/items', function ($word) use ($app) { // @todo NO
 			$flattened_items[] = array_merge($item,array('type' => $type));
 		}
 	}
+	
+	return $flattened_items;
+}
+
+$app->get('api/v1/words', function () use ($app) { // @todo NODB ? 
+	$q = $app['db']->query('SELECT COUNT(item_id) count, word FROM item_words GROUP BY word HAVING count > 3 ORDER BY rand()');
+	$results = $q->fetchAll();
+	return $app->json(array('words' => $results));
+});
+
+$app->get('api/v1/words/{word}/items', function ($word) use ($app) { // @todo NODB ? 
+	$q = $app['db']->prepare('
+		SELECT items.type, items.id
+		FROM items
+		INNER JOIN item_words
+		ON items.id = item_words.item_id
+		WHERE item_words.word = :word');
+	$q->execute(array(':word' => $word));
+	
+	$grouped_items = $q->fetchAll(PDO::FETCH_GROUP); // quote => ... ; painting => ...
+	
+	$flattened_items = get_infos_and_flatten($grouped_items);
+	
+	/*	
+	==> list of items
+	
+		{similar: [
+			{type: 'painting', extension: 'jpg', id: 32, name: '...},
+			{type: 'painting', extension: 'jpg', id: 32, name: '...},
+			{type: 'quote', quote: 'alala'}
+			]}
+	
+	*/
+	return $app->json(array('items' => $flattened_items));
+});
+
+$app->get('api/v1/user/{user_id}/stars', function ($user_id) use ($app) { // @todo NODB ? 
+	$q = $app['db']->prepare('
+		SELECT items.type, items.id
+		FROM items
+		INNER JOIN user_stars
+		ON items.id = user_stars.item_id
+		WHERE user_stars.user_id = :user_id');
+	$q->execute(array(':user_id' => $user_id));
+	
+	$grouped_items = $q->fetchAll(PDO::FETCH_GROUP); // quote => ... ; painting => ...
+	
+	$flattened_items = get_infos_and_flatten($grouped_items);
 	
 	/*	
 	==> list of items
