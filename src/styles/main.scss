@@ -3,7 +3,10 @@
 // Body
 html, body {
 	width: 100%;
-
+	height: 100%;
+	margin: 0;
+	padding: 0;
+	
 	-moz-osx-font-smoothing: grayscale;
 	 -webkit-font-smoothing: antialiased;
 			-moz-font-smoothing: antialiased;
@@ -21,7 +24,47 @@ body {
 body {
 	.user-greeting { display: none; }
 	
-	&.signed-in .sign-in { display: none; }
+	&.signed-in .sign-in,
+	&.signed-in .sign-up { display: none; }
 	&.signed-in .user-greeting { display: block; }
+	
+	
+	.explore {
+		position: fixed;
+		top: 0;
+		left: 0;
+		right: 0;
+		bottom: 0;
+		overflow: hidden;
+	}
+
+	.explore_frieze { 
+		position: absolute;
+		top: 0;
+		left: 0;
+		width: auto;
+		bottom: 0;/*
+		perspective: 200px;
+		transform-style: preserve-3d;*/
+	}
+	
+	.words { 
+		list-style-type: none;
+		
+
+		.word {
+			position: absolute;
+			font-size: 275px;
+			cursor: url("icon-glass.png") 25 25, auto;/*
+			transform: rotateX(20deg);*/
+			transition: 1s all;
+		}
+	}
+/*
+	.word:hover {
+		transform: scale(1);
+		-webkit-filter: blur(0px);
+	}*/
+		
 }
 

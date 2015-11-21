@@ -155,8 +155,9 @@ $app->post('api/v1/sign_in', function (Request $request) use ($app) { // @todo N
 	$_SESSION['user_id'] = $f['id'];
 	$_SESSION['username'] = $f['username'];
 	$_SESSION['mail'] = $f['mail'];
-		
-	return new Response('Signed in.',200);
+	
+	return $app->json(array('username' => $f['username']));
+	// return new Response('Signed in.',200);
 	
 });
 
