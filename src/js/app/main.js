@@ -328,7 +328,7 @@ function onAnimationFrame() {
 
 var Vue_ExploreItems = new Vue({
 	el: '.explore-items',
-	data: {items: {}}
+	data: {items: {}} // @todo add items[0].starred = true/false
 });
 
 function exploreItems(word)
@@ -344,6 +344,21 @@ function exploreItems(word)
 			Vue_ExploreItems.items = items;
 			$('.explore-items').addClass('active');
 		}
+	});
+	
+	bindExploreItemsEvents();
+}
+
+function bindExploreItemsEvents() {
+	$('.explore-items').on('click','.star',function(e){
+		$.ajax({
+			type: "PUT",
+			url: '/api/v1/items/' + $(e.target).data('id') +'/star',
+			success: function(data) {
+				alert('starred');
+			}
+		});
+		return false;
 	});
 }
 
