@@ -1,6 +1,8 @@
 vendor/
 node_modules/
 bower_components/
-dist/
+dist/img/
+dist/js/
+dist/styles/
 conf/*.php
 .sass-cache/
