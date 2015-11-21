@@ -18,10 +18,7 @@ body {
 	color: floralwhite;
 	background: #000000;
 	font-size: 12px;
-}
 
-
-body {
 	.user-greeting { display: none; }
 	
 	&.signed-in .sign-in,
@@ -29,42 +26,36 @@ body {
 	&.signed-in .user-greeting { display: block; }
 	
 	
-	.explore {
+	.explore-words {
 		position: fixed;
 		top: 0;
 		left: 0;
 		right: 0;
 		bottom: 0;
 		overflow: hidden;
-	}
+		
+		.translatable { // todo width ?
+			position: absolute;
+			top: 0;
+			left: 0;
+			width: auto;
+			bottom: 0;
 
-	.explore_frieze { 
-		position: absolute;
-		top: 0;
-		left: 0;
-		width: auto;
-		bottom: 0;/*
-		perspective: 200px;
-		transform-style: preserve-3d;*/
+				.words { 
+				list-style-type: none;
+
+					.word {
+						position: absolute;
+						font-size: 275px;
+						cursor: url("icon-glass.png") 25 25, auto;/*
+						transform: rotateX(20deg);*/
+						transition: 1s all;
+					}
+				}
+		}
+	
+		
 	}
 	
-	.words { 
-		list-style-type: none;
-		
-
-		.word {
-			position: absolute;
-			font-size: 275px;
-			cursor: url("icon-glass.png") 25 25, auto;/*
-			transform: rotateX(20deg);*/
-			transition: 1s all;
-		}
-	}
-/*
-	.word:hover {
-		transform: scale(1);
-		-webkit-filter: blur(0px);
-	}*/
-		
 }
 

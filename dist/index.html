@@ -77,14 +77,15 @@
 	</header>
 
 	<main class="explore-words">
-		<h1>Hello World !</h1>
-		width = words_and_positions[words_and_positions.length-1].position.left+100
-		<ul class="words">
-			<li class="word" v-for="word in words" v-bind:style="{left: word.position.left + 'px', top: word.position.top + 'px', fontSize: (12 + word.count * 4) + 'px'}">
-				{{ word.word }}
-				
-			</li>
-		</ul>
+		<div class="translatable" v-bind:style="{width: words[words.length-1].position.left+100 + 'px'}">
+			<h1>Hello World !</h1>
+			<ul class="words">
+				<li class="word" v-for="word in words" v-bind:style="{left: word.position.left + 'px', top: word.position.top + 'px', fontSize: (12 + word.count * 4) + 'px'}">
+					{{ word.word }}
+
+				</li>
+			</ul>
+		</div>
 	</main>
 
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/1.18.0/TweenMax.min.js"></script>

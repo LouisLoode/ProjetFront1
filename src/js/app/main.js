@@ -170,7 +170,13 @@ $(document).ready(function(){
 });*/
 
 
-var explore_speed = 0;
+
+// -- GLOBAL -- //
+
+var Vue_TopBar = new Vue({
+	el: '.top-bar',
+	data: {username: null}
+});
 
 function bindGlobalEvents()
 {
@@ -221,8 +227,41 @@ function bindGlobalEvents()
 			});
 		return false;
 	});
-	
-	
+}
+
+bindGlobalEvents();
+
+var username, mail, user_id;
+
+$.ajax({
+	type: "GET",
+	url: '/api/v1/signed_in',
+	success: function(data) {
+		if (data.signed_in)
+		{
+			user_id = data.user_id;
+			username = data.username;
+			mail = data.mail;
+			
+			Vue_TopBar.username = username;
+			
+			
+			$('body').addClass('signed-in');
+		}
+	}
+});
+
+// -- EXPLORE WORDS -- //
+
+var explore_speed = 0;
+
+var Vue_ExploreWords = new Vue({
+	el: '.explore-words',
+	data: {words: {}}
+});
+
+function bindExploreWordsEvents()
+{
 	$(document).on('mousemove', function(e) {
 		var window_width = $(window).width();
 
@@ -243,53 +282,48 @@ function bindGlobalEvents()
 			else
 				var difference = e.pageX - (window_width/2 - middle_zone_width) + minimal_difference;
 		}
+		
 
 		explore_speed = -difference*0.2;
-
+	});
+	
+	$(document).on('click','.word', function() {
+		hideWords();
+		TweenMax.to($(this), 1, {transform: 'scale(3)', ease: Power1.easeOut})
 	});
 }
 
+function unbindExploreWordsEvents()
+{
+	$(document).off('mousemove');
+	$('.word').off('click');
+}
 
-var username, mail, user_id;
+bindExploreWordsEvents();
 
-var Vue_TopBar = new Vue({
-	el: '.top-bar',
-	data: {username: null}
-});
-
-$.ajax({
-	type: "GET",
-	url: '/api/v1/signed_in',
-	success: function(data) {
-		if (data.signed_in)
-		{
-			user_id = data.user_id;
-			username = data.username;
-			mail = data.mail;
-			
-			Vue_TopBar.username = username;
-			
-			
-			$('body').addClass('signed-in');
-		}
+function onAnimationFrame() {
+	
+	
+	if($('.explore-words .translatable').get(0)._gsTransform !== undefined && ($('.explore-words .translatable').get(0)._gsTransform.x+explore_speed >= 0 || $('.explore-words .translatable').get(0)._gsTransform.x+explore_speed <= -$('.explore-words .translatable').width() + $(window).width()))
+	{
+		console.log('blocked');
+		return;
 	}
-});
+	TweenMax.to($('.explore-words .translatable'), 1, {x: '+='+explore_speed, ease: Power1.easeOut})
+};
 
-bindGlobalEvents();
+(function raf(){
+	onAnimationFrame();
+	window.requestAnimationFrame(raf);
+})();
 
-
-
-var Vue_ExploreWords = new Vue({
-	el: '.explore-words',
-	data: {words: {}}
-});
+// -- PROCEDURAL APP LAUNCH -- //
 
 $.ajax({
 	type: "GET",
 	url: '/api/v1/words',
 	success: function(data) {
 		var words = data.words;
-		
 		
 		var previous_word;
 		var words_and_positions = words.map(function(word_data, i, words_data) {
@@ -303,10 +337,8 @@ $.ajax({
 			return previous_word;
 		});
 
-		console.log(words_and_positions);
 		Vue_ExploreWords.words = words_and_positions;
 
-		$('.word').click(onWordClick);
 	}
 });
 
@@ -338,33 +370,11 @@ $.ajax({
 
 
 
-function r(r) { console.log(r); }
-
-
-function hideWords()
-{
-	$('.word').off('click');
-}
-
-var onWordClick = function() {
-	hideWords();
-	TweenMax.to($(this), 1, {transform: 'scale(3)', ease: Power1.easeOut})
-}
 
 
 
-function onAnimationFrame() {
-	return;
-	if($('.explore_frieze').get(0)._gsTransform !== undefined && $('.explore_frieze').get(0)._gsTransform.x+explore_speed >= 0)
-		return;
 
-	TweenMax.to($('.explore_frieze'), 1, {x: '+='+explore_speed, ease: Power1.easeOut})
-};
 
-(function raf(){
-	onAnimationFrame();
-	window.requestAnimationFrame(raf);
-})();
 
 
 	

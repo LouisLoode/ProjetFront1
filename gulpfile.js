@@ -18,6 +18,7 @@ var gulp = require('gulp'),
 // On charge les styles
 gulp.task('css', function() {
   return gulp.src('src/styles/**/*.scss')
+	.pipe(plumber())
   	.pipe(sass())
     .pipe(autoprefixer('last 2 version'))
     .pipe(gulp.dest('dist/styles'))
