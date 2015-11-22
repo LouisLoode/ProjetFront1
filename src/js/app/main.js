@@ -296,7 +296,7 @@ function bindExploreWordsEvents()
 	$(document).on('click','.word', function(e) {
 		$('section').removeClass('active');
 		unbindExploreWordsEvents();
-		exploreItems($.trim($(e.target).text()));
+		exploreItemsByWord($.trim($(e.target).text()));
 		return false;
 	});
 }
@@ -331,7 +331,7 @@ var Vue_ExploreItems = new Vue({
 	data: {items: {}} // @todo add items[0].starred = true/false
 });
 
-function exploreItems(word)
+function exploreItemsByWord(word)
 {
 	$.ajax({
 		type: "GET",
@@ -349,6 +349,21 @@ function exploreItems(word)
 	bindExploreItemsEvents();
 }
 
+function exploreSimilarItems(item_id)
+{
+	$.ajax({
+		type: "GET",
+		url: '/api/v1/items/'+ item_id +'/similar',
+		success: function(data) {
+			var items = data.items;
+			Vue_ExploreItems.items = items;
+			$('.explore-items').addClass('active');
+		}
+	});
+	
+	bindExploreItemsEvents(); // @todo doublon
+}
+
 function bindExploreItemsEvents() {
 	$('.explore-items').on('click','.star',function(e){
 		$.ajax({
@@ -359,6 +374,10 @@ function bindExploreItemsEvents() {
 			}
 		});
 		return false;
+	});
+	
+	$('.explore-items').on('click','.similar',function(e){
+		exploreSimilarItems(parseInt($(e.target).data('id')));
 	});
 }
 
@@ -436,7 +455,7 @@ $.ajax({
 
 
 
-
+// @todo get list of words for item
 
 
 

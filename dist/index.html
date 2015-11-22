@@ -90,22 +90,22 @@
 		<ul class="items">
 				<li class="item" v-for="item in items">
 					<div v-if="item.type == 'painting'">
-						PAINTING: {{ item.name }} by {{ item.author }} <a data-id="{{item.id}}" href="#" class="star">Ajouter à mes favoris</a>
+						PAINTING: {{ item.name }} by {{ item.author }} <a data-id="{{item.id}}" href="#" class="star">Ajouter à mes favoris</a>   <a data-id="{{item.id}}" href="#" class="similar">Similar</a> 
 						<img v-bind:src="'http://swarm.ovh/orane/upload/' + item.id + '.' + item.extension">
 					</div>
 					
 					<div v-if="item.type == 'photograph'">
-						PHOTOGRAPH: {{ item.name }} by {{ item.author }} <a data-id="{{item.id}}" href="#" class="star">Ajouter à mes favoris</a>
+						PHOTOGRAPH: {{ item.name }} by {{ item.author }} <a data-id="{{item.id}}" href="#" class="star">Ajouter à mes favoris</a>  <a data-id="{{item.id}}" href="#" class="similar">Similar</a> 
 						<img v-bind:src="'http://swarm.ovh/orane/upload/' + item.id + '.' + item.extension">
 					</div>
 					
 					<div v-if="item.type == 'quote'">
-						Citation: {{ item.quote | nl2br }} by {{ item.author }} <a data-id="{{item.id}}" href="#" class="star">Ajouter à mes favoris</a>
+						Citation: {{ item.quote | nl2br }} by {{ item.author }} <a data-id="{{item.id}}" href="#" class="star">Ajouter à mes favoris</a> <a data-id="{{item.id}}" href="#" class="similar">Similar</a> 
 					</div>
 
 			
 					<div v-if="item.type == 'poem'">
-						Poème: {{item.name}} - {{ item.poem | nl2br }} by {{ item.author }} <a data-id="{{item.id}}" href="#" class="star">Ajouter à mes favoris</a>
+						Poème: {{item.name}} - {{ item.poem | nl2br }} by {{ item.author }} <a data-id="{{item.id}}" href="#" class="star">Ajouter à mes favoris</a> <a data-id="{{item.id}}" href="#" class="similar">Similar</a> 
 					</div>
 					
 				</li>

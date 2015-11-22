@@ -125,6 +125,31 @@ $app->get('api/v1/user/{user_id}/stars', function ($user_id) use ($app) { // @to
 	return $app->json(array('items' => $flattened_items));
 });
 
+$app->get('api/v1/items/{item_id}/similar', function ($item_id) use ($app) { // @todo NODB ? 
+	$q = $app['db']->prepare('
+		SELECT items.type, items.id, iw.word
+        FROM items
+        INNER JOIN item_words iw
+        ON items.id = iw.item_id
+        WHERE iw.word IN(SELECT word FROM item_words iww WHERE iww.item_id=:item_id) AND iw.item_id != :item_idd');
+	$q->execute(array(':item_id' => $item_id, ':item_idd' => $item_id));
+	
+	$grouped_items = $q->fetchAll(PDO::FETCH_GROUP); // quote => ... ; painting => ...
+	$flattened_items = get_infos_and_flatten($grouped_items);
+	
+	/*	
+	==> list of items
+	
+		{similar: [
+			{type: 'painting', extension: 'jpg', id: 32, name: '...},
+			{type: 'painting', extension: 'jpg', id: 32, name: '...},
+			{type: 'quote', quote: 'alala'}
+			]}
+	
+	*/
+	return $app->json(array('items' => $flattened_items));
+});
+
 $app->put('api/v1/items/{item_id}/star', function ($item_id) use ($app) { // @todo NODB ?
 	
 	if (!isset($_SESSION['username']))
