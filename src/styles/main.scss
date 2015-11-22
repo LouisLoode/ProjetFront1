@@ -1,4 +1,11 @@
+// Import des fonts
+@import 'fonts';
 
+// Import des variables
+@import 'variables';
+
+// Import des boutons
+@import 'buttons';
 
 // Body
 html, body {
@@ -16,9 +23,27 @@ html, body {
 
 body {
 	color: floralwhite;
-	background: #000000;
+	background-color: #000000;
+    background-image: -webkit-radial-gradient(45px 45px, ellipse farthest-corner,
+				 aqua 0%, rgba(0, 0, 255, 0) 100%, blue 95%);
+background-image: -moz-radial-gradient(45px 45px, ellipse farthest-corner,
+				 aqua 0%, rgba(0, 0, 255, 0) 100%, blue 95%);
+background-image:    -ms-radial-gradient(45px 45px, ellipse farthest-corner,
+				 aqua 0%, rgba(0, 0, 255, 0) 100%, blue 95%);
+background-image:    -o-radial-gradient(45px 45px, ellipse farthest-corner,
+				 aqua 0%, rgba(0, 0, 255, 0) 100%, blue 95%);
+    font-family: $font-family-serif;
 	font-size: 12px;
-
+    
+    h1{
+        font-size: $font-size-h1;
+    }
+    h2{
+        font-size: $font-size-h2;
+    }
+    h3{
+        font-family: $font-family-sans-serif;
+    }
 	.user-greeting { display: none; }
 	
 	&.signed-in .sign-in,

@@ -52,13 +52,12 @@ gulp.task('images', function() {
 // On supprime la distrib qu'on a créé
 gulp.task('clean', function () {
   return del([
-    'dist/fonts',
     'dist/img',
     'dist/js',
     'dist/styles',
-    'dist/index.html',
     // we don't want to clean this file though so we negate the pattern
     '!dist/.htaccess',
+    '!dist/fonts',
     '!dist/index.html',
     '!dist/api.php'
   ]);
