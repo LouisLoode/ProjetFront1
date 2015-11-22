@@ -10,9 +10,9 @@ var gulp = require('gulp'),
     concat = require('gulp-concat'),
     notify = require('gulp-notify'),
     livereload = require('gulp-livereload'),
-    bower = require('gulp-bower'),
     del = require('del'),
 	promise = require('es6-promise');
+
 
 // On charge les styles
 gulp.task('css', function() {
@@ -59,6 +59,7 @@ gulp.task('clean', function () {
     '!dist/.htaccess',
     '!dist/fonts',
     '!dist/index.html',
+    '!dist/particles.json',
     '!dist/api.php'
   ]);
 });

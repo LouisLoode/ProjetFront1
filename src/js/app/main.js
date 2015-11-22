@@ -172,10 +172,12 @@ $(document).ready(function(){
 // -- CONFIG, MISC -- //
 
 
+
+
 // -- GLOBAL -- //
 
 var Vue_TopBar = new Vue({
-	el: '.top-bar',
+	el: 'aside',
 	data: {username: null}
 });
 

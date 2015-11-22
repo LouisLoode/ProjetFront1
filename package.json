@@ -20,6 +20,8 @@
     "gulp-composer": "^0.1.0",
     "gulp-concat": "^2.6.0",
     "gulp-html-extend": "^1.1.6",
+    "gulp-iconfont": "^5.0.1",
+    "gulp-iconfont-css": "^2.0.0",
     "gulp-imagemin": "^2.4.0",
     "gulp-jshint": "^1.12.0",
     "gulp-livereload": "^3.8.1",
