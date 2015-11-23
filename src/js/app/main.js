@@ -176,16 +176,94 @@ $(document).ready(function(){
 
 // -- GLOBAL -- //
 
-var Vue_TopBar = new Vue({
-	el: 'aside',
-	data: {username: null}
-});
 
-function bindGlobalEvents()
-{
+
+
+
+
+// -- PROCEDURAL APP LAUNCH -- //
+
+
+
+/*
+
+pour chaque vue : 
+	- une Vue associée (doit être construire à l'init) ==> __construct
+	- un entry point (fonction à éxecuter) ->show(); ==> show()
+	quand on veut sortir : App->goTo(pageExploreWord,arg,arg) (sûr ?)
+	
+	- une méthode bindEvents ==> bindEvents() (private?)
+	- une méthode unbindEvents (à la sortie) ==> unbindEvents (private?)
+	
+	loader etc ?
+	
+pour le router (peut-être dans app)
+	- 
+
+// dans un second temps, peut-être que Page hérite de AppComponent pour qu'on puisse appeler this.app
+
+*/
+
+// @dependency Grapnel
+var App = function() {
+	this.username = null,
+	this.mail = null;
+	this.user_id = null;
+	this.currentPage = null;
+	
+	this.pages = {
+		profile: new Page_Profile(),
+		exploreWords: new Page_ExploreWords(),
+		exploreItems: new Page_ExploreItems()
+	}
+	
+	this.router = new Grapnel({ pushState : true });
+
+	this.router.get('/', function(req){
+		this.goTo('exploreWords');
+	}.bind(this));
+
+	this.router.get('/mot/:word', function(req){
+		this.goTo('exploreItems','exploreItemsByWord',req.params.word);
+	}.bind(this));
+
+	this.router.get('/profil/:user_id', function(req){
+		this.goTo('profile', 'run', req.params.user_id);
+	}.bind(this));
+	
+	this.Vue_TopBar = new Vue({
+		el: 'aside',
+		data: {username: null}
+	});
+
+	this.getAndRefreshAuthenticationInfo();
+	this.bindEvents();
+}
+
+App.prototype.getAndRefreshAuthenticationInfo = function() {
+		$.ajax({
+			type: "GET",
+			url: '/api/v1/signed_in',
+			success: function(data) {
+				if (data.signed_in)
+				{
+					this.user_id = parseInt(data.user_id);
+					this.username = data.username;
+					this.mail = data.mail;
+
+					this.Vue_TopBar.username = data.username;
+
+
+					$('body').addClass('signed-in');
+				}
+			}.bind(this)
+		});
+}
+
+App.prototype.bindEvents = function () {
 	$('.user-greeting .me').click(function() {
 		$('section').removeClass('active');
-		router.navigate('/profile/' + user_id);
+		router.navigate('/profil/' + user_id);
 		return false;
 	});
 	
@@ -197,7 +275,7 @@ function bindGlobalEvents()
             data: $(this).serialize(),
             success: function(response) {
 				getAndRefreshAuthenticationInfo();
-            },
+            }.bind(this),
 			error: function(error) {
 				console.error(error);	
 			}
@@ -215,14 +293,14 @@ function bindGlobalEvents()
             data: $(this).serialize(),
             success: function(response){
 				getAndRefreshAuthenticationInfo();
-            },
+            }.bind(this),
 			error: function(error) {
 				console.error(error);	
 			}
         });
 		
 		return false;
-	});
+	}.bind(this));
 	
 	$('.sign-out').click(function(){
 		$.ajax({
@@ -230,47 +308,87 @@ function bindGlobalEvents()
 					url: '/api/v1/sign_out',
 					success: function () {
 						$('body').removeClass('signed-in');
-					}
+					}.bind(this)
 			});
 		return false;
-	});
+	}.bind(this));
 }
 
-bindGlobalEvents();
+App.prototype.goTo = function (newPage, method) {
+	console.log(newPage); 
+	if (newPage !== this.currentPage)
+	{
+		if (this.currentPage in this.pages)
+		{
+			$('.' + this.currentPage.replace(/([A-Z])/g, function(match){ return '-' + match.toLowerCase() })).removeClass('active');
+			this.pages[this.currentPage].unbindEvents();
+		}
+		this.pages[newPage].bindEvents();
+	}
+	this.currentPage = newPage;
+	$('.' + newPage.replace(/([A-Z])/g, function(match){ return '-' + match.toLowerCase() })).addClass('active');
+	
+	method = method || 'run'; // @todo router, pushstate
+	this.pages[newPage][method].apply(this.pages[newPage],Array.prototype.slice.call(arguments, 2));
+};
 
-var username, mail, user_id;
-function getAndRefreshAuthenticationInfo() {
+// => widgets 134
+// https://github.com/bytecipher/grapnel
+
+// -- PAGE -- //
+
+var Page = function () {
+	
+}
+
+Page.prototype.bindEvents = function () { }
+Page.prototype.unbindEvents = function () { }
+
+// -- PROFILE -- //
+
+var Page_Profile = function() {
+	this.Vue = new Vue({
+		el: '.profile',
+		data: {username: '', items: {}}
+	});
+	
+	Page.apply(this, arguments);
+}
+
+Page_Profile.prototype = Object.create(Page.prototype);
+
+Page_Profile.prototype.run = function(user_id) {
+	// $('section').removeClass('active');
 	$.ajax({
 		type: "GET",
-		url: '/api/v1/signed_in',
+		url: '/api/v1/user/' + user_id +'/stars',
 		success: function(data) {
-			if (data.signed_in)
-			{
-				user_id = parseInt(data.user_id);
-				username = data.username;
-				mail = data.mail;
-
-				Vue_TopBar.username = username;
-
-
-				$('body').addClass('signed-in');
-			}
+			var items = data.items;
+			this.Vue.username = username;
+			this.Vue.items = items;
+			$('.profile').addClass('active');
 		}
 	});
 }
-getAndRefreshAuthenticationInfo();
 
 // -- EXPLORE WORDS -- //
 
-var explore_speed = 0;
+var Page_ExploreWords = function() {
+	this.Vue = new Vue({
+		el: '.explore-words',
+		data: {words: {}}
+	});
+	
+	Page.apply(this, arguments);
+	
+	this.explore_speed = 0;
+}
 
-var Vue_ExploreWords = new Vue({
-	el: '.explore-words',
-	data: {words: {}}
-});
+Page_ExploreWords.prototype = Object.create(Page.prototype);
 
-function explore()
+Page_ExploreWords.prototype.run = function()
 {
+	
 	$.ajax({
 		type: "GET",
 		url: '/api/v1/words',
@@ -289,17 +407,14 @@ function explore()
 				return previous_word;
 			});
 
-			Vue_ExploreWords.words = words_and_positions;
-			$('.explore-words').addClass('active');
-		}
+			this.Vue.words = words_and_positions;
+		}.bind(this)
 	});
 }
 
-function bindExploreWordsEvents()
-{
+Page_ExploreWords.prototype.bindEvents = function() {
 	$(document).on('mousemove', function(e) {
 		var window_width = $(window).width();
-
 		var middle_zone_width = 100;
 		var minimal_difference = 100;
 
@@ -318,148 +433,98 @@ function bindExploreWordsEvents()
 				var difference = e.pageX - (window_width/2 - middle_zone_width);
 		}
 
-		explore_speed = -difference*0.2;
-	});
+		this.explore_speed = -difference*0.2;
+	}.bind(this));
 	
 	$(document).on('click','.word', function(e) {
-		$('section').removeClass('active');
-		unbindExploreWordsEvents();
-		exploreItemsByWord($.trim($(e.target).text()));
+		app.goTo('exploreItems','exploreItemsByWord',$.trim($(e.target).text()));
 		return false;
 	});
+	
+	this.onAnimationFrame = function () {
+		this.updateTranslatable();
+	};
+	
+	window.requestAnimationFrame(this.onAnimationFrame.bind(this));
 }
 
-function unbindExploreWordsEvents()
-{
+Page_ExploreWords.prototype.updateTranslatable = function () {
+	if($('.explore-words .translatable').get(0)._gsTransform !== undefined && ($('.explore-words .translatable').get(0)._gsTransform.x+this.explore_speed >= 0 || $('.explore-words .translatable').get(0)._gsTransform.x+this.explore_speed <= -$('.explore-words .translatable').width() + $(window).width()))
+	{
+		//
+	}
+	else
+	{
+		TweenMax.to($('.explore-words .translatable'), 1, {x: '+='+this.explore_speed, ease: Power1.easeOut})
+	}
+	window.requestAnimationFrame(this.onAnimationFrame.bind(this));
+}
+
+Page_ExploreWords.prototype.unbindEvents = function() {
 	$(document).off('mousemove');
 	$('.word').off('click');
+	$(document).off('click','.word');
+	this.onAnimationFrame = function() {};
 }
 
-bindExploreWordsEvents();
-
-function onAnimationFrame() {
-	
-	
-	if($('.explore-words .translatable').get(0)._gsTransform !== undefined && ($('.explore-words .translatable').get(0)._gsTransform.x+explore_speed >= 0 || $('.explore-words .translatable').get(0)._gsTransform.x+explore_speed <= -$('.explore-words .translatable').width() + $(window).width()))
-	{
-		return;
-	}
-	TweenMax.to($('.explore-words .translatable'), 1, {x: '+='+explore_speed, ease: Power1.easeOut})
-};
-
-(function raf(){
-	onAnimationFrame();
-	window.requestAnimationFrame(raf);
-})();
-
 // -- EXPLORE ITEMS -- //
+	
+var Page_ExploreItems = function() {
+	this.Vue = new Vue({
+		el: '.explore-items', // @todo cohérence où est nommée la page
+		data: {items: {}} // @todo add items[0].starred = true/false
+	});
+	
+	Page.apply(this, arguments);
+}
 
-var Vue_ExploreItems = new Vue({
-	el: '.explore-items',
-	data: {items: {}} // @todo add items[0].starred = true/false
-});
+Page_ExploreItems.prototype = Object.create(Page.prototype);
 
-function exploreItemsByWord(word)
+Page_ExploreItems.prototype.exploreItemsByWord = function (word)
 {
 	$.ajax({
 		type: "GET",
 		url: '/api/v1/words/'+ encodeURIComponent(word) +'/items',
 		success: function(data) {
 			var items = data.items;
-
-
-
-			Vue_ExploreItems.items = items;
-			$('.explore-items').addClass('active');
-		}
+			this.Vue.items = items;
+		}.bind(this)
 	});
-	
-	bindExploreItemsEvents();
 }
 
-function exploreSimilarItems(item_id)
+Page_ExploreItems.prototype.exploreSimilarItems = function (item_id)
 {
+	console.log('similar');
 	$.ajax({
 		type: "GET",
 		url: '/api/v1/items/'+ item_id +'/similar',
 		success: function(data) {
 			var items = data.items;
-			Vue_ExploreItems.items = items;
-			$('.explore-items').addClass('active');
-		}
+			this.Vue.items = items;
+		}.bind(this)
 	});
-	
-	bindExploreItemsEvents(); // @todo doublon
 }
 
-function bindExploreItemsEvents() {
+Page_ExploreItems.prototype.bindEvents = function () {
 	$('.explore-items').on('click','.star',function(e){
 		$.ajax({
 			type: "PUT",
 			url: '/api/v1/items/' + $(e.target).data('id') +'/star',
 			success: function(data) {
 				alert('starred');
-			}
+			}.bind(this)
 		});
 		return false;
 	});
 	
 	$('.explore-items').on('click','.similar',function(e){
-		exploreSimilarItems(parseInt($(e.target).data('id')));
-	});
+		this.exploreSimilarItems(parseInt($(e.target).data('id')));
+	}.bind(this));
 }
 
-// -- PROFILE -- //
-
-var Vue_Profile = new Vue({
-	el: '.profile',
-	data: {username: '', items: {}}
-});
-
-function profile(user_id)
-{
-	$('section').removeClass('active');
-	$.ajax({
-		type: "GET",
-		url: '/api/v1/user/' + user_id +'/stars',
-		success: function(data) {
-			var items = data.items;
-			Vue_Profile.username = username;
-			Vue_Profile.items = items;
-			$('.profile').addClass('active');
-		}
-	});
-}
-
-// -- PROCEDURAL APP LAUNCH -- //
 
 
-
-
-
-
-
-var router = new Grapnel({ pushState : true });
-
-router.get('/', function(req){
-   	explore();
-});
-
-router.get('/profile/:user_id', function(req){
-    profile(req.params.user_id);
-});
-
-// => widgets 134
-// https://github.com/bytecipher/grapnel
-
-
-
-
-
-
-
-
-
+var app = new App();
 
 // routing
 // https://github.com/visionmedia/page.js

@@ -1,21 +1,22 @@
 aside {
-    position: absolute;
+    position: fixed;
     bottom: 0;
-    width: 100%;
-    z-index: 10;
+    left: 0;
+	right: 0;
     height: 40px;
+	z-index: 100;
     background-color: #000000;
     opacity: 0.85;
-    -webkit-transition: all 0.3s ease;
 	transition: all 0.3s ease;
-    ul{
+	
+    ul {
         list-style-type:none;
         margin: 0;
         padding: 0;
         
-        li{
+        li {
             font-size: inherit;
-            a{
+            a {
                 display:block;
               
                 padding: 10px 25px;
@@ -23,20 +24,22 @@ aside {
                 width:auto;
                 background-color:#000000;
             }
-            a:hover{
+            a:hover {
     
                 color: #000000;
                 background-color:#FFFFFF;
             }
-            .btn{
+            .btn {
                 font-family: $font-family-btn;
             }
         }
     }
-    .right li a{
+	
+    .right li a {
         float:right;   
     }
-    .left li a{
+	
+    .left li a {
         float:left;   
     }
 }
