@@ -7,9 +7,14 @@ var Page_Home = function() {
 	Page.apply(this, arguments);
 }
 
+
+
 Page_Home.prototype.bindEvents = function () {
-$('#start').on('click','#start',function(e){
-console.log('test clic start');
-		
+
+
+$(document).on('click','#start', function(e) {
+		app.goTo('exploreWords');
+		return false;
 	});
+ 
 }

@@ -1,12 +1,14 @@
 .home {
     
     color: #000000;
-    //z-index: 10;
-    //display: block;
+    position: fixed; 
+    top : 0; 
+    left: 0; 
+    bottom: 0; 
+    right: 0;
     background : radial-gradient(circle at center, #FFFFFF,rgba(0, 0, 0, 0.3));
     padding-top: 20%;
-    padding-bottom: 9%;
-    max-height: inherit;
+    
     .container{
         max-width: 750px;
         padding-left: 15px;
@@ -24,35 +26,59 @@
             font-size: 64px;
             line-height: 64px;
         }
-        #start{
-            display: inline-block;
-            color: #000000;
-            font-family: $font-family-btn;
-            font-size: 14px;
-            text-transform: uppercase;
-            line-height: 18px;
-            letter-spacing: 2.3px;
-            margin-top: 65px;
-            background: none;
-            border: 1px solid #000000;
-            border-radius: 29px;
-            padding: 15px;
-        }
-        #start:hover{
-            opacity: 0.5;
-        }
-        .line{
-            height: 100px;
-            display: block;
-            width: 1.5px;
-            background-color: #000000;
-            margin-left: auto;
-            margin-right: auto;
-            z-index: 2;
-        }
-        img{
-            //position: fixed;
+        .explorer{
             
+            .bouton{   
+                position: relative;
+                z-index: 2;
+                #start{
+                    display: inline-block;
+                    color: #000000;
+                    font-family: $font-family-btn;
+                    font-size: 14px;
+                    text-transform: uppercase;
+                    line-height: 18px;
+                    letter-spacing: 2.3px;
+                    margin-top: 65px;
+                    background: none;
+                    border: 1px solid #000000;
+                    border-radius: 29px;
+                    padding: 15px;
+                }
+                #start:hover{
+                    opacity: 0.5;
+                }
+                .line{
+                    height: 100px;
+                    display: block;
+                    width: 1.5px;
+                    background-color: #b5b5b5;
+                    margin-left: auto;
+                    margin-right: auto;
+                    z-index: 2;
+                }
+                .circle_border{
+                    border-radius:50%;
+                    width:26px;  
+                    height:26px; 
+                    border: 1px solid #b5b5b5;
+                    background-color: none;
+                    margin: auto;
+
+                    .circle_inside{
+                        border-radius:50%;
+                        width:16px;  
+                        height:16px;  
+                        background-color: #b5b5b5;
+                        margin: 5px;
+                    }
+                }
+            }
+            .trou{
+                z-index: 1;
+                top: -50px;
+                position: relative;
+            }
         }
     }
 }
