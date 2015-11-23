@@ -61,7 +61,8 @@ gulp.task('images', function() {
 
 // On supprime la distrib qu'on a créé
 gulp.task('clean', function() {
-    return del(['dist']);
+	return;
+    return del(['dist/styles']);
 });
 
 // On observe le changement de fichier pour recharger la page

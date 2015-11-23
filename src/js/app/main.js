@@ -183,7 +183,7 @@ function bindGlobalEvents()
 {
 	$('.user-greeting .me').click(function() {
 		$('section').removeClass('active');
-		profile(user_id);
+		router.navigate('/profile/' + user_id);
 		return false;
 	});
 	
@@ -266,6 +266,32 @@ var Vue_ExploreWords = new Vue({
 	el: '.explore-words',
 	data: {words: {}}
 });
+
+function explore()
+{
+	$.ajax({
+		type: "GET",
+		url: '/api/v1/words',
+		success: function(data) {
+			var words = data.words;
+
+			var previous_word;
+			var words_and_positions = words.map(function(word_data, i, words_data) {
+				previous_word = previous_word || {word: '', position: {left: 0, top: 0}};
+				previous_word = $.extend({},word_data,{
+					position: {
+						left: previous_word.position.left + previous_word.word.length * 50,
+						top: Math.random() * 800
+					}
+				});
+				return previous_word;
+			});
+
+			Vue_ExploreWords.words = words_and_positions;
+			$('.explore-words').addClass('active');
+		}
+	});
+}
 
 function bindExploreWordsEvents()
 {
@@ -390,6 +416,7 @@ var Vue_Profile = new Vue({
 
 function profile(user_id)
 {
+	$('section').removeClass('active');
 	$.ajax({
 		type: "GET",
 		url: '/api/v1/user/' + user_id +'/stars',
@@ -404,29 +431,24 @@ function profile(user_id)
 
 // -- PROCEDURAL APP LAUNCH -- //
 
-$.ajax({
-	type: "GET",
-	url: '/api/v1/words',
-	success: function(data) {
-		var words = data.words;
-		
-		var previous_word;
-		var words_and_positions = words.map(function(word_data, i, words_data) {
-			previous_word = previous_word || {word: '', position: {left: 0, top: 0}};
-			previous_word = $.extend({},word_data,{
-				position: {
-					left: previous_word.position.left + previous_word.word.length * 50,
-					top: Math.random() * 800
-				}
-			});
-			return previous_word;
-		});
 
-		Vue_ExploreWords.words = words_and_positions;
-		$('.explore-words').addClass('active');
-	}
+
+
+
+
+
+var router = new Grapnel({ pushState : true });
+
+router.get('/', function(req){
+   	explore();
 });
 
+router.get('/profile/:user_id', function(req){
+    profile(req.params.user_id);
+});
+
+// => widgets 134
+// https://github.com/bytecipher/grapnel
 
 
 
@@ -437,18 +459,11 @@ $.ajax({
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
+// routing
+// https://github.com/visionmedia/page.js
+// http://smalljs.org/client-side-routing/page/
+// ? https://github.com/chrisdavies/rlite
+// > https://github.com/bytecipher/grapnel
 
 
 
