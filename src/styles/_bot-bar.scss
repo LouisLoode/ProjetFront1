@@ -1,0 +1,48 @@
+aside {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    z-index: 10;
+    height: 40px;
+    background-color: #000000;
+    opacity: 0.85;
+    -webkit-transition: all 0.3s ease;
+	transition: all 0.3s ease;
+    ul{
+        list-style-type:none;
+        margin: 0;
+        padding: 0;
+        
+        li{
+            font-size: inherit;
+            a{
+                display:block;
+              
+                padding: 10px 25px;
+                color: #FFFFFF;  
+                width:auto;
+                background-color:#000000;
+            }
+            a:hover{
+    
+                color: #000000;
+                background-color:#FFFFFF;
+            }
+            .btn{
+                font-family: $font-family-btn;
+            }
+        }
+    }
+    .right li a{
+        float:right;   
+    }
+    .left li a{
+        float:left;   
+    }
+}
+
+aside:hover{
+    opacity: 1;
+    -webkit-transition: all 0.3s ease;
+	transition: all 0.3s ease;
+}

@@ -10,10 +10,9 @@ var gulp = require('gulp'),
     concat = require('gulp-concat'),
     notify = require('gulp-notify'),
     livereload = require('gulp-livereload'),
-    bower = require('gulp-bower'),
-    // usemin = require('gulp-usemin'), // à améliorer
     del = require('del'),
 	promise = require('es6-promise');
+
 
 // On charge les styles
 gulp.task('css', function() {
@@ -50,20 +49,21 @@ gulp.task('images', function() {
     .pipe(notify({ message: 'Images task complete' }));
 });
 
-/*gulp.task('usemin', function() {
-  return gulp.src(['src/*.html', 'src/*.php'])
-    .pipe(usemin({
-      js: [ uglify ]
-    }))
-    .pipe(gulp.dest('dist/'))
-    .pipe(notify({ message: 'usemin task complete' }));
-});*/
-
 // On supprime la distrib qu'on a créé
-gulp.task('clean', function() {
-	return;
-    return del(['dist/styles']);
+gulp.task('clean', function () {
+  return del([
+    'dist/img',
+    'dist/js',
+    'dist/styles',
+    // we don't want to clean this file though so we negate the pattern
+    '!dist/.htaccess',
+    '!dist/fonts',
+    '!dist/index.html',
+    '!dist/particles.json',
+    '!dist/api.php'
+  ]);
 });
+
 
 // On observe le changement de fichier pour recharger la page
 gulp.task('watch', function() {
@@ -76,12 +76,6 @@ gulp.task('watch', function() {
 
   // Watch image files
   gulp.watch('src/img/**/*', ['images']);
-    
-  // Watch the html files
-  //gulp.watch('src/{,partial/}/*.html', ['extend']);
-  // gulp.watch('src/*.html', ['usemin']);
-  // gulp.watch('src/*.php', ['usemin']);
-  
     
   // Create LiveReload server
   livereload.listen();
