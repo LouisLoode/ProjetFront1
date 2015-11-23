@@ -6,4 +6,4 @@ dist/js/
 dist/styles/
 conf/*.php
 .sass-cache/
-**/DS_Store*
+**/.DS_Store*
