@@ -2,6 +2,7 @@ var gulp = require('gulp'),
     sass = require('gulp-sass'),
     autoprefixer = require('gulp-autoprefixer'),
     minifycss = require('gulp-minify-css'),
+    sourcemaps = require('gulp-sourcemaps'),
     jshint = require('gulp-jshint'),
     uglify = require('gulp-uglify'),
     imagemin = require('gulp-imagemin'),
@@ -29,11 +30,13 @@ gulp.task('css', function() {
 
 // On charge les pages js
 gulp.task('js', function() {
-  return gulp.src(['src/js/**/*.js'])
+  return gulp.src(['src/js/*.js', 'src/js/app/App.js','src/js/app/Page.js', 'src/js/app/Page_ExploreWords.js', 'src/js/app/Page_ExploreItems.js', 'src/js/app/Page_Profile.js','src/js/app/main.js', 'src/js/**/*.js'])
     //.pipe(jshint('.jshintrc'))
     //.pipe(jshint.reporter('default'))
     .pipe(plumber())
+	.pipe(sourcemaps.init())
     .pipe(concat('main.js'))
+    .pipe(sourcemaps.write())
     .pipe(gulp.dest('dist/js'))
     .pipe(rename({suffix: '.min'}))
     .pipe(uglify())
