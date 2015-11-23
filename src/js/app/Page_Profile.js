@@ -15,10 +15,8 @@ Page_Profile.prototype.run = function(user_id) {
 		type: "GET",
 		url: '/api/v1/user/' + user_id +'/stars',
 		success: function(data) {
-			var items = data.items;
-			this.Vue.username = username;
-			this.Vue.items = items;
-			$('.profile').addClass('active');
-		}
+			this.Vue.username = data.username;
+			this.Vue.items = data.items;
+		}.bind(this)
 	});
 }

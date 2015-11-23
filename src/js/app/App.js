@@ -60,10 +60,9 @@ App.prototype.getAndRefreshAuthenticationInfo = function() {
 
 App.prototype.bindEvents = function () {
 	$('.user-greeting .me').click(function() {
-		$('section').removeClass('active');
-		router.navigate('/profil/' + user_id);
+		this.router.navigate('/profil/' + this.user_id);
 		return false;
-	});
+	}.bind(this));
 	
 	$('.sign-in').submit(function(){
 		

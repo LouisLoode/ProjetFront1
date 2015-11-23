@@ -88,29 +88,45 @@
 	</section>
 	
 	<section class="explore-items">
-		<ul class="items">
-				<li class="item" v-for="item in items">
-					<div v-if="item.type == 'painting'">
-						PAINTING: {{ item.name }} by {{ item.author }} <a data-id="{{item.id}}" href="#" class="star">Ajouter à mes favoris</a>   <a data-id="{{item.id}}" href="#" class="similar">Similar</a> 
+		<!--<ul class="items">-->
+				<template v-for="item in items">
+					<figure class="item" v-if="item.type == 'painting'" data-id="{{item.id}}">
 						<img v-bind:src="'http://swarm.ovh/orane/upload/' + item.id + '.' + item.extension">
-					</div>
+						<figcaption>
+						<cite class="title">{{ item.name }}</cite><br>
+						Artiste : <cite>{{ item.author }}</cite> <!--<a data-id="{{item.id}}" href="#" class="star">Ajouter à mes favoris</a>   <a data-id="{{item.id}}" href="#" class="similar">Similar</a>-->
+						</figcaption>
+						
+					</figure>
 					
-					<div v-if="item.type == 'photograph'">
-						PHOTOGRAPH: {{ item.name }} by {{ item.author }} <a data-id="{{item.id}}" href="#" class="star">Ajouter à mes favoris</a>  <a data-id="{{item.id}}" href="#" class="similar">Similar</a> 
+					<figure class="item" v-if="item.type == 'photograph'" data-id="{{item.id}}">
 						<img v-bind:src="'http://swarm.ovh/orane/upload/' + item.id + '.' + item.extension">
-					</div>
+						<figcaption>
+						<cite class="title">{{ item.name }}</cite><br>
+						Artiste : <cite class="author">{{ item.author }}</cite>
+						</figcaption>
+						<!-- <a data-id="{{item.id}}" href="#" class="star">Ajouter à mes favoris</a>  <a data-id="{{item.id}}" href="#" class="similar">Similar</a> 
+						-->
+					</figure>
 					
-					<div v-if="item.type == 'quote'">
-						Citation: {{ item.quote | nl2br }} by {{ item.author }} <a data-id="{{item.id}}" href="#" class="star">Ajouter à mes favoris</a> <a data-id="{{item.id}}" href="#" class="similar">Similar</a> 
-					</div>
+					<figure class="item" v-if="item.type == 'quote'" data-id="{{item.id}}">
+						{{ item.quote | nl2br }}
+						<figcaption>
+							Auteur : <cite class="author">{{ item.author }}</cite>
+						</figcaption> <!--<a data-id="{{item.id}}" href="#" class="star">Ajouter à mes favoris</a> <a data-id="{{item.id}}" href="#" class="similar">Similar</a> -->
+					</figure>
 
 			
-					<div v-if="item.type == 'poem'">
-						Poème: {{item.name}} - {{ item.poem | nl2br }} by {{ item.author }} <a data-id="{{item.id}}" href="#" class="star">Ajouter à mes favoris</a> <a data-id="{{item.id}}" href="#" class="similar">Similar</a> 
-					</div>
+					<figure class="item" v-if="item.type == 'poem'" data-id="{{item.id}}">
+						Poème: {{item.name}} - {{ item.poem | nl2br }} by {{ item.author }} <a data-id="{{item.id}}" href="#" class="star">Ajouter à mes favoris</a> <!--<a data-id="{{item.id}}" href="#" class="similar">Similar</a> -->
+					</figure>
 					
-				</li>
-		</ul>
+				</template>
+		<!--</ul>-->
+		
+		<div class="item-focus hidden">
+			<a data-id="" href="#" class="star">Ajouter à mes favoris</a>   <a data-id="" href="#" class="similar">Similar</a>
+		</div>
 		
 	</section>
 	
@@ -119,24 +135,24 @@
 	
 		<ul class="items">
 				<li class="item" v-for="item in items">
-					<div v-if="item.type == 'painting'">
+					<figure v-if="item.type == 'painting'">
 						PAINTING: {{ item.name }} by {{ item.author }}
 						<img v-bind:src="'http://swarm.ovh/orane/upload/' + item.id + '.' + item.extension">
-					</div>
+					</figure>
 					
-					<div v-if="item.type == 'photograph'">
+					<figure v-if="item.type == 'photograph'">
 						PHOTOGRAPH: {{ item.name }} by {{ item.author }}
 						<img v-bind:src="'http://swarm.ovh/orane/upload/' + item.id + '.' + item.extension">
-					</div>
+					</figure>
 					
-					<div v-if="item.type == 'quote'">
+					<figure v-if="item.type == 'quote'">
 						Citation: {{ item.quote | nl2br }} by {{ item.author }}
-					</div>
+					</figure>
 
 			
-					<div v-if="item.type == 'poem'">
+					<figure v-if="item.type == 'poem'">
 						Poème: {{item.name}} - {{ item.poem | nl2br }} by {{ item.author }}
-					</div>
+					</figure>
 					
 				</li>
 		</ul>	
