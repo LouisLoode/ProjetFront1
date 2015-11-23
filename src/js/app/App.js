@@ -6,6 +6,7 @@ var App = function() {
 	this.currentPage = null;
 	
 	this.pages = {
+		home: new Page_Home(),
 		profile: new Page_Profile(),
 		exploreWords: new Page_ExploreWords(),
 		exploreItems: new Page_ExploreItems()
@@ -13,8 +14,11 @@ var App = function() {
 	
 	this.router = new Grapnel({ pushState : true });
 
-	this.router.get('/', function(req){
-		this.goTo('exploreWords');
+    
+    this.router.get('/', function(req){
+		
+		this.goTo('home');
+        this.goTo('exploreWords');
 	}.bind(this));
 
 	this.router.get('/mot/:word', function(req){
