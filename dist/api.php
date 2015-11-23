@@ -1,6 +1,14 @@
 <?php
 
 /*
+TODO
+- ajouter un mot à une oeuvre
+
+FRONT :
+- url
+*/
+
+/*
 # ROUTES
 GET words
 GET words/joie/items
@@ -112,6 +120,11 @@ $app->get('api/v1/user/{user_id}/stars', function ($user_id) use ($app) { // @to
 	
 	$flattened_items = get_infos_and_flatten($grouped_items);
 	
+	$q = $app['db']->prepare('
+		SELECT username FROM users WHERE id = :user_id');
+	$q->execute(array(':user_id' => $user_id));
+	$username = $q->fetch()['username'];
+	
 	/*	
 	==> list of items
 	
@@ -122,7 +135,7 @@ $app->get('api/v1/user/{user_id}/stars', function ($user_id) use ($app) { // @to
 			]}
 	
 	*/
-	return $app->json(array('items' => $flattened_items));
+	return $app->json(array('items' => $flattened_items, 'username' => $username));
 });
 
 $app->get('api/v1/items/{item_id}/similar', function ($item_id) use ($app) { // @todo NODB ? 

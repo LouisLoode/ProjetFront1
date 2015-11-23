@@ -62,7 +62,8 @@ Page_ExploreWords.prototype.bindEvents = function() {
 	}.bind(this));
 	
 	$(document).on('click','.word', function(e) {
-		app.goTo('exploreItems','exploreItemsByWord',$.trim($(e.target).text()));
+		// app.goTo('exploreItems','exploreItemsByWord',$.trim($(e.target).text()));
+		app.router.navigate('/mot/'+$.trim($(e.target).text()));
 		return false;
 	});
 	

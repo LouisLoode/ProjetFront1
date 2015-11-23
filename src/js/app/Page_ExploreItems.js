@@ -49,4 +49,11 @@ Page_ExploreItems.prototype.bindEvents = function () {
 	$('.explore-items').on('click','.similar',function(e){
 		this.exploreSimilarItems(parseInt($(e.target).data('id')));
 	}.bind(this));
+	
+	$('.explore-items').on('click','.item', function(e) {
+		$('.item-focus').removeClass('hidden');
+		// $('.item-focus img').attr('src',$(e.target).find('img').attr('src'));
+		console.log($(this).data('id'));
+		$('.item-focus .star, .item-focus .similar').attr('data-id',$(this).data('id'));
+	});
 }
