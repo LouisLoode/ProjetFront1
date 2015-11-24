@@ -77,8 +77,33 @@
 	
 		<div id="particles-js"></div>
 		
+		<div class="backgrounds" v-bind:style="{width: words[words.length-1].position.left+100 + 'px'}">
+			<div class="translatable translatable--0">
+				<!--<img src="/img/background_mountain_1.svg" class="background backgrounds--mountain"></img>-->
+				
+			</div>
+			<div class="translatable translatable--1">
+				<!--<img src="/img/background_water_1.svg" class="background backgrounds--water"></img>-->
+			</div>
+			<div class="translatable translatable--2">
+				<div class="tr--1" v-bind:style="{tranform: translateX(100*background.position)}"></div>
+				<div class="tr--2"></div> <!--  bind style 
+				
+				 translateX * 100 * data position
+				 
+				 if (append to left )
+				 	$().first().pos = min (pos)-1
+				 if (append to right )
+				 	$().last()..pos = max (pos)+1
+				  
+				   
+				     -->
+				<div class="tr--3"></div>
+				<!--<img src="/img/background_ground_1.svg" class="background backgrounds--ground"></img>-->
+			</div>
+		</div>
 		
-			<div class="translatable" v-bind:style="{width: words[words.length-1].position.left+100 + 'px'}">
+			<div class="translatable translatable--words" v-bind:style="{width: words[words.length-1].position.left+100 + 'px'}">
 				<ul class="words">
 					<li class="word" v-for="word in words" v-bind:style="{left: word.position.left + 'px', top: word.position.top + 'px', fontSize: (12 + word.count * 2) + 'px'}">
 						{{ word.word }}
@@ -86,7 +111,6 @@
 					</li>
 				</ul>
 			</div>
-		
 	</section>
 	
 	<section class="explore-items">

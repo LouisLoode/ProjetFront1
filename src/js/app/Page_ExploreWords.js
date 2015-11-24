@@ -73,13 +73,16 @@ Page_ExploreWords.prototype.bindEvents = function() {
 }
 
 Page_ExploreWords.prototype.updateTranslatable = function () {
-	if($('.explore-words .translatable').get(0)._gsTransform !== undefined && ($('.explore-words .translatable').get(0)._gsTransform.x+this.explore_speed >= 0 || $('.explore-words .translatable').get(0)._gsTransform.x+this.explore_speed <= -$('.explore-words .translatable').width() + $(window).width()))
+	if(false && $('.explore-words .translatable').get(0)._gsTransform !== undefined && ($('.explore-words .translatable').get(0)._gsTransform.x+this.explore_speed >= 0 || $('.explore-words .translatable').get(0)._gsTransform.x+this.explore_speed <= -$('.explore-words .translatable').width() + $(window).width()))
 	{
 		//
 	}
 	else
 	{
-		TweenMax.to($('.explore-words .translatable'), 1, {x: '+='+this.explore_speed, ease: Power1.easeOut})
+		TweenMax.to($('.explore-words .backgrounds .translatable--0'), 1, {x: '+='+this.explore_speed/4, ease: Power1.easeOut})
+		TweenMax.to($('.explore-words .backgrounds .translatable--1'), 1, {x: '+='+this.explore_speed/3, ease: Power1.easeOut})
+		TweenMax.to($('.explore-words .backgrounds .translatable--2'), 1, {x: '+='+this.explore_speed/2, ease: Power1.easeOut})
+		TweenMax.to($('.explore-words .translatable--words'), 1, {x: '+='+this.explore_speed, ease: Power1.easeOut})
 	}
 	window.requestAnimationFrame(this.onAnimationFrame.bind(this));
 }

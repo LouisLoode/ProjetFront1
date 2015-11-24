@@ -62,12 +62,12 @@ App.prototype.bindEvents = function () {
 		return false;
 	}.bind(this));
 	
-	$('.sign-in').submit(function(){
+	$('.sign-in').submit(function(e){
 		
 		 $.ajax({
             type: "POST",
-            url: $(this).attr("action"),
-            data: $(this).serialize(),
+            url: $(e.target).attr("action"),
+            data: $(e.target).serialize(),
             success: function(response) {
 				this.getAndRefreshAuthenticationInfo();
             }.bind(this),
@@ -79,13 +79,13 @@ App.prototype.bindEvents = function () {
 		return false;
 	}.bind(this));
 	
-	$('.sign-up').submit(function(){
+	$('.sign-up').submit(function(e){
 		
 		var that = this;
 		 $.ajax({
             type: "POST",
-            url: $(this).attr("action"),
-            data: $(this).serialize(),
+            url: $(e.target).attr("action"),
+            data: $(e.target).serialize(),
             success: function(response){
 				this.getAndRefreshAuthenticationInfo();
             }.bind(this),

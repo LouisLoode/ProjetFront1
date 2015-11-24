@@ -10,10 +10,27 @@ FRONT :
 
 /*
 # ROUTES
-GET words
-GET words/joie/items
-PUT items/23/star
-POST sign_in
+$app->get    	api/v1/words
+$app->get    	api/v1/words/{word}/items
+
+$app->get    	api/v1/user/{user_id}/stars
+
+$app->get    	api/v1/items/{item_id}/similar
+$app->put    	api/v1/items/{item_id}/star
+$app->delete    api/v1/items/{item_id}/star
+$app->put		api/v1/items/{item_id}/words/{new_word}
+
+$app->get    	api/v1/signed_in
+
+
+
+$app->post    	api/v1/sign_in
+
+$app->post    	api/v1/sign_out
+
+$app->post    	api/v1/sign_up
+
+$app->get    	api/v1/debug
 */
 
 use Symfony\Component\HttpFoundation\Request;
@@ -198,6 +215,33 @@ $app->delete('api/v1/items/{item_id}/star', function ($item_id) use ($app) { // 
 	));
 	
 	return new Response('Star deleted.',200);
+});
+$app->put('api/v1/items/{item_id}/words/{new_word}', function ($item_id, $new_word) use ($app) { 
+	
+	if (!isset($_SESSION['username']))
+		return $app->json(array('added_by' => 0));
+	$addeb_by = $_SESSION['user_id'];
+	
+	//abort if exist
+	$q = $app['db']->prepare('SELECT * FROM item_words WHERE item_id = :item_id AND added_by = :user_id');
+	$q->execute(array(
+			':item_id' => $item_id,
+			':user_id'=> $addeb_by
+		));
+	
+	//insert id, word, user_id in item_words
+	//$_SESSION[user_id]
+	if ($q->fetch() === false) // item not linked yet
+	{
+	$q = $app['db']->prepare('INSERT INTO item_words VALUES (:item_id, :new_word, :user_id)');
+		$q->execute(array(
+			':item_id' => $item_id,
+			':new_word'=> $new_word,
+			':user_id' => $_SESSION['user_id']
+		));
+	}
+	
+	return $app->json(array('added_by' => $addeb_by));
 });
 
 $app->get('api/v1/signed_in', function () use ($app) { // @todo NODB ? 
