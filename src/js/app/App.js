@@ -16,6 +16,7 @@ var App = function() {
 
     
     this.router.get('/', function(req){
+		//this.goTo('exploreItems');
 		this.goTo('home');
 	}.bind(this));
 
