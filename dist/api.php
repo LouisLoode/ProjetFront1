@@ -18,11 +18,10 @@ $app->get    	api/v1/user/{user_id}/stars
 $app->get    	api/v1/items/{item_id}/similar
 $app->put    	api/v1/items/{item_id}/star
 $app->delete    api/v1/items/{item_id}/star
+$app->get		api/v1/items/{item_id}/words 
 $app->put		api/v1/items/{item_id}/words/{new_word}
 
 $app->get    	api/v1/signed_in
-
-
 
 $app->post    	api/v1/sign_in
 
@@ -216,10 +215,21 @@ $app->delete('api/v1/items/{item_id}/star', function ($item_id) use ($app) { // 
 	
 	return new Response('Star deleted.',200);
 });
+
+/* get list of words linked to an item with count  */
+$app->get('api/v1/items/{item_id}/words ', function ($item_id) use ($app) { // @todo NODB ? 
+	$q = $app['db']->prepare('SELECT word, COUNT(*) as count FROM item_words WHERE item_id = :item_id GROUP BY word');
+	$q->execute(array(
+			':item_id' => $item_id
+		));
+	return $app->json(array('words' => $q->fetchAll()));
+});
+
 $app->put('api/v1/items/{item_id}/words/{new_word}', function ($item_id, $new_word) use ($app) { 
 	
 	if (!isset($_SESSION['username']))
 		return $app->json(array('added_by' => 0));
+	//@todo verify new word is a varchar
 	$addeb_by = $_SESSION['user_id'];
 	
 	//abort if exist
