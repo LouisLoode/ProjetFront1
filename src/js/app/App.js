@@ -16,9 +16,7 @@ var App = function() {
 
     
     this.router.get('/', function(req){
-		
 		this.goTo('home');
-        this.goTo('exploreWords');
 	}.bind(this));
 
 	this.router.get('/mot/:word', function(req){
@@ -126,7 +124,10 @@ App.prototype.goTo = function (newPage, method) {
 	$('.' + newPage.replace(/([A-Z])/g, function(match){ return '-' + match.toLowerCase() })).addClass('active');
 	
 	method = method || 'run'; // @todo router, pushstate
+	
 	this.pages[newPage][method].apply(this.pages[newPage],Array.prototype.slice.call(arguments, 2));
+	
+
 };
 
 // => widgets 134

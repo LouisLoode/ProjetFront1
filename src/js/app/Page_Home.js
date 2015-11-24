@@ -7,14 +7,13 @@ var Page_Home = function() {
 	Page.apply(this, arguments);
 }
 
-
+Page_Home.prototype = Object.create(Page.prototype);
 
 Page_Home.prototype.bindEvents = function () {
 
-
-$(document).on('click','#start', function(e) {
-		app.goTo('exploreWords');
-		return false;
-	});
+	$(document).on('click','#start', function(e) {
+			app.goTo('exploreWords');
+			return false;
+		});
  
 }
