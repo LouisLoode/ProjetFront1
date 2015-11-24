@@ -3,7 +3,7 @@ aside {
     bottom: 0;
     left: 0;
 	right: 0;
-    height: 40px;
+    height: 38px;
 	z-index: 100;
     background-color: #000000;
 	
@@ -14,12 +14,17 @@ aside {
         
         li {
             font-size: inherit;
-            a {
+            span {   
+                color: #FFFFFF;  
+                width:auto;
+                background-color:#000000;
+            }
+            a {   
                 display:block;
-              
                 padding: 10px 25px;
                 color: #FFFFFF;  
                 width:auto;
+                line-height: 1.2em;
                 background-color:#000000;
             }
             a:hover {
@@ -29,6 +34,9 @@ aside {
             }
             .btn {
                 font-family: $font-family-btn;
+                span{
+                    display: inline-block;
+                }
             }
         }
     }
@@ -39,5 +47,6 @@ aside {
 	
     .left li a {
         float:left;   
+        
     }
 }

@@ -1,10 +1,18 @@
 @import 'reset';
+
+// Fonts
 @import 'fonts';
+
+// Icons
+@import 'icons';
+
+// Variables
 @import 'variables';
+
+//Buttons
 @import 'buttons';
 
-// Sections
-@import 'sections/explore-words';
+
 
 // Body
 
@@ -141,7 +149,7 @@ body {
 
 // Sections
 @import 'sections/home';
-@import 'sections/explore-words';
+@import 'sections/explore-item';
 
 
 // Import de la bot bar

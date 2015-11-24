@@ -1,0 +1,68 @@
+@font-face {
+	font-family: 'icons';
+	src:url('../fonts/icons.eot?yj9efs');
+	src:url('../fonts/icons.eot?yj9efs#iefix') format('embedded-opentype'),
+		url('../fonts/icons.ttf?yj9efs') format('truetype'),
+		url('../fonts/icons.woff?yj9efs') format('woff'),
+		url('../fonts/icons.svg?yj9efs#icomoon') format('svg');
+	font-weight: normal;
+	font-style: normal;
+}
+
+[class^="icon-"], [class*=" icon-"] {
+	font-family: 'icons';
+	speak: none;
+	font-style: normal;
+	font-weight: normal;
+	font-variant: normal;
+	text-transform: none;
+	line-height: 1;
+	
+	/* Enable Ligatures ================ */
+	letter-spacing: 0;
+	-webkit-font-feature-settings: "liga";
+	-moz-font-feature-settings: "liga=1";
+	-moz-font-feature-settings: "liga";
+	-ms-font-feature-settings: "liga" 1;
+	-o-font-feature-settings: "liga";
+	font-feature-settings: "liga";
+
+	/* Better Font Rendering =========== */
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
+}
+
+.icon-like:before {
+	content: "\e900";
+}
+.icon-like_actif:before {
+	content: "\e901";
+}
+.icon-tools:before {
+	content: "\e902";
+}
+.icon-add_sentiment:before {
+	content: "\e903";
+}
+.icon-volume:before {
+	content: "\e904";
+}
+.icon-volume_none:before {
+	content: "\e905";
+}
+.icon-volume_on:before {
+	content: "\e906";
+}
+.icon-facebook:before {
+	content: "\e907";
+}
+.icon-twitter:before {
+	content: "\e908";
+}
+.icon-enveloppe:before {
+	content: "\e909";
+}
+.icon-user:before {
+	content: "\e90a";
+}
+

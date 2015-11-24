@@ -160,10 +160,27 @@
 		</ul>	
 	</section>
     
+    <section class="">
+    
+    </section>
+    
     <aside>
         <ul class="left">
-            <li><a href="#" class="btn">INSCRIPTION</a></li>
-			<form method="POST" action="/api/v1/sign_in" class="sign-in">
+            <li><a href="#" class="btn"><span class="icon-user"></span> INSCRIPTION</a></li>
+
+
+			<div class="user-greeting">
+				Bienvenue, <a href="#" class="me">{{ username }}</a>. <a href="#" class="sign-out">Se déconnecter</a>
+			</div>
+        </ul>
+        <ul class="right">
+            <li><a href="#">sound</a></li>
+            <li><a href="#"><span class="icon-twitter"></span></a></li>
+            <li><a href="#"><span class="icon-facebook"></span></li>
+        </ul>
+	
+		
+        			<form method="POST" action="/api/v1/sign_in" class="sign-in">
 				<input type="text" placeholder="Pseudo ou mail" name="login">
 				<input type="password" placeholder="Mot de passe" name="password">
 				<input type="submit">
@@ -175,19 +192,6 @@
 				<input type="password" placeholder="Mot de passe" name="password">
 				<input type="submit">
 			</form>
-
-			<div class="user-greeting">
-				Bienvenue, <a href="#" class="me">{{ username }}</a>. <a href="#" class="sign-out">Se déconnecter</a>
-			</div>
-        </ul>
-        <ul class="right">
-            <li><a href="#">sound</a></li>
-            <li><a href="#">twitter</a></li>
-            <li><a href="#">facebook</a></li>
-        </ul>
-	
-		
-        
         
         
         
