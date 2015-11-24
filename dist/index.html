@@ -77,14 +77,16 @@
 	
 		<div id="particles-js"></div>
 		
-		<div class="translatable" v-bind:style="{width: words[words.length-1].position.left+100 + 'px'}">
-			<ul class="words">
-				<li class="word" v-for="word in words" v-bind:style="{left: word.position.left + 'px', top: word.position.top + 'px', fontSize: (12 + word.count * 4) + 'px'}">
-					{{ word.word }}
+		
+			<div class="translatable" v-bind:style="{width: words[words.length-1].position.left+100 + 'px'}">
+				<ul class="words">
+					<li class="word" v-for="word in words" v-bind:style="{left: word.position.left + 'px', top: word.position.top + 'px', fontSize: (12 + word.count * 2) + 'px'}">
+						{{ word.word }}
 
-				</li>
-			</ul>
-		</div>
+					</li>
+				</ul>
+			</div>
+		
 	</section>
 	
 	<section class="explore-items">

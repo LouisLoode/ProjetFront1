@@ -74,20 +74,28 @@ body {
 		overflow: hidden;
 		
 		h1 { position: fixed; top: 50px; left: 50px; }
-		
+			
 		.translatable { // todo width ?
 			position: absolute;
-			top: 0;
+			top: 35%;
 			left: 0;
 			width: auto;
-			bottom: 0;
+			bottom: 35%;
+			//height: 20%;	
+			overflow: hiden;
+			//margin-top: 40%;
+			//margin-bottom: 40%;
 
 				.words { 
 				list-style-type: none;
+					width: 80%;
 
 					.word {
 						position: absolute;
 						font-size: 275px;
+						font-family: serif;
+						font-style: italic;
+						text-transform: uppercase;
 						cursor: url("icon-glass.png") 25 25, auto;/*
 						transform: rotateX(20deg);*/
 						transition: 1s all;

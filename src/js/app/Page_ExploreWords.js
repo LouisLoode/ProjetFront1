@@ -9,8 +9,6 @@ var Page_ExploreWords = function() {
 	this.explore_speed = 0;
 }
 
-Page_ExploreWords.prototype = Object.create(Page.prototype);
-
 Page_ExploreWords.prototype.run = function()
 {
 	
@@ -19,14 +17,14 @@ Page_ExploreWords.prototype.run = function()
 		url: '/api/v1/words',
 		success: function(data) {
 			var words = data.words;
-
+			var translatableHeight = window.innerHeight/3;
 			var previous_word;
 			var words_and_positions = words.map(function(word_data, i, words_data) {
 				previous_word = previous_word || {word: '', position: {left: 0, top: 0}};
 				previous_word = $.extend({},word_data,{
 					position: {
 						left: previous_word.position.left + previous_word.word.length * 50,
-						top: Math.random() * 800
+						top: Math.random() * translatableHeight 
 					}
 				});
 				return previous_word;

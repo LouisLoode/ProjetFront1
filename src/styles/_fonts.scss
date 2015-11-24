@@ -23,5 +23,13 @@
 	font-style: normal;
 }
 
+@font-face {
+	font-family: 'FreightDispBook';
+	src: url('../fonts/FreightDispBook.eot');
+	src: local('☺'), url('../fonts/FreightDispBook.woff') format('woff'), url('../fonts/FreightDispBook.ttf') format('truetype'), url('../fonts/FreightDispBook.svg') format('svg');
+	font-weight: normal;
+	font-style: italic;
+}
+
 $gray: rgba(0, 0, 0, 0.56);
 $black: black;

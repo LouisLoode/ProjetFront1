@@ -69,7 +69,7 @@ App.prototype.bindEvents = function () {
             url: $(this).attr("action"),
             data: $(this).serialize(),
             success: function(response) {
-				getAndRefreshAuthenticationInfo();
+				this.getAndRefreshAuthenticationInfo();
             }.bind(this),
 			error: function(error) {
 				console.error(error);	
@@ -77,7 +77,7 @@ App.prototype.bindEvents = function () {
         });
 		
 		return false;
-	});
+	}.bind(this));
 	
 	$('.sign-up').submit(function(){
 		
@@ -87,7 +87,7 @@ App.prototype.bindEvents = function () {
             url: $(this).attr("action"),
             data: $(this).serialize(),
             success: function(response){
-				getAndRefreshAuthenticationInfo();
+				this.getAndRefreshAuthenticationInfo();
             }.bind(this),
 			error: function(error) {
 				console.error(error);	
