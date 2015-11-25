@@ -1,11 +1,18 @@
 .profile{
     .items{
+         margin: 0 auto;
+        
         .item{
-            margin:0;
+           // margin:0;
+            float: left;
         }
+    }
+    .items:after {
+      display: block;
+      clear: both;
     }
 }
 
 .grid-sizer{
-    width: 20%;
+    width: 1000px;
 }

@@ -24,13 +24,6 @@ Page_Profile.prototype.run = function(user_id) {
 			this.Vue.items = data.items;
 		}.bind(this)
 	});
-    /*
-    $('.items').masonry({
-      // options
-      columnWidth: '.grid-sizer',
-      itemSelector: '.item',
-      percentPosition: true
-    });*/
-    
-    $.fn.masonry
+
+
 }

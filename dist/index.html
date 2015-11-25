@@ -179,8 +179,7 @@
 		<h1>Profil de {{username}}</h1>
 	
 		<div class="items">
-        <div class="grid js-masonry"
-  data-masonry-options='{ "columnWidth": 200, "itemSelector": "figure" }'>
+                <div class="grid-sizer"></div>
 				<div class="item" v-for="item in items">
 					<figure v-if="item.type == 'painting'">
 						PAINTING: {{ item.name }} by {{ item.author }}
@@ -202,7 +201,6 @@
 					</figure>
 					
 				</div>
-		</div>	
 		</div>	
 	</section>
     
@@ -265,8 +263,17 @@
 	<script src="js/particles.min.js"></script>-->
 	<script src="js/main.js"></script>
     
+   <script src="https://cdnjs.cloudflare.com/ajax/libs/masonry/3.3.2/masonry.pkgd.min.js"></script>
+    
     <script>
-        
+    $(document).ready( function() {
+        $('.items').masonry({
+          // options
+          columnWidth: '.grid-sizer',
+          itemSelector: '.item',
+        isFitWidth: true
+        });
+    });
         particlesJS.load('particles-js', 'particles.json', function() {
   console.log('particles.js loaded - callback');
 });
