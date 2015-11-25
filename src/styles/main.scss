@@ -126,22 +126,49 @@ body {
 				    list-style-type: none;
 					width: 80%;
 
-					.word {
-						position: absolute;
-						font-size: 275px;
-						font-family: serif; 
-						text-transform: uppercase;
-						cursor: url("icon-glass.png") 25 25, auto;/*
-						transform: rotateX(20deg);*/
-						transition: 1s all;
-						color: white;
-					}
+					
+					
+					
 				}
 		}
 		
 	} 
 	
 }
+					.word {
+						position: absolute;
+						font-family: serif; 
+						text-transform: uppercase;
+						cursor: url("icon-glass.png") 25 25, auto;
+						color: white;
+						
+						transition: font-size 1s ease, line-height 1s ease, padding 1s ease;
+						padding: 16px;
+						font-size: 36px;
+						line-height: 44px;
+					}
+
+					.word.spotlight {
+						position: fixed;
+						left: 50%; top: 50%;
+						transform: translateX(-50%) translateY(-50%);
+						&:empty {
+							display: none; 
+						}
+						&.bordered {
+						}
+						&.bordered:after {
+							opacity: 1;
+						}
+						&:after {
+							position: absolute; top: 0; left: 0; right: 0; bottom: 0;
+							content: " ";
+							opacity: 0;
+							transition: 0.5s ease;
+							box-shadow: inset 0 0 0px 4px white;
+						}
+						
+					}
 
 
 

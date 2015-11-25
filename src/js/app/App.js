@@ -18,10 +18,13 @@ var App = function() {
 
     
     this.router.get('/', function(req){
-		//this.goTo('exploreItems');
 		this.goTo('home');
 	}.bind(this));
 
+	this.router.get('/debug', function(req){
+		this.goTo('exploreWords');
+	}.bind(this));
+	
 	this.router.get('/mot/:word', function(req){
 		this.goTo('exploreItems','exploreItemsByWord',req.params.word);
 	}.bind(this));
