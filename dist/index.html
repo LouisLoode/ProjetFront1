@@ -57,7 +57,8 @@
 	
         <div class="container">
             <h3>Bienvenue</h3>
-            <h1>Votre mission est d'associer des sentiments à des oeuvres.</h1>
+            <h1>Votre mission est d'associer
+ des sentiments à des oeuvres.</h1>
             <div class="explorer">
                 <div class="bouton">
                     <a href="#" id="start">Commencer l'expérience</a>
@@ -104,16 +105,19 @@
 		</div>
 		
 			<div class="translatable translatable--words" v-bind:style="{width: words[words.length-1].position.left+100 + 'px'}">
-				<ul class="words">
-					<li class="word" v-for="word in words" v-bind:style="{left: word.position.left + 'px', top: word.position.top + 'px', fontSize: (12 + word.count * 2) + 'px'}">
+				<div class="words">
+					<div class="word" v-for="word in words" v-bind:style="{left: word.position.left + 'px', top: word.position.top + 'px'}">
 						{{ word.word }}
 
-					</li>
-				</ul>
+					</div>
+				</div>
 			</div>
 	</section>
 	
 	<section class="explore-items">
+	
+		<div class="word spotlight">{{ word }}</div>
+	
 		<!--<ul class="items">-->
 				<template v-for="item in items">
 					<figure class="item" v-if="item.type == 'painting'" data-id="{{item.id}}">

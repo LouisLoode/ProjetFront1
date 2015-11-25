@@ -60,12 +60,35 @@ Page_ExploreWords.prototype.bindEvents = function() {
 	}.bind(this));
 	
 	$(document).on('click','.word', function(e) {
-
-            // app.goTo('exploreItems','exploreItemsByWord',$.trim($(e.target).text()));
-            app.router.navigate('/mot/'+$.trim($(e.target).text()));
-            return false;
-        
-	});
+		
+		this.unbindEvents();
+		var $spotlight = $('.word.spotlight') // .removeClass('spotlight'); // .css($(e.target).offset()).text($(e.target).text());
+		var goToExploreItems = function() {
+			// todo tweenmax end delay
+			
+			setTimeout(function() {
+				// $spotlight.addClass('spotlight')
+				/*TweenMax.to($('.word.spotlight'), 5, {css: {left: '50%', top: '50%'}, onComplete: function() { $(e.target).addClass('bordered'); } });*/
+     
+				//app.goTo('exploreItems','exploreItemsByWord',$.trim($(e.target).text()));
+				
+				$('.explore-words').fadeOut(function(){
+					$('.explore-words').removeClass('active');
+				
+					$(e.target).css({opacity: 0});
+					$('.explore-items').css({opacity: 0});
+					app.router.navigate('/mot/'+$.trim($(e.target).text()));
+					
+					$('.explore-items').animate({opacity: 1});
+				});
+				
+			},1500);
+		};
+		
+		TweenMax.to($('.explore-words .word').not(e.target), 0.3, {opacity: 0, ease: Power4.easeOut, onComplete: goToExploreItems});
+		
+		return false;
+	}.bind(this));
 	
 	this.onAnimationFrame = function () {
 		this.updateTranslatable();
@@ -81,10 +104,15 @@ Page_ExploreWords.prototype.updateTranslatable = function () {
 	}
 	else
 	{
-		TweenMax.to($('.explore-words .backgrounds .translatable--0'), 1, {x: '+='+this.explore_speed/4, ease: Power1.easeOut})
-		TweenMax.to($('.explore-words .backgrounds .translatable--1'), 1, {x: '+='+this.explore_speed/3, ease: Power1.easeOut})
-		TweenMax.to($('.explore-words .backgrounds .translatable--2'), 1, {x: '+='+this.explore_speed/2, ease: Power1.easeOut})
-		TweenMax.to($('.explore-words .translatable--words'), 1, {x: '+='+this.explore_speed, ease: Power1.easeOut})
+		if ($('.word:hover').length)
+			var diviser = 4;
+		else
+			var diviser = 1;
+		
+		TweenMax.to($('.explore-words .backgrounds .translatable--0'), 1, {x: '+='+this.explore_speed/4/diviser, ease: Power1.easeOut})
+		TweenMax.to($('.explore-words .backgrounds .translatable--1'), 1, {x: '+='+this.explore_speed/3/diviser, ease: Power1.easeOut})
+		TweenMax.to($('.explore-words .backgrounds .translatable--2'), 1, {x: '+='+this.explore_speed/2/diviser, ease: Power1.easeOut})
+		TweenMax.to($('.explore-words .translatable--words'), 1, {x: '+='+this.explore_speed/diviser, ease: Power1.easeOut})
 	}
 	window.requestAnimationFrame(this.onAnimationFrame.bind(this));
 }
