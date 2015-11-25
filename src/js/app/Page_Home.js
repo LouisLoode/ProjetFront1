@@ -30,6 +30,61 @@ Page_Home.prototype.bindEvents = function () {
 Page_Home.prototype.run = function () {
 
       $( document ).ready(function() {
+          
+          $(function () {
+              //h3
+            $(".container > h3").animate({
+                opacity: 1
+            }, {
+                duration: 1200,
+                queue: false
+            });
+            $(".container > h3").animate({
+                "margin-top": "0px"
+            }, {
+                duration: 600,
+                queue: true
+            });
+              
+              //H1
+            $(".container > h1").animate({
+                opacity: 1
+            }, {
+                duration: 1800,
+                queue: false
+            });
+            $(".container > h1").animate({
+                "margin-top": "0px"
+            }, {
+                duration: 1200,
+                queue: true
+            });
+              
+              //button
+            $(".bouton").animate({
+                opacity: 1
+            }, {
+                duration: 2400,
+                queue: false
+            });
+            $(".bouton").animate({
+                "margin-top": "0px"
+            }, {
+                duration: 1800,
+                specialEasing: {
+                    "margin-top": "easeOutCirc"
+                },
+                queue: true
+            });
+              
+            $('.navbar').slideDown( "slow", function() {
+                
+            });
+        });
+
+          
+          
+          /*
 
           $('.container > h3').fadeIn( "slow", function() {
 
@@ -37,7 +92,7 @@ Page_Home.prototype.run = function () {
   
                           $('.bouton').fadeIn( "slow", function() {
               
-                                $('aside').slideDown( "slow", function() {
+                                $('.navbar').slideDown( "slow", function() {
 
                         
                                 });
@@ -47,7 +102,7 @@ Page_Home.prototype.run = function () {
              
                   });
           
-            });
+            });*/
       });
 
 }
