@@ -57,7 +57,6 @@ App.prototype.getAndRefreshAuthenticationInfo = function() {
 					this.Vue_TopBar.user_id = data.user_id;
 
 
-					$('body').addClass('signed-in');
 				}
 			}.bind(this)
 		});
@@ -144,7 +143,6 @@ App.prototype.goTo = function (newPage, method) {
 	}
 	this.currentPage = newPage;
 	$('.' + newPage.replace(/([A-Z])/g, function(match){ return '-' + match.toLowerCase() })).addClass('active');
-	
 	method = method || 'run'; // @todo router, pushstate
 	
 	this.pages[newPage][method].apply(this.pages[newPage],Array.prototype.slice.call(arguments, 2));

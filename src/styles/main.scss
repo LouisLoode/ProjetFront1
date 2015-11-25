@@ -55,7 +55,7 @@ a:link, a:visited, a:hover, a:active {
 
 body {
 
-    background: black; 
+    background: black;
     
     h1{
         font-size: $font-size-h1;
@@ -70,7 +70,7 @@ body {
         letter-spacing: 3px;
     }
 	.top-bar { position: fixed; z-index: 100; left: 0; right: 0; }
-	> section { display: none; }
+	> section { display: none; min-height: 100%; padding-top: 1px; }
 	> section.active { display: block; }
 	
 	.explore-words {
@@ -171,7 +171,7 @@ body {
 // Sections
 @import 'sections/home';
 @import 'sections/explore-item';
-@import 'sections/profil';
+@import 'sections/profile';
 
 
 // Import de la bot bar

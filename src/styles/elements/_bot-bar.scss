@@ -12,6 +12,7 @@ aside {
         padding: 0;
         
         li {
+			float: right;
             font-size: inherit;
             span {   
                 color: #FFFFFF;  
@@ -59,8 +60,6 @@ aside {
     }
 }
 .navbar{
-    display: none;
-    height: 38px;
 	
 	.left{float: left}
     .right{float: right;}
