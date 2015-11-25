@@ -44,9 +44,13 @@
                     border: 1px solid #000000;
                     border-radius: 29px;
                     padding: 15px;
+                    transition: all 0.4s ease;
                 }
                 #start:hover{
-                    opacity: 0.5;
+                    color: #FFFFFF;
+                    background-color: #000000;
+                    border: 1px solid #FFFFFF;
+                    transition: all 0.4s ease;
                 }
                 .line{
                     height: 100px;

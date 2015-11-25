@@ -152,8 +152,23 @@
 		
 		<div class="item-focus hidden">
             
-            <div class="item">Poème: {{item.name}} - {{ item.poem | nl2br }}</div>
-            <div class="sentiments">Poème: {{item.name}} - {{ item.poem | nl2br }}</div>
+            <div class="item">
+                <figure data-id="11" class="item">
+						<img src="http://swarm.ovh/orane/upload/11.jpg">
+						<figcaption>
+						<cite class="title">Stardust Hands</cite><br>
+						Artiste : <cite>Daniele Buetti</cite> <!--<a data-id="{{item.id}}" href="#" class="star">Ajouter à mes favoris</a>   <a data-id="{{item.id}}" href="#" class="similar">Similar</a>-->
+						</figcaption>
+                </figure>
+            </div>
+            <div class="sentiments">
+                <p>Quel sentiment voulez-vous ajouter à cette oeuvre ?</p>   
+                
+                <form method="POST" action="/api/v1/sign_up" class="sign-up">
+                    <input type="text" placeholder="Mail" name="mail">
+                    <input type="submit">
+                </form>
+            </div>
             
 			<a data-id="" href="#" class="star">Ajouter à mes favoris</a>   <a data-id="" href="#" class="similar">Similar</a>
 		</div>
@@ -163,8 +178,10 @@
 	<section class="profile">
 		<h1>Profil de {{username}}</h1>
 	
-		<ul class="items">
-				<li class="item" v-for="item in items">
+		<div class="items">
+        <div class="grid js-masonry"
+  data-masonry-options='{ "columnWidth": 200, "itemSelector": "figure" }'>
+				<div class="item" v-for="item in items">
 					<figure v-if="item.type == 'painting'">
 						PAINTING: {{ item.name }} by {{ item.author }}
 						<img v-bind:src="'http://swarm.ovh/orane/upload/' + item.id + '.' + item.extension">
@@ -184,8 +201,9 @@
 						Poème: {{item.name}} - {{ item.poem | nl2br }} by {{ item.author }}
 					</figure>
 					
-				</li>
-		</ul>	
+				</div>
+		</div>	
+		</div>	
 	</section>
     
     <section class="sign-in">
@@ -224,7 +242,7 @@
     
     
     
-   <!-- <aside>
+    <aside>
         <ul class="left">
             <li><a href="#" class="btn"><span class="icon-user"></span> INSCRIPTION</a></li>
 
@@ -234,12 +252,12 @@
 			</div>
         </ul>
         <ul class="right">
-            <li><a href="#">sound</a></li>
+            <!--<li><a href="#">sound</a></li>-->
             <li><a href="#"><span class="icon-twitter"></span></a></li>
             <li><a href="#"><span class="icon-facebook"></span></li>
         </ul>
         
-	</aside>-->
+	</aside>
 
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/1.18.0/TweenMax.min.js"></script>
     

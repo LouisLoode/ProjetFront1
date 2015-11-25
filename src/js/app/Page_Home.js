@@ -6,7 +6,7 @@ var Page_Home = function() {
 	
 	Page.apply(this, arguments);
 }
-
+ console.log('Fonction chargement page fonctionne');
 Page_Home.prototype = Object.create(Page.prototype);
 
 Page_Home.prototype.bindEvents = function () {
@@ -15,5 +15,15 @@ Page_Home.prototype.bindEvents = function () {
 			app.goTo('exploreWords');
 			return false;
 		});
- 
+ console.log('Fonction chargement page fonctionne');
+
+}
+
+Page_Home.prototype.run = function () {
+
+console.log('Fonction chargement page fonctionne');
+      $( document ).ready(function() {
+      console.log('Fonction chargement page fonctionne');
+      });
+
 }

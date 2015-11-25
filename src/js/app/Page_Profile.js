@@ -7,7 +7,12 @@ var Page_Profile = function() {
 	Page.apply(this, arguments);
 }
 
+
 Page_Profile.prototype = Object.create(Page.prototype);
+
+Page_Profile.prototype.bindEvents = function () {
+ 
+}
 
 Page_Profile.prototype.run = function(user_id) {
 	// $('section').removeClass('active');
@@ -19,4 +24,13 @@ Page_Profile.prototype.run = function(user_id) {
 			this.Vue.items = data.items;
 		}.bind(this)
 	});
+    /*
+    $('.items').masonry({
+      // options
+      columnWidth: '.grid-sizer',
+      itemSelector: '.item',
+      percentPosition: true
+    });*/
+    
+    $.fn.masonry
 }

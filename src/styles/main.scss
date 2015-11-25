@@ -1,16 +1,20 @@
 @import 'reset';
 
 // Fonts
-@import 'fonts';
+@import 'elements/fonts';
 
 // Icons
-@import 'icons';
+@import 'elements/icons';
 
 // Variables
 @import 'variables';
 
+
 //Buttons
-@import 'buttons';
+@import 'elements/buttons';
+
+//Items style
+@import 'elements/item';
 
 
 
@@ -119,14 +123,13 @@ body {
 			//margin-bottom: 40%;
 
 				.words { 
-				list-style-type: none;
+				    list-style-type: none;
 					width: 80%;
 
 					.word {
 						position: absolute;
 						font-size: 275px;
-						font-family: serif;
-						font-style: italic;
+						font-family: serif; 
 						text-transform: uppercase;
 						cursor: url("icon-glass.png") 25 25, auto;/*
 						transform: rotateX(20deg);*/
@@ -145,10 +148,11 @@ body {
 // Sections
 @import 'sections/home';
 @import 'sections/explore-item';
+@import 'sections/profil';
 
 
 // Import de la bot bar
-@import 'bot-bar';
+@import 'elements/bot-bar';
 
 
 
