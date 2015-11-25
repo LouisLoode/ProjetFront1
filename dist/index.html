@@ -151,6 +151,10 @@
 		<!--</ul>-->
 		
 		<div class="item-focus hidden">
+            
+            <div class="item">Poème: {{item.name}} - {{ item.poem | nl2br }}</div>
+            <div class="sentiments">Poème: {{item.name}} - {{ item.poem | nl2br }}</div>
+            
 			<a data-id="" href="#" class="star">Ajouter à mes favoris</a>   <a data-id="" href="#" class="similar">Similar</a>
 		</div>
 		
@@ -201,7 +205,26 @@
 			</form>
     </section>
     
-    <aside>
+    
+    <aside class="subnav">
+        <ul class="left">
+            <li><a href="#" class="btn"><span class="icon-user"></span> INSCRIPTION</a></li>
+        </ul>
+        <ul class="center">
+        <form class="form-bot-bar">
+            <li><input type="text" name="text" id="text"></li>
+            <li><input type="submit" class="button" value="Envoyer" /></li>
+        </form>
+        </ul>
+        <ul class="right">
+            <li><a href="#">sound</a></li>
+        </ul>
+        
+	</aside>
+    
+    
+    
+   <!-- <aside>
         <ul class="left">
             <li><a href="#" class="btn"><span class="icon-user"></span> INSCRIPTION</a></li>
 
@@ -216,7 +239,7 @@
             <li><a href="#"><span class="icon-facebook"></span></li>
         </ul>
         
-	</aside>
+	</aside>-->
 
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/1.18.0/TweenMax.min.js"></script>
     
