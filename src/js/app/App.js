@@ -34,8 +34,8 @@ var App = function() {
 	}.bind(this));
 	
 	this.Vue_TopBar = new Vue({
-		el: 'aside',
-		data: {username: null}
+		el: '.navbar',
+		data: {username: null, user_id: -1}
 	});
 
 	this.getAndRefreshAuthenticationInfo();
@@ -54,18 +54,23 @@ App.prototype.getAndRefreshAuthenticationInfo = function() {
 					this.mail = data.mail;
 
 					this.Vue_TopBar.username = data.username;
+					this.Vue_TopBar.user_id = data.user_id;
 
 
-					$('body').addClass('signed-in');
 				}
 			}.bind(this)
 		});
 }
 
 App.prototype.bindEvents = function () {
-	$('.user-greeting .me').click(function() {
+	/*$('.user-greeting .me').click(function() {
 		this.router.navigate('/profil/' + this.user_id);
 		return false;
+	}.bind(this));*/
+	
+	$('.sign-in-button').click(function(){
+		$('.subnav').removeClass('active');
+		$('.sign-in-subnav').addClass('active');
 	}.bind(this));
 	
 	$('.sign-in').submit(function(e){
@@ -76,6 +81,7 @@ App.prototype.bindEvents = function () {
             data: $(e.target).serialize(),
             success: function(response) {
 				this.getAndRefreshAuthenticationInfo();
+				$('.subnav').removeClass('active');
             }.bind(this),
 			error: function(error) {
 				console.error(error);	
@@ -83,6 +89,11 @@ App.prototype.bindEvents = function () {
         });
 		
 		return false;
+	}.bind(this));
+	
+	$('.sign-up-button').click(function(){
+		$('.subnav').removeClass('active');
+		$('.sign-up-subnav').addClass('active');
 	}.bind(this));
 	
 	$('.sign-up').submit(function(e){
@@ -93,6 +104,7 @@ App.prototype.bindEvents = function () {
             url: $(e.target).attr("action"),
             data: $(e.target).serialize(),
             success: function(response){
+				$('.subnav').removeClass('active');
 				this.getAndRefreshAuthenticationInfo();
             }.bind(this),
 			error: function(error) {
@@ -108,11 +120,14 @@ App.prototype.bindEvents = function () {
 					type: "POST",
 					url: '/api/v1/sign_out',
 					success: function () {
-						$('body').removeClass('signed-in');
+						this.Vue_TopBar.username = '';
+						this.Vue_TopBar.user_id = -1;
+						$('.subnav').removeClass('active');
 					}.bind(this)
 			});
 		return false;
 	}.bind(this));
+	
 }
 
 App.prototype.goTo = function (newPage, method) {
@@ -128,7 +143,6 @@ App.prototype.goTo = function (newPage, method) {
 	}
 	this.currentPage = newPage;
 	$('.' + newPage.replace(/([A-Z])/g, function(match){ return '-' + match.toLowerCase() })).addClass('active');
-	
 	method = method || 'run'; // @todo router, pushstate
 	
 	this.pages[newPage][method].apply(this.pages[newPage],Array.prototype.slice.call(arguments, 2));

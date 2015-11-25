@@ -1,4 +1,11 @@
 .profile{
+	background: #Eee;
+	padding-top: 20px;
+	
+	h1 {
+		color: white; text-align: center; 
+	}
+	
     .items{
          margin: 0 auto;
         
@@ -11,6 +18,12 @@
       display: block;
       clear: both;
     }
+	
+	&:after {
+		content: " ";
+		clear: both;
+		display: block;
+	}
 }
 
 .grid-sizer{

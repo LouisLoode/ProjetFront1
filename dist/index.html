@@ -59,15 +59,15 @@
             <h3>Bienvenue</h3>
             <h1>Votre mission est d'associer
  des sentiments à des oeuvres.</h1>
-            <div class="explorer">
+            <div class="explore">
                 <div class="bouton">
                     <a href="#" id="start">Commencer l'expérience</a>
-                    <div id="barre" class="line"></div>
+                    <div id="bar" class="line"></div>
                     <div class="circle_border">
                         <div class="circle_inside"></div>
                     </div>
                 </div>
-                <div class="trou">
+                <div class="hole">
                     <a href="#"><img src="img/trou.png" /></a>
                 </div>
             </div>
@@ -120,16 +120,8 @@
 	
 		<!--<ul class="items">-->
 				<template v-for="item in items">
-					<figure class="item" v-if="item.type == 'painting'" data-id="{{item.id}}">
-						<img v-bind:src="'http://swarm.ovh/orane/upload/' + item.id + '.' + item.extension">
-						<figcaption>
-						<cite class="title">{{ item.name }}</cite><br>
-						Artiste : <cite>{{ item.author }}</cite> <!--<a data-id="{{item.id}}" href="#" class="star">Ajouter à mes favoris</a>   <a data-id="{{item.id}}" href="#" class="similar">Similar</a>-->
-						</figcaption>
-						
-					</figure>
 					
-					<figure class="item" v-if="item.type == 'photograph'" data-id="{{item.id}}">
+					<figure class="item" v-if="item.type == 'photograph' || item.type == 'painting'" data-id="{{item.id}}">
 						<img v-bind:src="'http://swarm.ovh/orane/upload/' + item.id + '.' + item.extension">
 						<figcaption>
 						<cite class="title">{{ item.name }}</cite><br>
@@ -148,7 +140,7 @@
 
 			
 					<figure class="item" v-if="item.type == 'poem'" data-id="{{item.id}}">
-						Poème: {{item.name}} - {{ item.poem | nl2br }} by {{ item.author }} <a data-id="{{item.id}}" href="#" class="star">Ajouter à mes favoris</a> <!--<a data-id="{{item.id}}" href="#" class="similar">Similar</a> -->
+						Poème: {{item.name}} - {{ item.poem | nl2br }} by {{ item.author }} <!-- <a data-id="{{item.id}}" href="#" class="star">Ajouter à mes favoris</a> <a data-id="{{item.id}}" href="#" class="similar">Similar</a> -->
 					</figure>
 					
 				</template>
@@ -157,16 +149,35 @@
 		<div class="item-focus hidden">
             
             <div class="item">
-                <figure data-id="11" class="item">
-						<img src="http://swarm.ovh/orane/upload/11.jpg">
+               
+                	<figure class="item" v-if="focus.type == 'photograph' || focus.type == 'painting'">
+						<img v-bind:src="'http://swarm.ovh/orane/upload/' + focus.id + '.' + focus.extension">
 						<figcaption>
-						<cite class="title">Stardust Hands</cite><br>
-						Artiste : <cite>Daniele Buetti</cite> <!--<a data-id="{{item.id}}" href="#" class="star">Ajouter à mes favoris</a>   <a data-id="{{item.id}}" href="#" class="similar">Similar</a>-->
+						<cite class="title">{{ focus.name }}</cite><br>
+						Artiste : <cite class="author">{{ focus.author }}</cite>
 						</figcaption>
-                </figure>
+					</figure>
+					
+					<figure class="item" v-if="focus.type == 'quote'">
+						{{ focus.quote | nl2br }}
+						<figcaption>
+							Auteur : <cite class="author">{{ focus.author }}</cite>
+						</figcaption>
+					</figure>
+
+			
+					<figure class="item" v-if="focus.type == 'poem'">
+						Poème: {{focus.name}} - {{ focus.poem | nl2br }} by {{ focus.author }} <a data-id="{{focus.id}}" href="#" class="star">Ajouter à mes favoris</a>
+					</figure>
+           
+           
             </div>
             <div class="sentiments">
+               
+                <a data-id="{{focus.id}}" href="#" class="star">Ajouter à mes favoris</a>  <a data-id="{{focus.id}}" href="#" class="similar">Similar</a> 
+                
                 <p>Quel sentiment voulez-vous ajouter à cette oeuvre ?</p>   
+<<<<<<< HEAD
                 <div class="star">
                     <a data-id="" href="#"><span class="icon-like"></span></a> 
                 </div>
@@ -188,6 +199,23 @@
                     </div>
                 </div>
             </div> 
+=======
+                
+                <form method="POST" action="/api/v1/sign_up" class="sign-up">
+                    <input type="text" placeholder="Mail" name="mail">
+                    <input type="submit">
+                </form>
+                
+                Ce mot a été associé avec :
+                
+                <ul>
+                	<li v-for="word in focus.words">{{ word.word }} ({{ word.count }})</li>
+                	
+                </ul>
+            </div>
+            
+			<a data-id="" href="#" class="star">Ajouter à mes favoris</a>   <a data-id="" href="#" class="similar">Similar</a>
+>>>>>>> 9b39c0ef0ae33df78a4801e028607b7a6ce3e29d
 		</div>
 		
 	</section>
@@ -221,50 +249,43 @@
 		</div>	
 	</section>
     
-    <section class="sign-in">
-            <form method="POST" action="/api/v1/sign_in" class="sign-in">
+    <aside class="subnav sign-in-subnav">
+        <form method="POST" action="/api/v1/sign_in" class="sign-in">
 				<input type="text" placeholder="Pseudo ou mail" name="login">
 				<input type="password" placeholder="Mot de passe" name="password">
-				<input type="submit">
+				<input type="submit" value="Se connecter">
 			</form>
-    </section>
+	</aside>
     
-    <section class="sign-up">
-			<form method="POST" action="/api/v1/sign_up" class="sign-up">
+    
+    <aside class="subnav sign-up-subnav">
+        <form method="POST" action="/api/v1/sign_up" class="sign-up">
 				<input type="text" placeholder="Mail" name="mail">
 				<input type="text" placeholder="Pseudo" name="username">
 				<input type="password" placeholder="Mot de passe" name="password">
-				<input type="submit">
-			</form>
-    </section>
-    
-    
-    <aside class="subnav">
-        <ul class="left">
-            <li><a href="#" class="btn"><span class="icon-user"></span> INSCRIPTION</a></li>
-        </ul>
-        <ul class="center">
-        <form class="form-bot-bar">
-            <li><input type="text" name="text" id="text"></li>
-            <li><input type="submit" class="button" value="Envoyer" /></li>
-        </form>
-        </ul>
-        <ul class="right">
-            <li><a href="#">sound</a></li>
-        </ul>
-        
+				<input type="submit" value="S'inscrire et se connecter">
+		</form>
 	</aside>
     
     
     
     <aside class="navbar">
         <ul class="left">
-            <li><a href="#" class="btn"><span class="icon-user"></span> INSCRIPTION</a></li>
+            <li>
+            
+            <a v-show="user_id == -1" href="#" class="btn sign-up-button"><span class="icon-user"></span> INSCRIPTION</a>
+            <a v-show="user_id == -1" href="#" class="btn sign-in-button">CONNEXION</a>
+            
+            <div v-show="user-id !== -1">
+            
+            	<a href="/profil/{{ user_id }}" class="me">{{ username }}</a>
+            	<a href="#" class="sign-out">Se déconnecter</a>
+          	</div>
+           
+            </li>
 
 
-			<div class="user-greeting">
-				Bienvenue, <a href="#" class="me">{{ username }}</a>. <a href="#" class="sign-out">Se déconnecter</a>
-			</div>
+			
         </ul>
         <ul class="right">
             <!--<li><a href="#">sound</a></li>-->

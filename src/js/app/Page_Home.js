@@ -12,10 +12,10 @@ Page_Home.prototype.bindEvents = function () {
 
    $(document).on('click','#start', function(e) {
 
-			$('#barre').slideDown( "slow", function() {
+			$('#bar').slideDown( "slow", function() {
 				$('.circle_border').fadeIn( "slow", function() {
 					$('.circle_inside').fadeIn( "slow", function() {
-						$('.home .container .explorer .trou img').fadeIn( "1000", function() {
+						$('.home .container .explore .hole img').fadeIn( "1000", function() {
 						app.goTo('exploreWords');
 						return false;
 						});

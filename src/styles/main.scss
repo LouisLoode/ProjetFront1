@@ -55,7 +55,7 @@ a:link, a:visited, a:hover, a:active {
 
 body {
 
-    background: black; 
+    background: black;
     
     h1{
         font-size: $font-size-h1;
@@ -69,14 +69,8 @@ body {
         text-transform: uppercase;
         letter-spacing: 3px;
     }
-	.user-greeting { display: none; }
-	
-	&.signed-in .sign-in,
-	&.signed-in .sign-up { display: none; }
-	&.signed-in .user-greeting { display: block; }
-	
 	.top-bar { position: fixed; z-index: 100; left: 0; right: 0; }
-	> section { display: none; }
+	> section { display: none; min-height: 100%; padding-top: 1px; }
 	> section.active { display: block; }
 	
 	.explore-words {
@@ -177,7 +171,7 @@ body {
 // Sections
 @import 'sections/home';
 @import 'sections/explore-item';
-@import 'sections/profil';
+@import 'sections/profile';
 
 
 // Import de la bot bar
