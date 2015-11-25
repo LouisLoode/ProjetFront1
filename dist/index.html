@@ -59,15 +59,15 @@
             <h3>Bienvenue</h3>
             <h1>Votre mission est d'associer
  des sentiments à des oeuvres.</h1>
-            <div class="explorer">
+            <div class="explore">
                 <div class="bouton">
                     <a href="#" id="start">Commencer l'expérience</a>
-                    <div id="barre" class="line"></div>
+                    <div id="bar" class="line"></div>
                     <div class="circle_border">
                         <div class="circle_inside"></div>
                     </div>
                 </div>
-                <div class="trou">
+                <div class="hole">
                     <a href="#"><img src="img/trou.png" /></a>
                 </div>
             </div>
@@ -210,50 +210,43 @@
 		</div>	
 	</section>
     
-    <section class="sign-in">
-            <form method="POST" action="/api/v1/sign_in" class="sign-in">
+    <aside class="subnav sign-in-subnav">
+        <form method="POST" action="/api/v1/sign_in" class="sign-in">
 				<input type="text" placeholder="Pseudo ou mail" name="login">
 				<input type="password" placeholder="Mot de passe" name="password">
-				<input type="submit">
+				<input type="submit" value="Se connecter">
 			</form>
-    </section>
+	</aside>
     
-    <section class="sign-up">
-			<form method="POST" action="/api/v1/sign_up" class="sign-up">
+    
+    <aside class="subnav sign-up-subnav">
+        <form method="POST" action="/api/v1/sign_up" class="sign-up">
 				<input type="text" placeholder="Mail" name="mail">
 				<input type="text" placeholder="Pseudo" name="username">
 				<input type="password" placeholder="Mot de passe" name="password">
-				<input type="submit">
-			</form>
-    </section>
-    
-    
-    <aside class="subnav">
-        <ul class="left">
-            <li><a href="#" class="btn"><span class="icon-user"></span> INSCRIPTION</a></li>
-        </ul>
-        <ul class="center">
-        <form class="form-bot-bar">
-            <li><input type="text" name="text" id="text"></li>
-            <li><input type="submit" class="button" value="Envoyer" /></li>
-        </form>
-        </ul>
-        <ul class="right">
-            <li><a href="#">sound</a></li>
-        </ul>
-        
+				<input type="submit" value="S'inscrire et se connecter">
+		</form>
 	</aside>
     
     
     
     <aside class="navbar">
         <ul class="left">
-            <li><a href="#" class="btn"><span class="icon-user"></span> INSCRIPTION</a></li>
+            <li>
+            
+            <a v-show="user_id == -1" href="#" class="btn sign-up-button"><span class="icon-user"></span> INSCRIPTION</a>
+            <a v-show="user_id == -1" href="#" class="btn sign-in-button">CONNEXION</a>
+            
+            <div v-show="user-id !== -1">
+            
+            	<a href="/profil/{{ user_id }}" class="me">{{ username }}</a>
+            	<a href="#" class="sign-out">Se déconnecter</a>
+          	</div>
+           
+            </li>
 
 
-			<div class="user-greeting">
-				Bienvenue, <a href="#" class="me">{{ username }}</a>. <a href="#" class="sign-out">Se déconnecter</a>
-			</div>
+			
         </ul>
         <ul class="right">
             <!--<li><a href="#">sound</a></li>-->
