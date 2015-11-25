@@ -30,7 +30,7 @@ gulp.task('css', function() {
 
 // On charge les pages js
 gulp.task('js', function() {
-  return gulp.src(['src/js/*.js', 'src/js/app/App.js','src/js/app/Page.js', 'src/js/app/Page_ExploreWords.js','src/js/app/Page_Home.js', 'src/js/app/Page_ExploreItems.js', 'src/js/app/Page_Profile.js','src/js/app/main.js', 'src/js/**/*.js'])
+  return gulp.src(['src/js/*.js', 'src/js/app/App.js','src/js/app/Page.js','src/js/app/Page_Home.js', 'src/js/app/Page_ExploreWords.js', 'src/js/app/Page_ExploreItems.js', 'src/js/app/Page_Profile.js','src/js/app/main.js', 'src/js/**/*.js'])
     //.pipe(jshint('.jshintrc'))
     //.pipe(jshint.reporter('default'))
     .pipe(plumber())

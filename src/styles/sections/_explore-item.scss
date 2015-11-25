@@ -2,11 +2,15 @@
 background: gray;	
 }
 	
-
+hr{
+    margin-right: 80%;
+    background-color: 
+rgba(0, 0, 0, 0.26);
+}
 
 	.item-focus {
 		position: fixed;
-		top: 30%; bottom: 30%; left: 10%; right: 10%;;
+		top: 30%; bottom: 30%; left: 15%; right: 15%;;
 		
 		&.hidden { display: none; }
         
@@ -20,11 +24,128 @@ background: gray;
             background-color: #FFFFFF;
             z-index: 1;
             margin-top: 5%;
-            min-height: 280px;
+            min-height: 250px;
             padding-left: 265px;
             padding-top: 15px;
             padding-right: 15px;
             padding-bottom: 10px;
+            
+            p{
+                margin-top: 15px;
+                margin-bottom: 10px;
+                font-family: $font-family-btn;
+                font-size: 14px;
+                color: rgba(0, 0, 0, 0.87);
+            }
+            .star{
+                border: 1px solid grey;
+
+                display: inline;
+                width: 30px;
+                height: 30px;
+                
+                margin: auto;
+            }
+            
+            .sentiment-form{
+                margin: auto;
+                margin-right: 0;
+                margin-bottom: 10px;
+                display: inline-block;
+                
+                input{
+                    display: inline-block;
+                    border: 1px solid inside rgba(128, 168, 168, 0.32);
+                    width: 325px;
+                    height: 24px;
+                }
+                button{
+                    display: inline-block;
+                    width: 30px;
+                    height: 30px;
+                    padding: 0;
+                    font: 14px;
+                    
+                    span{
+                        font-size: 24px;
+                    }
+                }
+            }
+            
+            .similar{
+                font-size: 12px;
+                font-family: $font-family-btn;
+                color: rgba(0, 0, 0, 0.87);
+                a{
+                    color: rgba(0, 0, 0, 0.87);
+                }
+                a:hover{
+                    color: rgba(0, 0, 0, 0.87);
+                    text-decoration: underline;
+                }
+                a:visited{
+                    color: rgba(0, 0, 0, 0.87);
+                }
+            }
+            
+            .explanation{
+                margin-bottom: 20px;
+                
+                font-size: 12px;
+            }
+            
+            .list-sentiments{
+                
+                .sentiment{
+                    display:block;
+                    
+                    .left{
+                        float:left;
+                        width: 100%;
+                        color: rgba(0, 0, 0, 0.56);
+                        font-size: 16px;
+                        line-height: 28px;
+                        font-style: italic;
+                        
+                    }
+                    .right{
+                        display: none;
+                        float:right; 
+                        width: 50%;
+                        text-align: right;
+                        line-height: 28px;
+                        
+                        .number{
+                            font-family: $font-family-sans-serif;
+                            font-size: 16px;
+                            color: rgba(0, 0, 0, 0.56);
+                            vertical-align: middle;
+                        }
+                        .icon-user{
+                   
+                            vertical-align: middle;
+                            font-size: 20px;
+                        }
+                    }
+                }
+                
+                .sentiment:hover{
+                    background-color: rgba(128, 168, 168, 0.16);
+                    .left{
+                        width: 50%;
+                        background-color: inherit;
+                    }
+                    .right{
+                        display: block;
+                        background-color: inherit;
+                        float:right; 
+                        width: 50%;
+                        text-align: right;
+                        .number{}
+                        .icon-user{}
+                    }
+                }
+            }
         }  
 	}
 

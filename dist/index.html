@@ -167,14 +167,27 @@
             </div>
             <div class="sentiments">
                 <p>Quel sentiment voulez-vous ajouter à cette oeuvre ?</p>   
-                
-                <form method="POST" action="/api/v1/sign_up" class="sign-up">
-                    <input type="text" placeholder="Mail" name="mail">
-                    <input type="submit">
-                </form>
-            </div>
-            
-			<a data-id="" href="#" class="star">Ajouter à mes favoris</a>   <a data-id="" href="#" class="similar">Similar</a>
+                <div class="star">
+                    <a data-id="" href="#"><span class="icon-like"></span></a> 
+                </div>
+                <div class="sentiment-form">
+                    <form method="POST" action="/api/v1/sign_up">
+                        <input type="text" name="sentiment">
+                        <button type="submit" class="icon-add_sentiment"></button>
+                    </form>
+                </div>
+                <div class="similar">
+                    <a data-id="" href="#">( Il existe un mot similaire ? )</a>
+                </div>
+                <hr />
+                <p class="explanation">Voir les sentiments associés</p>
+                <div class="list-sentiments">
+                    <div class="sentiment">
+                        <div class="left"><span>Galvanisé</span></div>
+                        <div class="right"><span class="number">100000</span> <span class="icon-user"></span></div>
+                    </div>
+                </div>
+            </div> 
 		</div>
 		
 	</section>
