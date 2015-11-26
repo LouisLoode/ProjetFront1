@@ -27,11 +27,14 @@ Page_Home.prototype.bindEvents = function () {
 }
 
 Page_Home.prototype.run = function () {
-
+	setTimeout(function(){
+	$('.open-up').addClass('open');
+	});
+	
 	this.h1text = $('.home h1').text();
+	
 	$('.home h1').text('');
 	console.log(this.h1text);
-
 
 	//h3
 	$(".container > h3").animate({
