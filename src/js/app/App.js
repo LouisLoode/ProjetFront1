@@ -14,6 +14,7 @@ var App = function() {
 		exploreItems: new Page_ExploreItems()
 	}
 	
+	
 	this.router = new Grapnel({ pushState : true });
 
     
@@ -35,7 +36,7 @@ var App = function() {
 	
 	this.Vue_TopBar = new Vue({
 		el: '.navbar',
-		data: {username: null, user_id: -1}
+		data: {username: null, user_id: -1, homeUrl: window.location.href.replace(/([a-z0-9])\/.+$/g,'\1')}
 	});
 
 	this.getAndRefreshAuthenticationInfo();
