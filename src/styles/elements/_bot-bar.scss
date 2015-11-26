@@ -1,6 +1,5 @@
 aside {
     position: fixed;
-    bottom: 0;
     left: 0;
 	right: 0;
 	z-index: 100;
@@ -62,12 +61,14 @@ aside {
     }
 }
 .navbar{
-	
+	bottom: 0;
+    
 	.left{float: left}
     .right{float: right;}
 }
 
 .subnav{
+    bottom: 0;
 	z-index: 90;
     position: fixed;
     left: 0;

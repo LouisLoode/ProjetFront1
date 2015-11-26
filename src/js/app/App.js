@@ -98,13 +98,13 @@ App.prototype.bindEvents = function () {
 		this.router.navigate('/profil/' + this.user_id);
 		return false;
 	}.bind(this));*/
-	
-	$('.sign-in-button').click(function(){
+    
+    
+    $('.sign-in-button').click(function(){
 		$('.subnav').removeClass('active');
 		$('.sign-in-subnav').addClass('active');
         return false;
 	}.bind(this));
-    
     
     $('.sign-in-off').click(function(){
 		$('.sign-in-subnav').removeClass('active');

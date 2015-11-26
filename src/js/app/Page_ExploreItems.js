@@ -37,6 +37,7 @@ Page_ExploreItems.prototype.exploreSimilarItems = function (item_id)
 }
 
 Page_ExploreItems.prototype.bindEvents = function () {
+    $('.top-bar').addClass('show-bar');
 	$('.explore-items').on('click','.star',function(e){
 		$.ajax({
 			type: "PUT",
@@ -96,4 +97,6 @@ Page_ExploreItems.prototype.unbindEvents = function () {
 	$('.explore-items').off('click','.item');
 	
 	$('.explore-items .word.spotlight').removeClass('bordered');
+    
+    $('.top-bar').removeClass('show-bar');
 }

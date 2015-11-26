@@ -1,7 +1,7 @@
 .explore-items {
     background: gray;
     padding-bottom: 96px;
-    margin-top: 85px;
+    padding-top: 85px;
 }
 	
 hr{
@@ -20,6 +20,7 @@ hr{
             min-height: 350px;
             z-index: 2;
             position: fixed;
+            width: 250px;
         }
         .sentiments{
             background-color: #FFFFFF;
