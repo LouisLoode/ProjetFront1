@@ -44,7 +44,7 @@ $app = new Silex\Application();
 $app['debug'] = true;
 
 $app->register(new \Silex\Provider\PDOServiceProvider, array(
-  'pdo.dsn'        => 'mysql:host=141.138.157.211;dbname=words;charset=UTF8',
+  'pdo.dsn'        => 'mysql:host='.DB_HOST.';dbname='.DB_NAME.';charset=UTF8',
   'pdo.username'   => DB_USERNAME,
   'pdo.password'   => DB_PASSWORD,
   'pdo.options' => array(
