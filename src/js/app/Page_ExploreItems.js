@@ -47,6 +47,19 @@ Page_ExploreItems.prototype.bindEvents = function () {
 		});
 		return false;
 	});
+    
+    /*
+    // Code de retour à l'exploration des mots
+    $('.explore-items').on('click','.star',function(e){
+		$.ajax({
+			type: "PUT",
+			url: '/api/v1/items/' + $(e.target).data('id') +'/star',
+			success: function(data) {
+				alert('starred');
+			}.bind(this)
+		});
+		return false;
+	});*/
 	
 	$('.explore-items').on('click','.similar',function(e){
 		this.exploreSimilarItems(parseInt($(e.target).data('id')));

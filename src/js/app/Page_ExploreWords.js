@@ -82,7 +82,7 @@ Page_ExploreWords.prototype.bindEvents = function() {
 					$('.explore-items').animate({opacity: 1});
 				});
 				
-			},1500);
+			},1000);
 		};
 		
 		TweenMax.to($('.explore-words .word').not(e.target), 0.3, {opacity: 0, ease: Power4.easeOut, onComplete: goToExploreItems});
