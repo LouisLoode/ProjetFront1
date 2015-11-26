@@ -74,6 +74,7 @@ App.prototype.bindEvents = function () {
         return false;
 	}.bind(this));
     
+    
     $('.sign-in-off').click(function(){
 		$('.sign-in-subnav').removeClass('active');
         return false;
