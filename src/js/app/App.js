@@ -18,9 +18,7 @@ var App = function() {
 	this.router = new Grapnel({ pushState : true });
 
     
-    this.router.get('/', function(req){
-		this.goTo('home');
-	}.bind(this));
+    
 
 	this.router.get('/debug', function(req){
 		this.goTo('exploreWords');
@@ -39,7 +37,20 @@ var App = function() {
 		data: {username: null, user_id: -1, homeUrl: window.location.href.replace(/([a-z0-9])\/.+$/g,'\1')}
 	});
 
-	this.getAndRefreshAuthenticationInfo();
+	this.getAndRefreshAuthenticationInfo(function() {
+		if (this.Vue_TopBar.user_id === -1)
+		{
+			this.router.get('/', function(req){
+				this.goTo('home');
+			}.bind(this));
+		}
+		else
+		{
+			this.router.get('/', function(req){
+				this.goTo('exploreWords');
+			}.bind(this));
+		}
+	}.bind(this));
 	this.bindEvents();
 	
 	this.flashMessageTimeout = -1;
@@ -62,7 +73,7 @@ App.prototype.flashMessage = function (message) {
 	this.flashMessageTimeout = setTimeout(function(){ $('.flash-message').removeClass('active'); that.flashMessageTimeout = -1; }, 2000);
 }
 
-App.prototype.getAndRefreshAuthenticationInfo = function() {
+App.prototype.getAndRefreshAuthenticationInfo = function(callback) {
 		$.ajax({
 			type: "GET",
 			url: '/api/v1/signed_in',
@@ -75,9 +86,9 @@ App.prototype.getAndRefreshAuthenticationInfo = function() {
 
 					this.Vue_TopBar.username = data.username;
 					this.Vue_TopBar.user_id = data.user_id;
-
-
+					
 				}
+				if (typeof callback !== 'undefined') callback();
 			}.bind(this)
 		});
 }

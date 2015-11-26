@@ -85,7 +85,13 @@ aside {
 		bottom: 38px;
 		opacity: 1;
 	}
-    
+	
+	form.sign-in > *, form.sign-up > *, .sign-in-off, .sign-up-off {
+		font-size: 12px;
+		padding: 7px;
+		line-height: 1.5;
+	}
+	
 	input{
 		border-radius: 3px;
 		padding: 7px;
@@ -96,30 +102,23 @@ aside {
     
 	.button{
 		display: inline-block;
-		color: #80a8a8;
 		font-family: $font-family-sans-serif;
-		font-size: 14px;
 		text-transform: uppercase;
-		background: none;
 		border: 1px solid #80a8a8;
-		border-radius: 29px;
-		padding-bottom: 5px;
-		padding-left: 20px;
-		padding-right: 20px;
-        line-height: 15px;
         cursor: pointer;
-	}
-	.button:hover{
 		background: #80a8a8;
         color: #FFFFFF;
+	}
+	.button:hover{
+		color: #80a8a8;
+		background: none;
 	}
     .left{
         float: left
     }
     .right{
         float: right; 
-        color: rgba(0, 0, 0, 0.4); 
-        margin-top: 5px;
+        color: rgba(0, 0, 0, 0.4);
         font-family: $font-family-sans-serif;
     }
 }
