@@ -73,6 +73,16 @@ App.prototype.bindEvents = function () {
 		$('.sign-in-subnav').addClass('active');
         return false;
 	}.bind(this));
+    
+    $('.sign-in-off').click(function(){
+		$('.sign-in-subnav').removeClass('active');
+        return false;
+	}.bind(this));
+    
+    $('.sign-up-off').click(function(){
+		$('.sign-up-subnav').removeClass('active');
+        return false;
+	}.bind(this));
 	
 	$('.sign-in').submit(function(e){
 		
