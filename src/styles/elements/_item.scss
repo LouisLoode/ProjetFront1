@@ -1,5 +1,5 @@
 	.item {
-		
+		font-family: $font-family-serif;
 		cursor: pointer;
 		background: #FFFFFF; 
 		width: 200px;
@@ -10,10 +10,43 @@
 		
 		img { width: 100%; }
 		
+        .quote{
+            
+            font-size: 18px;
+            font-weight: bold;
+            line-height: 25px;
+            color: #262626;
+            padding-top: 25px;
+            padding-left: 15px;
+            padding-right: 15px;
+        }
+        
+        .poem{
+            font-size: 14px;
+            font-weight: bold;
+            line-height: 18px;
+            color: #262626;
+            padding-top: 25px;
+            padding-left: 15px;
+            padding-right: 15px;
+        }
+        
 		figcaption {
 			color: $black;
 			padding: 16px;
-			cite.title { font-size: 16px; line-height: 20px; font-family: FreightDispBookItalic; font-style: italic; display: block; }
+			cite.title { 
+                font-size: 16px; 
+                line-height: 20px; 
+                font-family: FreightDispBookItalic; 
+                font-style: italic; 
+                display: block; }
 			cite { color: $gray; }
+            
+            p{
+                font-size: 18px; 
+                line-height: 25px; 
+                font-family: $font-family-serif; 
+                font-weight: bold;
+            }
 		}
 	}

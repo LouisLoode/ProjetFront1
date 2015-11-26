@@ -35,6 +35,14 @@ Page_Home.prototype.run = function () {
 	
 	$('.home h1').text('');
 	console.log(this.h1text);
+    
+    //logo
+	$(".container > .logo").animate({
+		opacity: 1
+	}, {
+		duration: 500,
+		queue: false
+	});
 
 	//h3
 	$(".container > h3").animate({
