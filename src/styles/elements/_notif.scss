@@ -1,5 +1,6 @@
-.notif-box{
+.flash-message{
     position: fixed;
+<<<<<<< HEAD
     display: block; 
     bottom: 96px;
     margin: 0 auto;
@@ -15,7 +16,26 @@
         background-color: rgba(255, 255, 255, 0.56);
 
         b{
+=======
+    z-index: 200;
+	border-radius: 78px;
+	font-family: $font-family-btn;
+	font-size: 14px;
+	padding: 15px 23px;
+	background-color: rgba(255, 255, 255, 0.56);
+	
+	bottom: 58px;
+	opacity: 0;
+	left: 50%; transform: translateX(-50%);
+	
+	transition: opacity 0.2s, bottom 0.3s;
+	&.active {
+		bottom: 76px;
+		opacity: 1;
+	}
+	
+	strong {
+>>>>>>> 69986631775bf46e23431ffab60809cd2ca934ed
             color: #80a8a8;
-        }
     }
 }

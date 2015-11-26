@@ -8,6 +8,24 @@
     right: 0;
     background: radial-gradient(circle at center, #FFFFFF, rgb(135, 135, 135));
     padding-top: 2%;
+	
+	.open-up {
+		z-index: 100;
+		background: black;
+		position: fixed;
+		left: 0; right: 0; bottom: 0;
+		height: 50%;
+		transition: height 0.4s, top 0.6s;
+		&.top {
+			top: 0%;
+			&.open { height: 0%; }
+		}
+		
+		&.bottom {
+			top: 50%;
+			&.open { top: 100%; }
+		}
+	}
     
     .container{
         max-width: 750px;

@@ -40,6 +40,25 @@ var App = function() {
 
 	this.getAndRefreshAuthenticationInfo();
 	this.bindEvents();
+	
+	this.flashMessageTimeout = -1;
+}
+
+App.prototype.flashMessage = function (message) {
+	
+	
+	$('.flash-message').removeClass('active')
+	
+	
+	if (this.flashMessageTimeout !== -1)
+		setTimeout(function() { $('.flash-message').addClass('active').html(message); },400);
+	else
+		$('.flash-message').html(message).addClass('active');
+	
+	clearTimeout(this.flashMessageTimeout);
+	
+	var that = this;
+	this.flashMessageTimeout = setTimeout(function(){ $('.flash-message').removeClass('active'); that.flashMessageTimeout = -1; }, 2000);
 }
 
 App.prototype.getAndRefreshAuthenticationInfo = function() {
