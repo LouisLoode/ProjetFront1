@@ -1,22 +1,5 @@
 .flash-message{
     position: fixed;
-<<<<<<< HEAD
-    display: block; 
-    bottom: 96px;
-    margin: 0 auto;
-     // Test
-    z-index: 5;
-    
-    .notif{
-        border-radius: 78px;
-        padding: 15px 20px;
-        margin: 0 auto;
-        font-family: $font-family-btn;
-        font-size: 14px;
-        background-color: rgba(255, 255, 255, 0.56);
-
-        b{
-=======
     z-index: 200;
 	border-radius: 78px;
 	font-family: $font-family-btn;
@@ -35,7 +18,6 @@
 	}
 	
 	strong {
->>>>>>> 69986631775bf46e23431ffab60809cd2ca934ed
             color: #80a8a8;
     }
 }
