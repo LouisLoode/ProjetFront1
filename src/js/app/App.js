@@ -71,6 +71,7 @@ App.prototype.bindEvents = function () {
 	$('.sign-in-button').click(function(){
 		$('.subnav').removeClass('active');
 		$('.sign-in-subnav').addClass('active');
+        return false;
 	}.bind(this));
 	
 	$('.sign-in').submit(function(e){
@@ -94,6 +95,7 @@ App.prototype.bindEvents = function () {
 	$('.sign-up-button').click(function(){
 		$('.subnav').removeClass('active');
 		$('.sign-up-subnav').addClass('active');
+        return false;
 	}.bind(this));
 	
 	$('.sign-up').submit(function(e){
