@@ -134,27 +134,27 @@
 						<img v-bind:src="'http://swarm.ovh/orane/upload/' + item.id + '.' + item.extension" v-bin:alt="' + item.id + '.' + item.extension">
 						<figcaption>
 						<cite class="title">{{ item.name }}</cite><br>
-						Artiste : <cite class="author">{{ item.author }}</cite>
+						<cite class="author">{{ item.author }}</cite>
 						</figcaption>
 						<!-- <a data-id="{{item.id}}" href="#" class="star">Ajouter à mes favoris</a>  <a data-id="{{item.id}}" href="#" class="similar">Similar</a> 
 						-->
 					</figure>
 					
 					<figure class="item in-list" v-if="item.type == 'quote'" data-id="{{item.id}}">
-						<p class="quote">&laquo; {{ item.quote | nl2br }} &raquo;</p>
+						<p class="quote">&laquo; {{{ item.quote | nl2br }}} &raquo;</p>
 						<figcaption>
-							Auteur : <cite class="author">{{ item.author }}</cite>
+							<cite class="author">{{ item.author }}</cite>
 						</figcaption> <!--<a data-id="{{item.id}}" href="#" class="star">Ajouter à mes favoris</a> <a data-id="{{item.id}}" href="#" class="similar">Similar</a> -->
 					</figure>
 
 			
-					<figure class="item in-list" v-if="item.type == 'poem'" data-id="{{item.id}}">
-						<p class="poem">{{item.name}} - {{ item.poem | nl2br }}</p>
+					<!--<figure class="item in-list" v-if="item.type == 'poem'" data-id="{{item.id}}">
+						<p class="poem">{{item.name}} - {{{ item.poem | nl2br }}}</p>
                         <figcaption>
                             Auteur : <cite class="author">{{ item.author }}</cite>
-                        </figcaption><!-- <a data-id="{{item.id}}" href="#" class="star">Ajouter à mes favoris</a> <a data-id="{{item.id}}" href="#" class="similar">Similar</a> -->
+                        </figcaption>
                             
-					</figure>
+					</figure>-->
 					
 				</template>
 		<!--</ul>-->
@@ -170,7 +170,7 @@
 				</figure>
 
 				<figure class="item" v-if="focus.type == 'quote'">
-					<p class="quote">{{ focus.quote | nl2br }}</p>
+					<p class="quote">{{{ focus.quote | nl2br }}}</p>
 					<figcaption>
 						Auteur : <cite class="author">{{ focus.author }}</cite>
 					</figcaption>
@@ -178,7 +178,8 @@
 
 
 				<figure class="item" v-if="focus.type == 'poem'">
-					<p class="poem">{{focus.name}} - {{ focus.poem | nl2br }}</p> by {{ focus.author }} <a data-id="{{focus.id}}" href="#" class="star">Ajouter à mes favoris</a></p>
+					<p class="poem">{{focus.name}}<br>
+					<span>{{{focus.poem}}}</span></p> par {{ focus.author }}
 				</figure>
 
 
@@ -188,7 +189,7 @@
 					<a data-id="{{focus.id}}" class="star" href="#" :class="{'starred': focus.starred}" style="vertical-align: middle;"><i data-id="{{focus.id}}" class="icon-like" :class="{'starred': focus.starred}"></i></a>
 					<a href="/oeuvre/{{focus.id}}" href="#" class="goto-similar">Oeuvres similaires</a>
 
-					<p>Que vous évoque cette &oelig;uvre ?</p> <!-- Quel sentiment voulez-vous ajouter à cette oeuvre ? -->
+					<p>Quel sentiment voulez-vous ajouter à cette oeuvre ?</p> <!-- Quel sentiment voulez-vous ajouter à cette oeuvre ? -->
 					<div class="buttons-sentiments">
 						<div class="sentiment-form">
 							<form method="PUT" class="add-word" action="/api/v1/items/{{focus.id}}/words/">
@@ -232,7 +233,7 @@
 					</figure>
 					
 					<figure class="item in-list" v-if="item.type == 'quote'" data-id="{{item.id}}">
-						<p class="quote">&laquo; {{ item.quote | nl2br }} &raquo;</p>
+						<p class="quote">&laquo; {{{ item.quote | nl2br }}} &raquo;</p>
 						<figcaption>
 							Auteur : <cite class="author">{{ item.author }}</cite>
 						</figcaption> <!--<a data-id="{{item.id}}" href="#" class="star">Ajouter à mes favoris</a> <a data-id="{{item.id}}" href="#" class="similar">Similar</a> -->
@@ -240,7 +241,7 @@
 
 			
 					<figure class="item in-list" v-if="item.type == 'poem'" data-id="{{item.id}}">
-						<p class="poem">{{item.name}} - {{ item.poem | nl2br }}</p>
+						<p class="poem">{{item.name}} - {{{ item.poem | nl2br }}}</p>
                         <figcaption>
                             Auteur : <cite class="author">{{ item.author }}</cite>
                         </figcaption><!-- <a data-id="{{item.id}}" href="#" class="star">Ajouter à mes favoris</a> <a data-id="{{item.id}}" href="#" class="similar">Similar</a> -->

@@ -1,5 +1,9 @@
 
-
+Vue.filter('nl2br', function (value) {
+	console.log(value);
+	if (typeof value == 'undefined') return '';
+  return value.replace(/\n/g,'<br>');
+})
 // @dependency Grapnel
 var App = function() {
 	this.username = null,
@@ -17,8 +21,6 @@ var App = function() {
 	
 	this.router = new Grapnel({ pushState : true });
 
-    Vue.config.debug = true;
-    
 
 	this.router.get('/debug', function(req){
 		this.goTo('exploreWords');

@@ -184,6 +184,24 @@ $app->get('api/v1/items/{item_id}/similar', function ($item_id) use ($app) { // 
 	$grouped_items = $q->fetchAll(PDO::FETCH_GROUP); // quote => ... ; painting => ...
 	$flattened_items = get_infos_and_flatten($grouped_items);
 	
+	if (!isset($_SESSION['username']))
+	{
+		foreach ($flattened_items as &$item)
+		{
+			$item['starred'] = false;
+		}
+	}
+	foreach ($flattened_items as &$item)
+	{
+		$q = $app['db']->prepare('SELECT * FROM user_stars WHERE user_id = :user_id AND item_id = :item_id');
+		$q->execute(array(':user_id' => $_SESSION['user_id'], 'item_id' => $item['id']));
+
+		if ($q->fetch() === false)
+			$item['starred'] = false;
+		else
+			$item['starred'] = true;
+	}
+	
 	/*	
 	==> list of items
 	
