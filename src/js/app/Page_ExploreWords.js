@@ -12,7 +12,6 @@ var Page_ExploreWords = function() {
 Page_ExploreWords.prototype.run = function()
 {
 	
-	console.log('Fonction chargement page fonctionne');
 	$.ajax({
 		type: "GET",
 		url: '/api/v1/words',

@@ -163,8 +163,8 @@ Page_ExploreItems.prototype.bindEvents = function () {
 		
 		var window_width = $(window).width();
 		var window_height = $(window).height();
-		var middle_zone_width = 100;
-		var middle_zone_height = 100;
+		var middle_zone_width = 50;
+		var middle_zone_height = 50;
 		var minimal_difference = 0;
 
 		if (e.pageX > window_width/2)
@@ -207,21 +207,29 @@ Page_ExploreItems.prototype.bindEvents = function () {
 	};
 	
 	var toFunc = function() {
-		$('.item-list').removeClass('not-ready');
+		
 		
 		var min = 0, max = 0;
+		var minY = 0, maxY = 0;
 		$('div.item-list > *').each(function(){
 			if ($(this).offset().left < min)
 				min = $(this).offset().left;
 			if ($(this).offset().left > max)
 				max = $(this).offset().left;
+			
+			if ($(this).offset().top < minY)
+				minY = $(this).offset().top;
+			if ($(this).offset().top+$(this).height() > maxY)
+				maxY = $(this).offset().top+$(this).height();
 		});
-		
+		this.realTranslatableWidth = max-min;
+		this.realTranslatableHeight = maxY-minY;
 		if (min == 0 && max ==0)
 			setTimeout(toFunc.bind(this),1000); // waiting for loading
 		else
 		{
-			TweenMax.set($('.item-list'), {x: -(max-min)/2 }) // -$('.item-list').width()/2 , y: -$('.item-list').height()/2
+			$('.item-list').removeClass('not-ready');
+			TweenMax.set($('.item-list'), {x: -(max-min)/2, y: 0 }) // -$('.item-list').width()/2 , y: -$('.item-list').height()/2
 			window.requestAnimationFrame(this.onAnimationFrame.bind(this));
 		}
 	};
@@ -230,14 +238,26 @@ Page_ExploreItems.prototype.bindEvents = function () {
 }
 
 Page_ExploreItems.prototype.updateTranslatable = function () {
-	if($('.item-list').get(0)._gsTransform !== undefined && ($('.item-list').get(0)._gsTransform.x+this.explore_speed >= 0 || $('.item-list').get(0)._gsTransform.x+this.explore_speed <= -$('.item-list').width() + $(window).width()))
+	if($('.item-list').get(0)._gsTransform !== undefined && 
+	   (
+		$('.item-list').get(0)._gsTransform.x !== undefined && (
+	   ($('.item-list').get(0)._gsTransform.x+this.explore_speedX >= 0 || $('.item-list').get(0)._gsTransform.x+this.explore_speedX <= -this.realTranslatableWidth + $(window).width()) )
+	  ))
+	{
+	}
+	else
+	{
+		TweenMax.to($('.item-list'), 1, {x: '+='+this.explore_speedX, y: '+='+this.explore_speedY, ease: Power1.easeOut})
+	}
+	
+	if ($('.item-list').get(0)._gsTransform.y !== undefined && (
+			$('.item-list').get(0)._gsTransform.y+this.explore_speedY >= 500 || $('.item-list').get(0)._gsTransform.y+this.explore_speedY <= -this.realTranslatableHeight + $(window).height() - 1000))
 	{
 		
 	}
 	else
 	{
-		TweenMax.to($('.item-list'), 1, {x: '+='+this.explore_speedX, y: '+='+this.explore_speedY, ease: Power1.easeOut})
-		// TweenMax.to($('.item-list'), 1, {x: '+=1', y: '+=1',  ease: Power1.easeOut})
+		TweenMax.to($('.item-list'), 1, {y: '+='+this.explore_speedY, ease: Power1.easeOut})
 	}
 	window.requestAnimationFrame(this.onAnimationFrame.bind(this));
 }

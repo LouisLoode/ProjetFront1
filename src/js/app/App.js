@@ -1,6 +1,5 @@
 
 Vue.filter('nl2br', function (value) {
-	console.log(value);
 	if (typeof value == 'undefined') return '';
   return value.replace(/\n/g,'<br>');
 })
@@ -187,7 +186,6 @@ App.prototype.bindEvents = function () {
 }
 
 App.prototype.goTo = function (newPage, method) {
-	console.log(newPage); 
 	if (newPage !== this.currentPage)
 	{
 		if (this.currentPage in this.pages)
