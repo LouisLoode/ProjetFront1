@@ -110,6 +110,24 @@ $app->get('api/v1/words/{word}/items', function ($word) use ($app) { // @todo NO
 	
 	$flattened_items = get_infos_and_flatten($grouped_items);
 	
+	if (!isset($_SESSION['username']))
+	{
+		foreach ($flattened_items as &$item)
+		{
+			$item['starred'] = false;
+		}
+	}
+	foreach ($flattened_items as &$item)
+	{
+		$q = $app['db']->prepare('SELECT * FROM user_stars WHERE user_id = :user_id AND item_id = :item_id');
+		$q->execute(array(':user_id' => $_SESSION['user_id'], 'item_id' => $item['id']));
+
+		if ($q->fetch() === false)
+			$item['starred'] = false;
+		else
+			$item['starred'] = true;
+	}
+	
 	/*	
 	==> list of items
 	
@@ -218,7 +236,7 @@ $app->delete('api/v1/items/{item_id}/star', function ($item_id) use ($app) { // 
 
 /* get list of words linked to an item with count  */
 $app->get('api/v1/items/{item_id}/words ', function ($item_id) use ($app) { // @todo NODB ? 
-	$q = $app['db']->prepare('SELECT word, COUNT(*) as count FROM item_words WHERE item_id = :item_id GROUP BY word');
+	$q = $app['db']->prepare('SELECT word, COUNT(*) as count FROM item_words WHERE item_id = :item_id GROUP BY word ORDER BY RAND()');
 	$q->execute(array(
 			':item_id' => $item_id
 		));
