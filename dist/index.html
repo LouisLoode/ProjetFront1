@@ -53,13 +53,23 @@
 
 <body>
 
+    <aside class="top-bar show-bar">
+        <ul class="left">
+            <li><img src="img/logo_explore.png" class="logo-explore" alt="logo"/></li>
+        </ul>
+        <ul class="right">
+            <li><button class="btn">Retourner explorer</button></li>
+        </ul>
+        
+	</aside>
+    
     <section class="home">
     
     	<div class="open-up bottom"></div>
     	<div class="open-up top"></div>
 	
         <div class="container">
-            <img src="img/logo_intro.png" class="logo" />
+            <img src="img/logo_intro.png" class="logo" alt="logo-intro" />
             <h3>Bienvenue</h3>
             <h1>Votre mission est d'associer
  des sentiments à des oeuvres.</h1>
@@ -72,7 +82,7 @@
                     </div>
                 </div>
                 <div class="hole">
-                    <a href="#"><img src="img/trou.png" /></a>
+                    <a href="#"><img src="img/trou.png" alt="trou" /></a>
                 </div>
             </div>
         </div>
@@ -118,7 +128,7 @@
 				<template v-for="item in items">
 					
 					<figure class="item" v-if="item.type == 'photograph' || item.type == 'painting'" data-id="{{item.id}}">
-						<img v-bind:src="'http://swarm.ovh/orane/upload/' + item.id + '.' + item.extension">
+						<img v-bind:src="'http://swarm.ovh/orane/upload/' + item.id + '.' + item.extension" v-bin:alt="' + item.id + '.' + item.extension">
 						<figcaption>
 						<cite class="title">{{ item.name }}</cite><br>
 						Artiste : <cite class="author">{{ item.author }}</cite>
@@ -173,20 +183,21 @@
            
             </div>
             <div class="sentiments">
-               
-                <a data-id="{{focus.id}}" href="#" class="star">Ajouter à mes favoris</a>  <a data-id="{{focus.id}}" href="#" class="similar">Similar</a> 
+
                 
-                <p>Quel sentiment voulez-vous ajouter à cette oeuvre ?</p>    
-                    <a data-id="" class="star" href="#"><span class="icon-like"></span></a> 
-            
-                <div class="sentiment-form">
-                    <form method="POST" action="/api/v1/sign_up">
-                        <input type="text" name="sentiment">
-                        <button type="submit" class="icon-add_sentiment"></button>
-                    </form>
+                <p>Quel sentiment voulez-vous ajouter à cette oeuvre ?</p>   
+                <div class="buttons-sentiments">
+                    <a data-id="{{focus.id}}" class="star" href="#"><i class="icon-like"></i></a> 
+
+                    <div class="sentiment-form">
+                        <form method="POST" action="/api/v1/sign_up">
+                            <input type="text" name="sentiment">
+                            <button type="submit" class="icon-add_sentiment"></button>
+                        </form>
+                    </div>
                 </div>
                 <div class="similar">
-                    <a data-id="" href="#">( Il existe un mot similaire ? )</a>
+                    <a data-id="{{focus.id}}" href="#">( Il existe un mot similaire ? )</a>
                 </div>
                 <hr />
                 <p class="explanation">Voir les sentiments associés</p>
@@ -275,7 +286,7 @@
         </ul>
         <ul class="right">
             <li><a href="https://twitter.com/share?url={{ encodeURIComponent(homeUrl) }}" target="_blank"><span class="icon-twitter"></span></a></li>
-            <li><a href="http://www.facebook.com/sharer.php?u={{ encodeURIComponent(homeUrl) }}"><span class="icon-facebook"></span></li>
+            <li><a href="http://www.facebook.com/sharer.php?u={{ encodeURIComponent(homeUrl) }}"><span class="icon-facebook"></span></a></li>
         </ul>
         
 	</aside>

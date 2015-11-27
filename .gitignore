@@ -4,7 +4,7 @@ bower_components/
 dist/img/
 dist/js/
 dist/styles/
-conf/*.php
+conf/config.php
 .sass-cache/
 **/.DS_Store
 ApiTester.paw
