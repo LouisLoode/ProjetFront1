@@ -109,9 +109,62 @@ Page_ExploreWords.prototype.updateTranslatable = function () {
 		else
 			var diviser = 1;
 		
-		TweenMax.to($('.explore-words .backgrounds .translatable--0'), 1, {x: '+='+this.explore_speed/4/diviser, ease: Power1.easeOut})
-		TweenMax.to($('.explore-words .backgrounds .translatable--1'), 1, {x: '+='+this.explore_speed/3/diviser, ease: Power1.easeOut})
-		TweenMax.to($('.explore-words .backgrounds .translatable--2'), 1, {x: '+='+this.explore_speed/2/diviser, ease: Power1.easeOut})
+		// recup get et modulo
+		
+		if (typeof $('.explore-words .backgrounds .translatable--0').get(0)._gsTransform == 'undefined')
+			var tr0 = 0;
+		else {
+			var tr0 = $('.explore-words .backgrounds .translatable--0').get(0)._gsTransform.x +this.explore_speed/4/diviser;
+			if (tr0>0) {
+				tr0 = tr0-$('.explore-words .backgrounds .translatable--0 img').eq(0).width();
+				TweenMax.set($('.explore-words .backgrounds .translatable--0'), {x: $('.explore-words .backgrounds .translatable--0').get(0)._gsTransform.x-$('.explore-words .backgrounds .translatable--0 img').eq(0).width()}) // set to same position in image, except it's another image
+				TweenMax.to($('.explore-words .backgrounds .translatable--0'), 1, {x: tr0, ease: Power1.easeOut}) // ease as expected
+			}
+			else if (tr0<-$('.explore-words .backgrounds .translatable--0 img').eq(0).width())
+			{
+				tr0 = $('.explore-words .backgrounds .translatable--0 img').eq(0).width()+tr0;
+				TweenMax.set($('.explore-words .backgrounds .translatable--0'), {x: $('.explore-words .backgrounds .translatable--0 img').eq(0).width()+$('.explore-words .backgrounds .translatable--0').get(0)._gsTransform.x}) // set to same position in image, except it's another image
+				TweenMax.to($('.explore-words .backgrounds .translatable--0'), 1, {x: tr0, ease: Power1.easeOut}) // ease as expected
+			}
+		}
+		
+		TweenMax.to($('.explore-words .backgrounds .translatable--0'), 1, {x: tr0, ease: Power1.easeOut})
+		
+		if (typeof $('.explore-words .backgrounds .translatable--1').get(0)._gsTransform == 'undefined')
+			var tr1 = 0;
+		else {
+			var tr1 = $('.explore-words .backgrounds .translatable--1').get(0)._gsTransform.x +this.explore_speed/3/diviser;
+			if (tr1>0) {
+				tr1 = tr1-$('.explore-words .backgrounds .translatable--1 img').eq(0).width();
+				TweenMax.set($('.explore-words .backgrounds .translatable--1'), {x: $('.explore-words .backgrounds .translatable--1').get(0)._gsTransform.x-$('.explore-words .backgrounds .translatable--1 img').eq(0).width()}) // set to same position in image, except it's another image
+			}
+			else if (tr1<-$('.explore-words .backgrounds .translatable--1 img').eq(0).width())
+			{
+				tr1 = $('.explore-words .backgrounds .translatable--1 img').eq(0).width()+tr1;
+				TweenMax.set($('.explore-words .backgrounds .translatable--1'), {x: $('.explore-words .backgrounds .translatable--1 img').eq(0).width()+$('.explore-words .backgrounds .translatable--1').get(0)._gsTransform.x}) // set to same position in image, except it's another image
+			}
+		}
+		
+		TweenMax.to($('.explore-words .backgrounds .translatable--1'), 1, {x: tr1, ease: Power1.easeOut})
+		
+		if (typeof $('.explore-words .backgrounds .translatable--2').get(0)._gsTransform == 'undefined')
+			var tr2 = 0;
+		else {
+			var tr2 = $('.explore-words .backgrounds .translatable--2').get(0)._gsTransform.x +this.explore_speed/2/diviser;
+			if (tr2>0) { // if we're going left, to the left of the middle image, we switch to the beginning of the third (right-hand-side) image
+				tr2 = tr2-$('.explore-words .backgrounds .translatable--2 img').eq(0).width();
+				TweenMax.set($('.explore-words .backgrounds .translatable--2'), {x: $('.explore-words .backgrounds .translatable--2').get(0)._gsTransform.x-$('.explore-words .backgrounds .translatable--2 img').eq(0).width()}) // set to same position in image, except it's another image
+				TweenMax.to($('.explore-words .backgrounds .translatable--2'), 1, {x: tr2, ease: Power1.easeOut}) // ease as expected
+			}
+			else if (tr2<-$('.explore-words .backgrounds .translatable--2 img').eq(0).width())
+			{
+				tr2 = $('.explore-words .backgrounds .translatable--2 img').eq(0).width()+tr2;
+				TweenMax.set($('.explore-words .backgrounds .translatable--2'), {x: $('.explore-words .backgrounds .translatable--2 img').eq(0).width()+$('.explore-words .backgrounds .translatable--2').get(0)._gsTransform.x}) // set to same position in image, except it's another image
+			}
+		}
+		
+		TweenMax.to($('.explore-words .backgrounds .translatable--2'), 1, {x: tr2, ease: Power1.easeOut})
+		
 		TweenMax.to($('.explore-words .translatable--words'), 1, {x: '+='+this.explore_speed/diviser, ease: Power1.easeOut})
 	}
 	window.requestAnimationFrame(this.onAnimationFrame.bind(this));
