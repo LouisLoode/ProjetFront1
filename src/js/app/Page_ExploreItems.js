@@ -16,7 +16,7 @@ Page_ExploreItems.prototype.exploreItemsByWord = function (word)
 		url: '/api/v1/words/'+ encodeURIComponent(word) +'/items',
 		success: function(data) {
 			var items = data.items;
-			items = items.map(function(d) { d['words'] = []; return d; });
+			items = items.map(function(d) { d['words'] = []; return d; }); // so that Vue.js watches changes on 'words'
 			this.Vue.items = items;
 			this.Vue.word = word;
 		}.bind(this)
@@ -31,7 +31,7 @@ Page_ExploreItems.prototype.exploreSimilarItems = function (item_id)
 		url: '/api/v1/items/'+ item_id +'/similar',
 		success: function(data) {
 			var items = data.items;
-			items = items.forEach(function(d) { d['words'] = []; return d; });
+			items = items.map(function(d) { d['words'] = []; return d; }); // so that Vue.js watches changes on 'words'
 			this.Vue.items = items;
 			this.Vue.word = '';
 		}.bind(this)

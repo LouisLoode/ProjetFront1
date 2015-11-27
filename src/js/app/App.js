@@ -27,6 +27,10 @@ var App = function() {
 	this.router.get('/mot/:word', function(req){
 		this.goTo('exploreItems','exploreItemsByWord',req.params.word);
 	}.bind(this));
+	
+	this.router.get('/oeuvre/:id', function(req){
+		this.goTo('exploreItems','exploreSimilarItems',req.params.id);
+	}.bind(this));
 
 	this.router.get('/profil/:user_id', function(req){
 		this.goTo('profile', 'run', req.params.user_id);
