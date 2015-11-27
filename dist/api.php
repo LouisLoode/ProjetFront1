@@ -257,10 +257,38 @@ $app->put('api/v1/items/{item_id}/words/{new_word}', function ($item_id, $new_wo
 $app->get('api/v1/signed_in', function () use ($app) { // @todo NODB ? 
 	
 	if (isset($_SESSION['username']))
+	{
+		$q = $app['db']->prepare('
+		SELECT item_id
+		FROM user_stars
+		WHERE user_stars.user_id = :user_id');
+	$q->execute(array(':user_id' => $_SESSION['user_id']));
+	
+	$items = $q->fetchAll();
+	$item_list = array();
+
+	foreach ($items as $item)
+	{
+		$item_list[] = $item['item_id'];	
+	}
+	/*	
+	==> list of items
+	
+		{similar: [
+			{type: 'painting', extension: 'jpg', id: 32, name: '...},
+			{type: 'painting', extension: 'jpg', id: 32, name: '...},
+			{type: 'quote', quote: 'alala'}
+			]}
+	
+	*/
+		
+		
 		return $app->json(array('signed_in' => true,
 						'user_id' => $_SESSION['user_id'],
 						'username' => $_SESSION['username'],
-						'mail' => $_SESSION['mail']));
+						'mail' => $_SESSION['mail'],
+					    'stars' => $item_list));
+	}
 	else
 		return $app->json(array('signed_in' => false));
 });
