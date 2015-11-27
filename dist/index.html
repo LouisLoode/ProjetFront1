@@ -137,28 +137,18 @@
 							<cite class="title">{{ item.name }}</cite><br>
 							<cite class="author">{{ item.author }}</cite>
 							</figcaption>
-							<!-- <a data-id="{{item.id}}" href="#" class="star">Ajouter à mes favoris</a>  <a data-id="{{item.id}}" href="#" class="similar">Similar</a> 
-							-->
 						</figure>
 						
 						<figure class="item in-list" v-if="item.type == 'quote'" data-id="{{item.id}}">
 							<p class="quote">&laquo; {{{ item.quote | nl2br }}} &raquo;</p>
 							<figcaption>
 								<cite class="author">{{ item.author }}</cite>
-							</figcaption> <!--<a data-id="{{item.id}}" href="#" class="star">Ajouter à mes favoris</a> <a data-id="{{item.id}}" href="#" class="similar">Similar</a> -->
+							</figcaption>
 						</figure>
 			
 				
-						<!--<figure class="item in-list" v-if="item.type == 'poem'" data-id="{{item.id}}">
-							<p class="poem">{{item.name}} - {{{ item.poem | nl2br }}}</p>
-			                        <figcaption>
-			                            Auteur : <cite class="author">{{ item.author }}</cite>
-			                        </figcaption>
-			                            
-						</figure>-->
 						
 					</template>
-			<!--</ul>-->
 		</div>
 		
 		<div class="item-focus hidden">
@@ -230,15 +220,13 @@
 						<cite class="title">{{ item.name }}</cite><br>
 						Artiste : <cite class="author">{{ item.author }}</cite>
 						</figcaption>
-						<!-- <a data-id="{{item.id}}" href="#" class="star">Ajouter à mes favoris</a>  <a data-id="{{item.id}}" href="#" class="similar">Similar</a> 
-						-->
 					</figure>
 					
 					<figure class="item in-list" v-if="item.type == 'quote'" data-id="{{item.id}}">
 						<p class="quote">&laquo; {{{ item.quote | nl2br }}} &raquo;</p>
 						<figcaption>
 							Auteur : <cite class="author">{{ item.author }}</cite>
-						</figcaption> <!--<a data-id="{{item.id}}" href="#" class="star">Ajouter à mes favoris</a> <a data-id="{{item.id}}" href="#" class="similar">Similar</a> -->
+						</figcaption>
 					</figure>
 
 			
@@ -246,7 +234,7 @@
 						<p class="poem">{{item.name}} - {{{ item.poem | nl2br }}}</p>
                         <figcaption>
                             Auteur : <cite class="author">{{ item.author }}</cite>
-                        </figcaption><!-- <a data-id="{{item.id}}" href="#" class="star">Ajouter à mes favoris</a> <a data-id="{{item.id}}" href="#" class="similar">Similar</a> -->
+                        </figcaption>
                             
 					</figure>
 					

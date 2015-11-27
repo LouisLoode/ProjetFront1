@@ -82,14 +82,15 @@ Page_ExploreWords.prototype.bindEvents = function() {
      
 				//app.goTo('exploreItems','exploreItemsByWord',$.trim($(e.target).text()));
 				
-				$('.explore-words').fadeOut(function(){
+				$('.explore-words').animate({opacity: 0},function(){
 					$('.explore-words').removeClass('active');
 				
 					$(e.target).css({opacity: 0});
 					$('.explore-items').css({opacity: 0});
 					app.router.navigate('/mot/'+$.trim($(e.target).text()));
-					
+					$('.explore-words').css({opacity: 1});
 					$('.explore-items').animate({opacity: 1});
+					$('.spotlight').text($(e.target).text());
 				});
 				
 			},1000);

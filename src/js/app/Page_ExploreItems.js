@@ -53,14 +53,14 @@ Page_ExploreItems.prototype.exploreProfile = function (user_id)
 }
 
 Page_ExploreItems.prototype.bindEvents = function () {
-	
+	$('.top-bar').addClass('show-bar');
 	$('.explore-items .item-list').masonry({// options
   itemSelector: '.item',
   columnWidth: 200
         });
 	
-	$('.mask').click(function(){ console.log('gift'); $('.item-focus').addClass('hidden'); });
-	$('.flexor').click(function(e){ if ($(e.target).is('.flexor')) $('.item-focus').addClass('hidden'); });
+	$('.mask').click(function(){ $('.top-bar').addClass('show-bar'); $('.item-focus').addClass('hidden'); });
+	$('.flexor').click(function(e){ $('.top-bar').addClass('show-bar'); if ($(e.target).is('.flexor')) $('.item-focus').addClass('hidden'); });
     // $('.top-bar').addClass('show-bar');
 	$('.explore-items').on('click','.star',function(e){
 		
@@ -127,6 +127,7 @@ Page_ExploreItems.prototype.bindEvents = function () {
     
 	var that = this;
 	$('.explore-items').on('click','.item.in-list', function(e) {
+		$('.top-bar').removeClass('show-bar');
 		var focus_id = $(this).data('id');
 		that.Vue.focus = that.Vue.items.filter(function(a){ return a.id == focus_id; })[0];
 		$('.item-focus').removeClass('hidden');
@@ -205,14 +206,27 @@ Page_ExploreItems.prototype.bindEvents = function () {
 		this.updateTranslatable();
 	};
 	
-	/*setTimeout(function(){
+	var toFunc = function() {
 		$('.item-list').removeClass('not-ready');
-		TweenMax.set($('.item-list'), {x: -$('.item-list').width()/2, y: -$('.item-list').height()/2})
-		window.requestAnimationFrame(this.onAnimationFrame.bind(this));
-	}.bind(this),1000);*/
-	$('.item-list').removeClass('not-ready');
-	TweenMax.set($('.item-list'), {x: -$('.item-list').width()/2})
-		window.requestAnimationFrame(this.onAnimationFrame.bind(this));
+		
+		var min = 0, max = 0;
+		$('div.item-list > *').each(function(){
+			if ($(this).offset().left < min)
+				min = $(this).offset().left;
+			if ($(this).offset().left > max)
+				max = $(this).offset().left;
+		});
+		
+		if (min == 0 && max ==0)
+			setTimeout(toFunc.bind(this),1000); // waiting for loading
+		else
+		{
+			TweenMax.set($('.item-list'), {x: -(max-min)/2 }) // -$('.item-list').width()/2 , y: -$('.item-list').height()/2
+			window.requestAnimationFrame(this.onAnimationFrame.bind(this));
+		}
+	};
+	
+	setTimeout(toFunc.bind(this),1000);
 }
 
 Page_ExploreItems.prototype.updateTranslatable = function () {
@@ -231,12 +245,11 @@ Page_ExploreItems.prototype.updateTranslatable = function () {
 
 Page_ExploreItems.prototype.unbindEvents = function () {
 	$('.explore-items').off('click');
-	
+	$('.top-bar').removeClass('show-bar');
 	$('.explore-items').off('click','.similar');
 	
 	$('.explore-items').off('click','.item');
 	
 	$('.explore-items .word.spotlight').removeClass('bordered');
     
-    $('.top-bar').removeClass('show-bar');
 }

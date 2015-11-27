@@ -8,6 +8,11 @@
     height: 85px;
 	z-index: 100;
     display: none;
+	
+	border: 10px solid black;
+	max-height: 7px; overflow: hidden;
+	&:hover {max-height: 100px;}
+	z-index: 999;
     
     ul {
         list-style-type:none;
