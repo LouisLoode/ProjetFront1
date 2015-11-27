@@ -65,28 +65,28 @@ body {
 			}
 		}
 			
-		.translatable.translatable--words { // todo width ?
+		.translatable.translatable--words {
 			position: absolute;
 			top: 35%;
 			left: 0;
 			width: auto;
 			bottom: 35%;
-			//height: 20%;	
 			overflow: hiden;
-			//margin-top: 40%;
-			//margin-bottom: 40%;
 
 				.words { 
 				    list-style-type: none;
 					width: 80%;
 
 					.word {
-						opacity: 0;
-						transition: opacity 3s ease;
-						transition-delay: 1s;
+						cursor: pointer;
 					}
 					
-					.word.visible {
+					
+					opacity: 0;
+					transition: opacity 3s ease;
+					transition-delay: 1s;
+					
+					&.visible {
 						opacity: 1;	
 					}
 					
