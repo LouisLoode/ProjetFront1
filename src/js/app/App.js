@@ -94,7 +94,11 @@ App.prototype.getAndRefreshAuthenticationInfo = function(callback) {
 					this.Vue_TopBar.username = data.username;
 					this.Vue_TopBar.user_id = data.user_id;
 					// this.user_stars = data.stars;
+					
+					$('body').addClass('signed-in');
 				}
+				else
+					$('body').removeClass('signed-in');
 				if (typeof callback !== 'undefined') callback();
 			}.bind(this)
 		});
@@ -174,6 +178,7 @@ App.prototype.bindEvents = function () {
 						this.Vue_TopBar.username = '';
 						this.Vue_TopBar.user_id = -1;
 						$('.subnav').removeClass('active');
+						$('.body').removeClass('signed-in');
 					}.bind(this)
 			});
 		return false;

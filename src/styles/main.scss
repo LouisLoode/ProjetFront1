@@ -41,6 +41,9 @@ a:link, a:visited, a:hover, a:active {
     text-decoration: none;
 }
 
+body:not(.signed-in) .show-if-logged-in { display: none !important; }
+body.signed-in .hide-if-logged-in { display: none !important; }
+
 /* 
    Chargement des différents éléments
 */

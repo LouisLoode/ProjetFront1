@@ -13,7 +13,7 @@
 
 	<!-- SEO meta -->
 	<meta name="robots" content="index, follow" />
-	<meta name="description" content="Words" />
+	<meta name="description" content="Laissez vos sentiments vous guider vers des oeuvres d'art" />
 	<!-- End SEO meta -->
 
 	<!-- IE meta -->
@@ -114,7 +114,7 @@
 		</div>
 		
 			<div class="translatable translatable--words" v-bind:style="{width: words[words.length-1].position.left+100 + 'px'}">
-				<div class="words">
+				<div class="words" style="transform: translateX(-50%)">
 					<div class="word" v-for="word in words" v-bind:style="{left: word.position.left + 'px', top: word.position.top + 'px'}">
 						{{ word.word }}
 
@@ -178,11 +178,14 @@
 				<div class="sentiments">
 
 
-					<a data-id="{{focus.id}}" class="star" href="#" :class="{'starred': focus.starred}" style="vertical-align: middle;"><i data-id="{{focus.id}}" class="icon-like" :class="{'starred': focus.starred}"></i></a>
+					<a data-id="{{focus.id}}" class="star show-if-logged-in" href="#" :class="{'starred': focus.starred}" style="vertical-align: middle;"><i data-id="{{focus.id}}" class="icon-like" :class="{'starred': focus.starred}"></i></a>
 					<a href="/oeuvre/{{focus.id}}" href="#" class="goto-similar">Oeuvres similaires</a>
 
-					<p>Quel sentiment voulez-vous ajouter à cette oeuvre ?</p> <!-- Quel sentiment voulez-vous ajouter à cette oeuvre ? -->
-					<div class="buttons-sentiments">
+					<p class="show-if-logged-in">Quel sentiment voulez-vous ajouter à cette oeuvre ?</p> <!-- Quel sentiment voulez-vous ajouter à cette oeuvre ? -->
+					
+					<p class="hide-if-logged-in">Connectez-vous pour ajouter cette oeuvre à vos favoris.</p>
+					
+					<div class="buttons-sentiments show-if-logged-in">
 						<div class="sentiment-form">
 							<form method="PUT" class="add-word" action="/api/v1/items/{{focus.id}}/words/">
 								<input type="text" name="sentiment" class="word-to-add">
@@ -287,8 +290,8 @@
 			
         </ul>
         <ul class="right">
-            <li><a href="https://twitter.com/share?url={{ encodeURIComponent(homeUrl) }}" target="_blank"><span class="icon-twitter"></span></a></li>
-            <li><a href="http://www.facebook.com/sharer.php?u={{ encodeURIComponent(homeUrl) }}"><span class="icon-facebook"></span></a></li>
+            <li><a href="https://twitter.com/share?url=http%3A%2F%2Fsensus.swarm.ovh" target="_blank"><span class="icon-twitter"></span></a></li>
+            <li><a href="http://www.facebook.com/sharer.php?u=http%3A%2F%2Fsensus.swarm.ovh"><span class="icon-facebook"></span></a></li>
         </ul>
         
 	</aside>
