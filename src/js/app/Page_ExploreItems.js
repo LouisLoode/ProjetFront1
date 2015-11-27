@@ -100,6 +100,9 @@ Page_ExploreItems.prototype.bindEvents = function () {
 		this.exploreSimilarItems(parseInt($(e.target).data('id')));
 	}.bind(this));
 	
+
+    
+    
 	var that = this;
 	$('.explore-items').on('click','.item', function(e) {
 		var focus_id = $(this).data('id');

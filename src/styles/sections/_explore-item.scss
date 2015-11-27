@@ -21,6 +21,19 @@ hr{
             z-index: 2;
             position: fixed;
             width: 250px;
+            
+            .quote{
+                font-size: 18px;
+                font-weight: bold;
+                line-height: 25px;
+                color: #262626;
+                padding-top: 25px;
+                padding-left: 15px;
+                padding-right: 15px;
+            }
+            .poem{
+                
+            }
         }
         .sentiments{
             background-color: #FFFFFF;
@@ -37,7 +50,7 @@ hr{
                 margin-bottom: 10px;
                 font-family: $font-family-btn;
                 font-size: 14px;
-                color: rgba(0, 0, 0, 0.87);
+                color: rgba(0, 0, 0, 0.87); 
             }
 			
 			.goto-similar {

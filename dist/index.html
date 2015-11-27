@@ -7,6 +7,9 @@
 	<title>Aperio Sensus</title>
 	
 	<base href="/">
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="img/favicon.png" />
 
 	<!-- SEO meta -->
 	<meta name="robots" content="index, follow" />
@@ -53,9 +56,9 @@
 
 <body>
 
-    <aside class="top-bar show-bar">
+    <aside class="top-bar">
         <ul class="left">
-            <li><a href="{{ encodeURIComponent(homeUrl) }}"><img src="img/logo_explore.png" class="logo-explore" alt="logo"/></a></li>
+            <li><a href="./"><img src="img/logo_explore.png" class="logo-explore" alt="logo"/></a></li>
         </ul>
         <ul class="right">
             <li><button class="btn">Retourner explorer</button></li>
@@ -169,7 +172,7 @@
 					</figure>
 					
 					<figure class="item" v-if="focus.type == 'quote'">
-						<span class="quote">{{ focus.quote | nl2br }}</span>
+						<p class="quote">{{ focus.quote | nl2br }}</p>
 						<figcaption>
 							Auteur : <cite class="author">{{ focus.author }}</cite>
 						</figcaption>
@@ -177,7 +180,7 @@
 
 			
 					<figure class="item" v-if="focus.type == 'poem'">
-						<p> {{focus.name}} - {{ focus.poem | nl2br }} by {{ focus.author }} <a data-id="{{focus.id}}" href="#" class="star">Ajouter à mes favoris</a></p>
+                        <p class="poem">{{focus.name}} - {{ focus.poem | nl2br }}</p> by {{ focus.author }} <a data-id="{{focus.id}}" href="#" class="star">Ajouter à mes favoris</a></p>
 					</figure>
            
            
