@@ -73,6 +73,7 @@ aside {
     position: fixed;
     left: 0;
 	right: 0;
+    transition: all 0.2s ease;
     background-color: #FFFFFF;
 	transition: opacity 0.2s, bottom 0.3s;
 	bottom: 20px;

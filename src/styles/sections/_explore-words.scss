@@ -1,0 +1,123 @@
+// Particules
+#particles-js{
+  width: 100%;
+  height: 100%;
+  background-color: #000000;
+  background-image: url('');
+  background-size: cover;
+  background-position: 50% 50%;
+  background-repeat: no-repeat;
+}
+
+body {
+
+    background: black;
+    
+    h1{
+        font-size: $font-size-h1;
+    }
+    h2{
+        font-size: $font-size-h2;
+    }
+    h3{
+        font-size: $font-size-h3;
+        font-family: $font-family-sans-serif;
+        text-transform: uppercase;
+        letter-spacing: 3px;
+    }
+	.top-bar { position: fixed; z-index: 100; left: 0; right: 0; }
+	> section { display: none; min-height: 100%; padding-top: 1px; }
+	> section.active { display: block; }
+	
+	.explore-words {
+		position: fixed;
+		top: 0;
+		left: 0;
+		right: 0;
+		bottom: 0;
+		overflow: hidden;
+		
+		h1 { position: fixed; top: 50px; left: 50px; }
+		
+		.backgrounds {
+			position: fixed;
+			
+			bottom: 0;left: 0;top: 0;bottom: 0;
+			.translatable {
+				position: absolute;
+				height: 100%;width: 150%;
+				left: -10%;
+			}
+			.translatable--0 {
+				
+				background-image: url(/img/background_mountain_1.svg);
+			}
+			.translatable--1 {
+				background-image: url(/img/background_water_1.svg);
+				background-repeat: repeat-x;
+			}
+			.translatable--2 {
+				.tr--1 { background-image: url(/img/background_ground_1.svg); }
+				.tr--2 { background-image: url(/img/background_ground_1.svg); }
+				.tr--3 { background-image: url(/img/background_ground_1.svg); }
+			}
+		}
+			
+		.translatable.translatable--words { // todo width ?
+			position: absolute;
+			top: 35%;
+			left: 0;
+			width: auto;
+			bottom: 35%;
+			//height: 20%;	
+			overflow: hiden;
+			//margin-top: 40%;
+			//margin-bottom: 40%;
+
+				.words { 
+				    list-style-type: none;
+					width: 80%;
+
+					
+					
+					
+				}
+		}
+		
+	} 
+	
+}
+					.word {
+						position: absolute;
+						font-family: serif; 
+						text-transform: uppercase;
+						cursor: url("icon-glass.png") 25 25, auto;
+						color: white;
+						
+						transition: font-size 1s ease, line-height 1s ease, padding 1s ease;
+						padding: 16px;
+						font-size: 36px;
+						line-height: 44px;
+					}
+
+					.word.spotlight {
+						position: fixed;
+						left: 50%; top: 50%;
+						transform: translateX(-50%) translateY(-50%);
+						&:empty {
+							display: none; 
+						}
+						&.bordered {
+						}
+						&.bordered:after {
+							opacity: 1;
+						}
+						&:after {
+							position: absolute; top: 0; left: 0; right: 0; bottom: 0;
+							content: " ";
+							opacity: 0;
+							transition: 0.5s ease;
+							box-shadow: inset 0 0 0px 4px white;
+						}
+						
+					}
