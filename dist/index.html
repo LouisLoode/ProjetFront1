@@ -127,37 +127,39 @@
 	
 		<div class="word spotlight">{{ word }}</div>
 	
-		<!--<ul class="items">-->
-				<template v-for="item in items">
-					
-					<figure class="item in-list" v-if="item.type == 'photograph' || item.type == 'painting'" data-id="{{item.id}}">
-						<img v-bind:src="'http://swarm.ovh/orane/upload/' + item.id + '.' + item.extension" v-bin:alt="' + item.id + '.' + item.extension">
-						<figcaption>
-						<cite class="title">{{ item.name }}</cite><br>
-						<cite class="author">{{ item.author }}</cite>
-						</figcaption>
-						<!-- <a data-id="{{item.id}}" href="#" class="star">Ajouter à mes favoris</a>  <a data-id="{{item.id}}" href="#" class="similar">Similar</a> 
-						-->
-					</figure>
-					
-					<figure class="item in-list" v-if="item.type == 'quote'" data-id="{{item.id}}">
-						<p class="quote">&laquo; {{{ item.quote | nl2br }}} &raquo;</p>
-						<figcaption>
+		<div class="item-list not-ready">
+				<!--<ul class="items">-->
+					<template v-for="item in items">
+						
+						<figure class="item in-list" v-if="item.type == 'photograph' || item.type == 'painting'" data-id="{{item.id}}">
+							<img v-bind:src="'http://swarm.ovh/orane/upload/' + item.id + '.' + item.extension" v-bin:alt="' + item.id + '.' + item.extension">
+							<figcaption>
+							<cite class="title">{{ item.name }}</cite><br>
 							<cite class="author">{{ item.author }}</cite>
-						</figcaption> <!--<a data-id="{{item.id}}" href="#" class="star">Ajouter à mes favoris</a> <a data-id="{{item.id}}" href="#" class="similar">Similar</a> -->
-					</figure>
-
+							</figcaption>
+							<!-- <a data-id="{{item.id}}" href="#" class="star">Ajouter à mes favoris</a>  <a data-id="{{item.id}}" href="#" class="similar">Similar</a> 
+							-->
+						</figure>
+						
+						<figure class="item in-list" v-if="item.type == 'quote'" data-id="{{item.id}}">
+							<p class="quote">&laquo; {{{ item.quote | nl2br }}} &raquo;</p>
+							<figcaption>
+								<cite class="author">{{ item.author }}</cite>
+							</figcaption> <!--<a data-id="{{item.id}}" href="#" class="star">Ajouter à mes favoris</a> <a data-id="{{item.id}}" href="#" class="similar">Similar</a> -->
+						</figure>
 			
-					<!--<figure class="item in-list" v-if="item.type == 'poem'" data-id="{{item.id}}">
-						<p class="poem">{{item.name}} - {{{ item.poem | nl2br }}}</p>
-                        <figcaption>
-                            Auteur : <cite class="author">{{ item.author }}</cite>
-                        </figcaption>
-                            
-					</figure>-->
-					
-				</template>
-		<!--</ul>-->
+				
+						<!--<figure class="item in-list" v-if="item.type == 'poem'" data-id="{{item.id}}">
+							<p class="poem">{{item.name}} - {{{ item.poem | nl2br }}}</p>
+			                        <figcaption>
+			                            Auteur : <cite class="author">{{ item.author }}</cite>
+			                        </figcaption>
+			                            
+						</figure>-->
+						
+					</template>
+			<!--</ul>-->
+		</div>
 		
 		<div class="item-focus hidden">
             <div class="flexor">
@@ -170,7 +172,7 @@
 				</figure>
 
 				<figure class="item" v-if="focus.type == 'quote'">
-					<p class="quote">{{{ focus.quote | nl2br }}}</p>
+					<p class="quote" style="width: 50%; margin: auto;">{{{ focus.quote | nl2br }}}</p>
 					<figcaption>
 						Auteur : <cite class="author">{{ focus.author }}</cite>
 					</figcaption>
@@ -312,14 +314,6 @@
    <script src="https://cdnjs.cloudflare.com/ajax/libs/masonry/3.3.2/masonry.pkgd.min.js"></script>
     
     <script>
-    $(document).ready( function() {
-        $('.items').masonry({
-          // options
-          columnWidth: '.grid-sizer',
-          itemSelector: '.item',
-        isFitWidth: true
-        });
-    });
         particlesJS.load('particles-js', 'particles.json', function() {
   console.log('particles.js loaded - callback');
 });

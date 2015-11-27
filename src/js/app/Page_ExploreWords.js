@@ -43,6 +43,10 @@ Page_ExploreWords.prototype.bindEvents = function() {
 	},500);
 	
 	$(document).on('mousemove', function(e) {
+		
+		
+		
+		
 		var window_width = $(window).width();
 		var middle_zone_width = 100;
 		var minimal_difference = 100;
@@ -181,4 +185,6 @@ Page_ExploreWords.prototype.unbindEvents = function() {
 	$('.word').off('click');
 	$(document).off('click','.word');
 	this.onAnimationFrame = function() {};
+	$('.translatable').removeClass('visible');
+	$('.explore-words .words').removeClass('visible');
 }

@@ -202,6 +202,17 @@ $app->get('api/v1/items/{item_id}/similar', function ($item_id) use ($app) { // 
 			$item['starred'] = true;
 	}
 	
+	
+	$q = $app['db']->prepare("
+		SELECT name FROM paintings WHERE item_id = :item_id
+		UNION
+		SELECT name FROM photographs WHERE item_id = :item_id2
+		UNION
+		SELECT SUBSTRING_INDEX(poem,' ',4) name FROM poems WHERE item_id = :item_id3
+		UNION 
+		SELECT SUBSTRING_INDEX(quote,' ',4) name FROM quotes WHERE item_id = :item_id4");
+	$q->execute(array(':item_id' => $item_id, ':item_id2' => $item_id, ':item_id3' => $item_id, ':item_id4' => $item_id));
+	$name = $q->fetch()['name'];
 	/*	
 	==> list of items
 	
@@ -212,7 +223,7 @@ $app->get('api/v1/items/{item_id}/similar', function ($item_id) use ($app) { // 
 			]}
 	
 	*/
-	return $app->json(array('items' => $flattened_items));
+	return $app->json(array('items' => $flattened_items, 'name' => $name));
 });
 
 $app->put('api/v1/items/{item_id}/star', function ($item_id) use ($app) { // @todo NODB ?

@@ -35,7 +35,7 @@ var App = function() {
 	}.bind(this));
 
 	this.router.get('/profil/:user_id', function(req){
-		this.goTo('profile', 'run', req.params.user_id);
+		this.goTo('exploreItems', 'exploreProfile', req.params.user_id);
 	}.bind(this));
 	
 	this.Vue_TopBar = new Vue({
@@ -44,6 +44,7 @@ var App = function() {
 	});
 
 	this.getAndRefreshAuthenticationInfo(function() { // first need signed_in before going to exploreitems
+		
 		if (this.Vue_TopBar.user_id === -1)
 		{
 			this.router.get('/', function(req){

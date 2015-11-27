@@ -5,6 +5,9 @@ var Page_ExploreItems = function() {
 	});
 	
 	Page.apply(this, arguments);
+	
+	this.explore_speedX = 0;
+	this.explore_speedY = 0;
 }
 
 Page_ExploreItems.prototype = Object.create(Page.prototype);
@@ -25,7 +28,6 @@ Page_ExploreItems.prototype.exploreItemsByWord = function (word)
 
 Page_ExploreItems.prototype.exploreSimilarItems = function (item_id)
 {
-	console.log('similar');
 	$.ajax({
 		type: "GET",
 		url: '/api/v1/items/'+ item_id +'/similar',
@@ -33,12 +35,29 @@ Page_ExploreItems.prototype.exploreSimilarItems = function (item_id)
 			var items = data.items;
 			items = items.map(function(d) { d['words'] = []; return d; }); // so that Vue.js watches changes on 'words'
 			this.Vue.items = items;
-			this.Vue.word = '';
+			this.Vue.word = data.name;
+		}.bind(this)
+	});
+}
+
+Page_ExploreItems.prototype.exploreProfile = function (user_id)
+{
+	$.ajax({
+		type: "GET",
+		url: '/api/v1/user/' + user_id +'/stars',
+		success: function(data) {
+			this.Vue.items = data.items;
+			this.Vue.word = 'Profil de ' + data.username;
 		}.bind(this)
 	});
 }
 
 Page_ExploreItems.prototype.bindEvents = function () {
+	
+	$('.explore-items .item-list').masonry({// options
+  itemSelector: '.item',
+  columnWidth: 200
+        });
 	
 	$('.mask').click(function(){ console.log('gift'); $('.item-focus').addClass('hidden'); });
 	$('.flexor').click(function(e){ if ($(e.target).is('.flexor')) $('.item-focus').addClass('hidden'); });
@@ -125,7 +144,90 @@ Page_ExploreItems.prototype.bindEvents = function () {
 	setTimeout(function() {
 		$('.explore-items .word.spotlight').addClass('bordered');
 	}, 500);
+
+	
+	
+	
+	
+	
+	
+	
+	$(document).on('mousemove', function(e) {
+		
+		if ($('.item-focus.hidden').length == 0) {
+			this.explore_speedX = 0;
+			this.explore_speedY = 0;
+			return;
+		}
+		
+		var window_width = $(window).width();
+		var window_height = $(window).height();
+		var middle_zone_width = 100;
+		var middle_zone_height = 100;
+		var minimal_difference = 0;
+
+		if (e.pageX > window_width/2)
+		{
+			if (e.pageX < window_width/2 + middle_zone_width)
+				var differenceX = minimal_difference;
+			else
+				var differenceX = e.pageX - (window_width/2 + middle_zone_width);
+		}
+		else
+		{
+			if (e.pageX > window_width/2 - middle_zone_width)
+				var differenceX = minimal_difference;
+			else
+				var differenceX = e.pageX - (window_width/2 - middle_zone_width);
+		}
+		
+		if (e.pageY > window_height/2)
+		{
+			if (e.pageY < window_height/2 + middle_zone_height)
+				var differenceY = minimal_difference;
+			else
+				var differenceY = e.pageY - (window_height/2 + middle_zone_height);
+		}
+		else
+		{
+			if (e.pageY > window_height/2 - middle_zone_height)
+				var differenceY = minimal_difference;
+			else
+				var differenceY = e.pageY - (window_height/2 - middle_zone_height);
+		}
+
+		this.explore_speedX = -differenceX*0.2;
+		this.explore_speedY = -differenceY*0.2;
+	}.bind(this));
+	
+
+	this.onAnimationFrame = function () {
+		this.updateTranslatable();
+	};
+	
+	/*setTimeout(function(){
+		$('.item-list').removeClass('not-ready');
+		TweenMax.set($('.item-list'), {x: -$('.item-list').width()/2, y: -$('.item-list').height()/2})
+		window.requestAnimationFrame(this.onAnimationFrame.bind(this));
+	}.bind(this),1000);*/
+	$('.item-list').removeClass('not-ready');
+	TweenMax.set($('.item-list'), {x: -$('.item-list').width()/2})
+		window.requestAnimationFrame(this.onAnimationFrame.bind(this));
 }
+
+Page_ExploreItems.prototype.updateTranslatable = function () {
+	if($('.item-list').get(0)._gsTransform !== undefined && ($('.item-list').get(0)._gsTransform.x+this.explore_speed >= 0 || $('.item-list').get(0)._gsTransform.x+this.explore_speed <= -$('.item-list').width() + $(window).width()))
+	{
+		
+	}
+	else
+	{
+		TweenMax.to($('.item-list'), 1, {x: '+='+this.explore_speedX, y: '+='+this.explore_speedY, ease: Power1.easeOut})
+		// TweenMax.to($('.item-list'), 1, {x: '+=1', y: '+=1',  ease: Power1.easeOut})
+	}
+	window.requestAnimationFrame(this.onAnimationFrame.bind(this));
+}
+
 
 Page_ExploreItems.prototype.unbindEvents = function () {
 	$('.explore-items').off('click');
