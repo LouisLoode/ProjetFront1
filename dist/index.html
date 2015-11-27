@@ -191,20 +191,21 @@
            
             </div>
             <div class="sentiments">
-               
-                <a data-id="{{focus.id}}" href="#" class="star">Ajouter à mes favoris</a>  <a data-id="{{focus.id}}" href="#" class="similar">Similar</a> 
+
                 
-                <p>Quel sentiment voulez-vous ajouter à cette oeuvre ?</p>    
-                    <a data-id="" class="star" href="#"><span class="icon-like"></span></a> 
-            
-                <div class="sentiment-form">
-                    <form method="POST" action="/api/v1/sign_up">
-                        <input type="text" name="sentiment">
-                        <button type="submit" class="icon-add_sentiment"></button>
-                    </form>
+                <p>Quel sentiment voulez-vous ajouter à cette oeuvre ?</p>   
+                <div class="buttons-sentiments">
+                    <a data-id="{{focus.id}}" class="star" href="#"><i class="icon-like"></i></a> 
+
+                    <div class="sentiment-form">
+                        <form method="POST" action="/api/v1/sign_up">
+                            <input type="text" name="sentiment">
+                            <button type="submit" class="icon-add_sentiment"></button>
+                        </form>
+                    </div>
                 </div>
                 <div class="similar">
-                    <a data-id="" href="#">( Il existe un mot similaire ? )</a>
+                    <a data-id="{{focus.id}}" href="#">( Il existe un mot similaire ? )</a>
                 </div>
                 <hr />
                 <p class="explanation">Voir les sentiments associés</p>

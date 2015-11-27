@@ -39,39 +39,53 @@ hr{
                 font-size: 14px;
                 color: rgba(0, 0, 0, 0.87);
             }
-            .star{
-                border: 1px solid grey;
-
-                display: inline;
-                width: 30px;
-                height: 30px;
-                
-                margin: auto;
-            }
             
-            .sentiment-form{
-                margin: auto;
-                margin-right: 0;
-                margin-bottom: 10px;
-                display: inline-block;
+            .buttons-sentiments{
                 
-                input{
+                height: 35px;
+                .star{
+                    border: 1px solid rgba(128, 168, 168, 0.4);
                     display: inline-block;
-                    border: 1px solid inside rgba(128, 168, 168, 0.32);
-                    width: 325px;
-                    height: 24px;
+                    width: 28px;
+                    height: 28px;
+                    font-size: 28px;
+                    vertical-align: bottom;
+                    border-radius: 3px;
+                    color: #000000;
                 }
-                button{
+                
+                
+
+                .sentiment-form{
+                    margin: auto;
                     display: inline-block;
-                    width: 30px;
-                    height: 30px;
-                    padding: 0;
-                    font: 14px;
-                    
-                    span{
-                        font-size: 24px;
+                    vertical-align: bottom;
+
+                    input{
+                        display: inline-block;
+                        border: 1px solid  rgba(128, 168, 168, 0.4);
+                        width: 325px;
+                        height: 26px;
+                        border-radius: 3px;
+                    }
+                    button{
+                        background-color: #FFFFFF;
+                        border: 1px solid  rgba(128, 168, 168, 0.4);
+                        display: inline-block;
+                        width: 35px;
+                        height: 30px;
+                        font-size: 28px;
+                        vertical-align: bottom;
+                        padding: 0;
+                        color: #000000;
+                        cursor: pointer;
+                        border-radius: 3px;
+                    }
+                    a:hover{
+                        color: #e5947e;
                     }
                 }
+                
             }
             
             .similar{
