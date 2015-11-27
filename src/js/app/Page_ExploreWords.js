@@ -32,7 +32,7 @@ Page_ExploreWords.prototype.run = function()
 			});
 
 			this.Vue.words = words_and_positions;
-		}.bind(this)
+		}.bind(this)  
 	});
 }
 

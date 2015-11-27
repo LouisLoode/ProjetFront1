@@ -39,7 +39,10 @@ Page_ExploreItems.prototype.exploreSimilarItems = function (item_id)
 }
 
 Page_ExploreItems.prototype.bindEvents = function () {
-    $('.top-bar').addClass('show-bar');
+	
+	$('.mask').click(function(){ console.log('gift'); $('.item-focus').addClass('hidden'); });
+	$('.flexor').click(function(e){ if ($(e.target).is('.flexor')) $('.item-focus').addClass('hidden'); });
+    // $('.top-bar').addClass('show-bar');
 	$('.explore-items').on('click','.star',function(e){
 		
 		if ($(e.target).hasClass('starred'))
@@ -104,7 +107,7 @@ Page_ExploreItems.prototype.bindEvents = function () {
     
     
 	var that = this;
-	$('.explore-items').on('click','.item', function(e) {
+	$('.explore-items').on('click','.item.in-list', function(e) {
 		var focus_id = $(this).data('id');
 		that.Vue.focus = that.Vue.items.filter(function(a){ return a.id == focus_id; })[0];
 		$('.item-focus').removeClass('hidden');

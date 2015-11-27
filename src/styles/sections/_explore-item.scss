@@ -10,191 +10,218 @@ hr{
 }
 
 	.item-focus {
+		z-index: 55;
 		position: fixed;
-		top: 30%; bottom: 30%; left: 15%; right: 15%;;
+		top: 30%; bottom: 30%; left: 15%; right: 15%;
+		
+		top: 10px; left: 10px; bottom: 10px; right: 10px;
+		
+		bottom: auto;
+		top: 50%; transform: translateY(-50%); 
+		max-height: 90%;
+		overflow: auto;
+		margin-top: -20px;
 		
 		&.hidden { display: none; }
-        
-        .item{
-            margin: 0;
-            min-height: 350px;
-            z-index: 2;
-            position: fixed;
-            width: 250px;
-            
-            .quote{
-                font-size: 18px;
-                font-weight: bold;
-                line-height: 25px;
-                color: #262626;
-                padding-top: 25px;
-                padding-left: 15px;
-                padding-right: 15px;
-            }
-            .poem{
-                
-            }
-        }
-        .sentiments{
-            background-color: #FFFFFF;
-            z-index: 1;
-            margin-top: 5%;
-            min-height: 250px;
-            padding-left: 265px;
-            padding-top: 15px;
-            padding-right: 15px;
-            padding-bottom: 10px;
-            
-            p{
-                margin-top: 15px;
-                margin-bottom: 10px;
-                font-family: $font-family-btn;
-                font-size: 14px;
-                color: rgba(0, 0, 0, 0.87); 
-            }
-			
-			.goto-similar {
-				vertical-align: middle; margin-left: 10px; color: #AAA;
-				&:hover {
-					color: black; font-weight: bold;	
+		
+		.flexor {
+			display: flex;
+	        justify-content: center;
+			.item{
+				margin: 0;
+				min-height: 350px;
+				z-index: 2;
+				width: auto;
+				float: left;
+				width: 66%;
+
+				img {
+					max-height: 80vh;
+					max-width: 100%;
+					width: auto;
+					display: block;
+					margin: auto;
+				}
+
+				.quote{
+					font-size: 18px;
+					font-weight: bold;
+					line-height: 25px;
+					color: #262626;
+					padding-top: 25px;
+					padding-left: 15px;
+					padding-right: 15px;
+				}
+				.poem{
+
 				}
 			}
-			
-            .star{
-                    border: 1px solid rgba(128, 168, 168, 0.4);
-                    display: inline-block;
-                    width: 28px;
-                    height: 28px;
-                    font-size: 28px;
-                    vertical-align: bottom;
-                    border-radius: 3px;
-                    color: #000000;
+			.sentiments{
+				background-color: #FFFFFF;
+				z-index: 1;
+				min-height: 250px;
+				/*padding-left: 265px;
+				padding-top: 15px;
+				padding-right: 15px;
+				padding-bottom: 10px;*/
+
+				padding: 10px;
+
+				p{
+					margin-top: 15px;
+					margin-bottom: 10px;
+					font-family: $font-family-btn;
+					font-size: 14px;
+					color: rgba(0, 0, 0, 0.87); 
+				}
+
+				.goto-similar {
+					vertical-align: middle; margin-left: 10px; color: #AAA;
 					&:hover {
-						border: 1px solid black;
-						font-weight: bold;
+						color: black; font-weight: bold;	
 					}
-					&.starred {
-						background: red;
-						color: white;
+				}
+
+				.star{
+						border: 1px solid rgba(128, 168, 168, 0.4);
+						display: inline-block;
+						width: 28px;
+						height: 28px;
+						font-size: 28px;
+						vertical-align: bottom;
+						border-radius: 3px;
+						color: #000000;
+						&:hover {
+							border: 1px solid black;
+							font-weight: bold;
+						}
+						&.starred {
+							background: red;
+							color: white;
+						}
 					}
-                }
-			
-            .buttons-sentiments{
-                
-                height: 35px;
-                
-                
-                
 
-                .sentiment-form{
-                    margin: auto;
-                    display: inline-block;
-                    vertical-align: bottom;
+				.buttons-sentiments{
 
-                    input{
-                        display: inline-block;
-                        border: 1px solid  rgba(128, 168, 168, 0.4);
-                        width: 325px;
-                        height: 26px;
-                        border-radius: 3px;
-                    }
-                    button{
-                        background-color: #FFFFFF;
-                        border: 1px solid  rgba(128, 168, 168, 0.4);
-                        display: inline-block;
-                        width: 35px;
-                        height: 30px;
-                        font-size: 28px;
-                        vertical-align: bottom;
-                        padding: 0;
-                        color: #000000;
-                        cursor: pointer;
-                        border-radius: 3px;
-                    }
-                    a:hover{
-                        color: #e5947e;
-                    }
-                }
-                
-            }
-            
-            .similar{
-                font-size: 12px;
-                font-family: $font-family-btn;
-                color: rgba(0, 0, 0, 0.87);
-                a{
-                    color: rgba(0, 0, 0, 0.87);
-                }
-                a:hover{
-                    color: rgba(0, 0, 0, 0.87);
-                    text-decoration: underline;
-                }
-                a:visited{
-                    color: rgba(0, 0, 0, 0.87);
-                }
-            }
-            
-            .explanation{
-                margin-bottom: 20px;
-                
-                font-size: 12px;
-            }
-            
-            .list-sentiments{
-                
-                .sentiment{
-                    display:block;
-                    
-                    .left{
-                        float:left;
-                        color: rgba(0, 0, 0, 0.56);
-                        font-size: 16px;
-                        line-height: 28px;
-                        font-style: italic;
-                        
-                    }
-                    .right{
-                        float:right; 
-                        text-align: right;
-                        line-height: 28px;
-                        
-                        .number{
-                            font-family: $font-family-sans-serif;
-                            font-size: 11px;
-                            color: rgba(0, 0, 0, 0.26);
-                            vertical-align: middle;
-                        }
-                        .icon-user{
-                   
-                            vertical-align: middle;
-                            font-size: 20px;
-                        }
-                    }
-					
-					&:after { display: block; content: " "; clear: both; }
-                }
-                
-                /*.sentiment:hover{
-                    background-color: rgba(128, 168, 168, 0.16);
-                    .left{
-                        width: 50%;
-                        background-color: inherit;
-                    }
-                    .right{
-                        display: block;
-                        background-color: inherit;
-                        float:right; 
-                        width: 50%;
-                        text-align: right;
-                        .number{}
-                        .icon-user{}
-                    }
-                }*/
-            }
-        }  
+					height: 35px;
+
+
+
+
+					.sentiment-form{
+						margin: auto;
+						display: inline-block;
+						vertical-align: bottom;
+
+						input{
+							display: inline-block;
+							border: 1px solid  rgba(128, 168, 168, 0.4);
+							height: 26px;
+							border-radius: 3px;
+						}
+						button{
+							background-color: #FFFFFF;
+							border: 1px solid  rgba(128, 168, 168, 0.4);
+							display: inline-block;
+							width: 35px;
+							height: 30px;
+							font-size: 28px;
+							vertical-align: bottom;
+							padding: 0;
+							color: #000000;
+							cursor: pointer;
+							border-radius: 3px;
+						}
+						a:hover{
+							color: #e5947e;
+						}
+					}
+
+				}
+
+				.similar{
+					font-size: 12px;
+					font-family: $font-family-btn;
+					color: rgba(0, 0, 0, 0.87);
+					a{
+						color: rgba(0, 0, 0, 0.87);
+					}
+					a:hover{
+						color: rgba(0, 0, 0, 0.87);
+						text-decoration: underline;
+					}
+					a:visited{
+						color: rgba(0, 0, 0, 0.87);
+					}
+				}
+
+				.explanation{
+					margin-bottom: 20px;
+
+					font-size: 12px;
+				}
+
+				.list-sentiments{
+
+					.sentiment{
+						display:block;
+
+						.left{
+							float:left;
+							color: rgba(0, 0, 0, 0.56);
+							font-size: 16px;
+							line-height: 28px;
+							font-style: italic;
+
+						}
+						.right{
+							float:right; 
+							text-align: right;
+							line-height: 28px;
+
+							.number{
+								font-family: $font-family-sans-serif;
+								font-size: 11px;
+								color: rgba(0, 0, 0, 0.26);
+								vertical-align: middle;
+							}
+							.icon-user{
+
+								vertical-align: middle;
+								font-size: 20px;
+							}
+						}
+
+						&:after { display: block; content: " "; clear: both; }
+					}
+
+					/*.sentiment:hover{
+						background-color: rgba(128, 168, 168, 0.16);
+						.left{
+							width: 50%;
+							background-color: inherit;
+						}
+						.right{
+							display: block;
+							background-color: inherit;
+							float:right; 
+							width: 50%;
+							text-align: right;
+							.number{}
+							.icon-user{}
+						}
+					}*/
+				}
+			} 
+		}
 	}
 
+	.item-focus:not(.hidden) + .mask {
+	position: fixed; top: 0; bottom: 0; left: 0; right: 0; z-index: 50;
+		background: rgba(0,0,0,0.7);
+	}
  /* Custom, iPhone Retina */ 
+/*
     @media only screen and (max-width : 992px) {
         .item-focus {
             top: 30%; bottom: 30%; left: 5%; right: 5%;;
@@ -204,3 +231,4 @@ hr{
             padding-left: 265px;
         }  
     }
+*/
