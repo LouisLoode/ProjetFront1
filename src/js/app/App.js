@@ -17,7 +17,7 @@ var App = function() {
 	
 	this.router = new Grapnel({ pushState : true });
 
-    
+    Vue.config.debug = true;
     
 
 	this.router.get('/debug', function(req){
@@ -37,7 +37,7 @@ var App = function() {
 		data: {username: null, user_id: -1, homeUrl: window.location.href.replace(/([a-z0-9])\/.+$/g,'\1')}
 	});
 
-	this.getAndRefreshAuthenticationInfo(function() {
+	this.getAndRefreshAuthenticationInfo(function() { // first need signed_in before going to exploreitems
 		if (this.Vue_TopBar.user_id === -1)
 		{
 			this.router.get('/', function(req){
@@ -54,6 +54,7 @@ var App = function() {
 	this.bindEvents();
 	
 	this.flashMessageTimeout = -1;
+	
 }
 
 App.prototype.flashMessage = function (message) {
@@ -86,7 +87,7 @@ App.prototype.getAndRefreshAuthenticationInfo = function(callback) {
 
 					this.Vue_TopBar.username = data.username;
 					this.Vue_TopBar.user_id = data.user_id;
-					
+					// this.user_stars = data.stars;
 				}
 				if (typeof callback !== 'undefined') callback();
 			}.bind(this)

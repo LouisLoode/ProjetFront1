@@ -188,26 +188,25 @@
             <div class="sentiments">
 
                 
+                <a data-id="{{focus.id}}" class="star" href="#" :class="{'starred': focus.starred}" style="vertical-align: middle;"><i data-id="{{focus.id}}" class="icon-like" :class="{'starred': focus.starred}"></i></a>
+                <a href="/oeuvre/{{focus.id}}" href="#" class="goto-similar">Oeuvres similaires</a>
+                    
                 <p>Quel sentiment voulez-vous ajouter à cette oeuvre ?</p>   
                 <div class="buttons-sentiments">
-                    <a data-id="{{focus.id}}" class="star" href="#"><i class="icon-like"></i></a> 
-
                     <div class="sentiment-form">
-                        <form method="POST" action="/api/v1/sign_up">
-                            <input type="text" name="sentiment">
+                        <form method="PUT" class="add-word" action="/api/v1/items/{{focus.id}}/words/">
+                            <input type="text" name="sentiment" class="word-to-add">
                             <button type="submit" class="icon-add_sentiment"></button>
                         </form>
                     </div>
                 </div>
-                <div class="similar">
-                    <a data-id="{{focus.id}}" href="#">( Il existe un mot similaire ? )</a>
-                </div>
+               
                 <hr />
                 <p class="explanation">Voir les sentiments associés</p>
                 <div class="list-sentiments">
                     <div class="sentiment" v-for="word in focus.words">
                         <div class="left"><span>{{ word.word }}</span></div>
-                        <div class="right"><span class="number">({{ word.count }})</span> <span class="icon-user"></span></div>
+                        <div class="right"><span class="number">{{ word.count }}</span><!-- <span class="icon-user"></span>--></div>
                     </div>
                 </div>
             </div> 

@@ -16,6 +16,7 @@ Page_ExploreItems.prototype.exploreItemsByWord = function (word)
 		url: '/api/v1/words/'+ encodeURIComponent(word) +'/items',
 		success: function(data) {
 			var items = data.items;
+			items = items.map(function(d) { d['words'] = []; return d; });
 			this.Vue.items = items;
 			this.Vue.word = word;
 		}.bind(this)
@@ -30,6 +31,7 @@ Page_ExploreItems.prototype.exploreSimilarItems = function (item_id)
 		url: '/api/v1/items/'+ item_id +'/similar',
 		success: function(data) {
 			var items = data.items;
+			items = items.forEach(function(d) { d['words'] = []; return d; });
 			this.Vue.items = items;
 			this.Vue.word = '';
 		}.bind(this)
@@ -39,16 +41,48 @@ Page_ExploreItems.prototype.exploreSimilarItems = function (item_id)
 Page_ExploreItems.prototype.bindEvents = function () {
     $('.top-bar').addClass('show-bar');
 	$('.explore-items').on('click','.star',function(e){
-		$.ajax({
-			type: "PUT",
-			url: '/api/v1/items/' + $(e.target).data('id') +'/star',
-			success: function(data) {
-				alert('starred');
-			}.bind(this)
-		});
+		
+		if ($(e.target).hasClass('starred'))
+		{
+			$.ajax({
+				type: "DELETE",
+				url: '/api/v1/items/' + $(e.target).data('id') +'/star',
+				success: function(data) {
+					this.Vue.focus.starred = false;
+				}.bind(this)
+			});
+		}
+		else
+		{
+			$.ajax({
+				type: "PUT",
+				url: '/api/v1/items/' + $(e.target).data('id') +'/star',
+				success: function(data) {
+					this.Vue.focus.starred = true;
+				}.bind(this)
+			});
+		}
+		
 		return false;
-	});
-    
+	}.bind(this));
+	
+    $('.add-word').submit(function(e){
+		
+		 $.ajax({
+            type: "PUT",
+			url: '/api/v1/items/' + this.Vue.focus.id +'/words/'+$('.word-to-add').val(),
+            success: function(response) {
+				app.flashMessage('Votre mot <strong>'+$('.word-to-add').val()+'</strong> a été ajouté à l\'&oelig;uvre.');
+				$('.word-to-add').val('');
+            },
+			error: function(error) {
+				console.error(error);	
+			}
+        });
+		
+		return false;
+	}.bind(this));
+	
     /*
     // Code de retour à l'exploration des mots
     $('.explore-items').on('click','.star',function(e){
@@ -74,8 +108,6 @@ Page_ExploreItems.prototype.bindEvents = function () {
 		var focus_id = $(this).data('id');
 		that.Vue.focus = that.Vue.items.filter(function(a){ return a.id == focus_id; })[0];
 		$('.item-focus').removeClass('hidden');
-		// $('.item-focus img').attr('src',$(e.target).find('img').attr('src'));
-		console.log($(this).data('id'));
 		$('.item-focus .star, .item-focus .similar').attr('data-id',$(this).data('id'));
 		
 		$.ajax({

@@ -52,11 +52,15 @@ hr{
                 font-size: 14px;
                 color: rgba(0, 0, 0, 0.87); 
             }
-            
-            .buttons-sentiments{
-                
-                height: 35px;
-                .star{
+			
+			.goto-similar {
+				vertical-align: middle; margin-left: 10px; color: #AAA;
+				&:hover {
+					color: black; font-weight: bold;	
+				}
+			}
+			
+            .star{
                     border: 1px solid rgba(128, 168, 168, 0.4);
                     display: inline-block;
                     width: 28px;
@@ -65,7 +69,20 @@ hr{
                     vertical-align: bottom;
                     border-radius: 3px;
                     color: #000000;
+					&:hover {
+						border: 1px solid black;
+						font-weight: bold;
+					}
+					&.starred {
+						background: red;
+						color: white;
+					}
                 }
+			
+            .buttons-sentiments{
+                
+                height: 35px;
+                
                 
                 
 
@@ -130,7 +147,6 @@ hr{
                     
                     .left{
                         float:left;
-                        width: 100%;
                         color: rgba(0, 0, 0, 0.56);
                         font-size: 16px;
                         line-height: 28px;
@@ -138,16 +154,14 @@ hr{
                         
                     }
                     .right{
-                        display: none;
                         float:right; 
-                        width: 50%;
                         text-align: right;
                         line-height: 28px;
                         
                         .number{
                             font-family: $font-family-sans-serif;
-                            font-size: 16px;
-                            color: rgba(0, 0, 0, 0.56);
+                            font-size: 11px;
+                            color: rgba(0, 0, 0, 0.26);
                             vertical-align: middle;
                         }
                         .icon-user{
@@ -156,9 +170,11 @@ hr{
                             font-size: 20px;
                         }
                     }
+					
+					&:after { display: block; content: " "; clear: both; }
                 }
                 
-                .sentiment:hover{
+                /*.sentiment:hover{
                     background-color: rgba(128, 168, 168, 0.16);
                     .left{
                         width: 50%;
@@ -173,7 +189,7 @@ hr{
                         .number{}
                         .icon-user{}
                     }
-                }
+                }*/
             }
         }  
 	}
