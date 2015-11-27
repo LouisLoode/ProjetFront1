@@ -11,6 +11,7 @@ var Page_ExploreWords = function() {
 
 Page_ExploreWords.prototype.run = function()
 {
+	
 	console.log('Fonction chargement page fonctionne');
 	$.ajax({
 		type: "GET",
@@ -36,6 +37,11 @@ Page_ExploreWords.prototype.run = function()
 }
 
 Page_ExploreWords.prototype.bindEvents = function() {
+	setTimeout(function(){ 
+		$('.translatable').addClass('visible');
+		$('.explore-words .word').addClass('visible');
+	},500);
+	
 	$(document).on('mousemove', function(e) {
 		var window_width = $(window).width();
 		var middle_zone_width = 100;

@@ -102,16 +102,24 @@ body {
 					height: 100%; 
 					transform: translateX(-100%);
 				}
+				top:100%;
+				transition: 0.9s top ease;
+				&.visible {
+					top: 0%;	
+				}
 			}
+			
 			.translatable--0 {
-				
+				transition-delay: 0s;
 				background-image: url(/img/background_mountain_1.svg);
 			}
 			.translatable--1 {
+				transition-duration: 1.2s;
 				background-image: url(/img/background_water_1.svg);
 				background-repeat: repeat-x;
 			}
 			.translatable--2 {
+				transition-duration: 1.4s;
 				.tr--1 { background-image: url(/img/background_ground_1.svg); }
 				.tr--2 { background-image: url(/img/background_ground_1.svg); }
 				.tr--3 { background-image: url(/img/background_ground_1.svg); }
@@ -133,7 +141,15 @@ body {
 				    list-style-type: none;
 					width: 80%;
 
+					.word {
+						opacity: 0;
+						transition: opacity 3s ease;
+						transition-delay: 1s;
+					}
 					
+					.word.visible {
+						opacity: 1;	
+					}
 					
 					
 				}
