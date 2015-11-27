@@ -88,8 +88,14 @@ aside {
 		opacity: 1;
 	}
 	
-	form.sign-in > *, form.sign-up > *, .sign-in-off, .sign-up-off {
+	form.sign-in > *, form.sign-up > * {
 		font-size: 12px;
+		padding: 7px;
+		line-height: 1.5;
+	}
+    
+    .sign-in-off, .sign-up-off {
+		font-size: 18px;
 		padding: 7px;
 		line-height: 1.5;
 	}

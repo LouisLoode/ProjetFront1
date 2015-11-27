@@ -171,6 +171,10 @@ App.prototype.bindEvents = function () {
 			});
 		return false;
 	}.bind(this));
+    
+    $('.top-bar').on('click','.btn',function(e){
+        app.goTo('exploreWords');
+    }.bind(this));
 	
 }
 
